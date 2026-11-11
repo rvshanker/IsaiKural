@@ -14,6 +14,7 @@ import { ImageModal } from './components/ImageModal';
 import { ALL_KURALS, getKuralByNumber } from './data/kurals';
 import { ATHIKARAMS } from './data/chapters';
 import { CAN_EDIT_MEDIA } from './config';
+import { kuralMatchesSearch } from './utils/search';
 import { Kural, Paal, KuralMedia } from './types/kural';
 import { 
   loadUserMedia, 
@@ -205,19 +206,7 @@ export default function App() {
 
       // Search query filter
       if (searchQuery.trim()) {
-        const q = searchQuery.trim().toLowerCase();
-        const numMatch = kural.number.toString() === q;
-        const line1Match = kural.line1.toLowerCase().includes(q);
-        const line2Match = kural.line2.toLowerCase().includes(q);
-        const translitMatch = kural.transliteration?.toLowerCase().includes(q) || false;
-        const athikaramMatch = kural.athikaramTamil.toLowerCase().includes(q) || kural.athikaramEnglish.toLowerCase().includes(q);
-        const engMatch = kural.commentaries.english?.toLowerCase().includes(q) || false;
-        const muVaMatch = kural.commentaries.muVa.toLowerCase().includes(q);
-        const kalaignarMatch = kural.commentaries.karunanidhi.toLowerCase().includes(q);
-        const solomonMatch = kural.commentaries.solomon.toLowerCase().includes(q);
-        const parimelazhagarMatch = kural.commentaries.parimelazhagar.toLowerCase().includes(q);
-
-        return numMatch || line1Match || line2Match || translitMatch || athikaramMatch || engMatch || muVaMatch || kalaignarMatch || solomonMatch || parimelazhagarMatch;
+        return kuralMatchesSearch(kural, searchQuery);
       }
 
       return true;

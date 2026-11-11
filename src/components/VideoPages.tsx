@@ -4,6 +4,7 @@ import { Kural } from '../types/kural';
 import { KuralCouplet } from './KuralCouplet';
 import { getYouTubeEmbedUrl, getYouTubeThumbnail } from '../utils/youtube';
 import { YOUTUBE_CHANNEL_URL } from '../data/kuralMedia';
+import { kuralMatchesSearch } from '../utils/search';
 
 const isShort = (url?: string) => !!url && /\/shorts\//.test(url);
 
@@ -37,12 +38,10 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ kurals, onOpen, play
     return kurals.filter(k => {
       if (selectedPaal !== 'all' && k.paal !== selectedPaal) return false;
       if (searchQuery.trim()) {
-        const q = searchQuery.trim().toLowerCase();
-        const numMatch = k.number.toString().includes(q);
-        const l1Match = k.line1.toLowerCase().includes(q);
-        const l2Match = k.line2.toLowerCase().includes(q);
-        const athikaramMatch = k.athikaramTamil.toLowerCase().includes(q) || k.athikaramEnglish.toLowerCase().includes(q);
-        return numMatch || l1Match || l2Match || athikaramMatch;
+        const q = searchQuery.trim();
+        // Partial numbers still work here ("12" → 12, 120, 121 …)
+        if (/^\d+$/.test(q)) return k.number.toString().includes(q);
+        return kuralMatchesSearch(k, q);
       }
       return true;
     });
