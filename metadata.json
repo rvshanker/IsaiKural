@@ -1,0 +1,8 @@
+{
+  "name": "திருக்குறள் - Thirukkural Digital Treasury",
+  "description": "Explore all 1330 Thirukkurals with classical Tamil commentaries by Mu. Varadarajan, Kalaignar Karunanidhi, Solomon Pappaiah, and Parimelazhagar, complete with media attachments and YouTube video player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

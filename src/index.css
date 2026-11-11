@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-tamil-serif: 'Noto Serif Tamil', Georgia, serif;
+    --font-tamil-sans: 'Noto Sans Tamil', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', sans-serif;
+    color: #26221D;
+  }
+}
+
+.font-tamil-serif {
+  font-family: 'Noto Serif Tamil', Georgia, serif;
+}
+
+.font-tamil-sans {
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.font-classical {
+  font-family: 'Cinzel', 'Noto Serif Tamil', serif;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9D2C7;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8AE9F;
+}
+
+.font-heading {
+  font-family: 'Lora', 'Noto Serif Tamil', Georgia, serif;
+}
+
+html {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-padding-top: 88px;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
