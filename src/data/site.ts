@@ -4,6 +4,8 @@
  */
 export const SOCIAL_LINKS = {
   youtube: 'https://www.youtube.com/@CreativeCornerTamil',
+  /** "Thirukkural" playlist */
+  playlist: 'https://youtube.com/playlist?list=PLWBMZK97f4Ew',
   instagram: 'https://www.instagram.com/isaiyil.thirukkural/',
   facebook: 'https://www.facebook.com/profile.php?id=61596153747050',
 };

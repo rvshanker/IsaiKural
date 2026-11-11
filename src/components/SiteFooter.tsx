@@ -1,5 +1,5 @@
 import React from 'react';
-import { Youtube, Instagram, Facebook, Mail } from 'lucide-react';
+import { Youtube, ListMusic, Instagram, Facebook, Mail } from 'lucide-react';
 import { SOCIAL_LINKS, CONTACT_EMAIL } from '../data/site';
 
 interface SiteFooterProps {
@@ -8,6 +8,7 @@ interface SiteFooterProps {
 
 const links = [
   { href: SOCIAL_LINKS.youtube, label: 'YouTube', Icon: Youtube, color: 'text-[#FF0000]', external: true },
+  { href: SOCIAL_LINKS.playlist, label: 'Playlist', Icon: ListMusic, color: 'text-[#FF0000]', external: true },
   { href: SOCIAL_LINKS.instagram, label: 'Instagram', Icon: Instagram, color: 'text-[#E1306C]', external: true },
   { href: SOCIAL_LINKS.facebook, label: 'Facebook', Icon: Facebook, color: 'text-[#1877F2]', external: true },
   { href: `mailto:${CONTACT_EMAIL}`, label: 'தொடர்புக்கு', Icon: Mail, color: '', external: false },
@@ -17,7 +18,7 @@ const links = [
 export const SiteFooter: React.FC<SiteFooterProps> = ({ isDark }) => (
   <footer
     id="contact"
-    className={`w-full flex flex-wrap items-center justify-center gap-x-3.5 sm:gap-x-6 gap-y-2 px-2 py-5 text-[12.5px] sm:text-[13px] ${
+    className={`w-full flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-6 gap-y-2 px-2 py-5 text-[12.5px] sm:text-[13px] ${
       isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'
     }`}
   >
@@ -27,10 +28,12 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ isDark }) => (
         href={href}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         title={label === 'தொடர்புக்கு' ? CONTACT_EMAIL : label}
+        aria-label={label}
         className={`inline-flex items-center gap-1 sm:gap-1.5 transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#16392E]'}`}
       >
-        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${color}`} />
-        {label}
+        <Icon className={`w-5 h-5 sm:w-4.5 sm:h-4.5 ${color}`} />
+        {/* On phones the social links show as icons only, so everything fits on one line */}
+        <span className={external ? 'hidden sm:inline' : ''}>{label}</span>
       </a>
     ))}
   </footer>
