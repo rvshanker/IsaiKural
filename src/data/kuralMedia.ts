@@ -12,7 +12,7 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
  * ─────────────────────────────────────────────────────────────
  *  SHARED MEDIA — visible to EVERY visitor of the site
  * ─────────────────────────────────────────────────────────────
- *  All 127 musical renditions from the "இசையில் திருக்குறள்" series.
+ *  All 128 musical renditions from the "இசையில் திருக்குறள்" series.
  */
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
   // ── அறத்துப்பால் (47 பாடல்கள்) ──
@@ -124,7 +124,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   991: { youtubeUrl: 'https://youtube.com/shorts/bf3bnVHbWas', youtubeTitle: 'எண்பதத்தால் எய்தல் எளிதென்ப யார்மாட்டும் பண்புடைமை என்னும் வழக்கு' },
   1001: { youtubeUrl: 'https://youtube.com/shorts/pSJqiG8jJlA', youtubeTitle: 'வைத்தான்வாய் சான்ற பெரும்பொருள் அஃதுண்ணான் செத்தான் செயக்கிடந்தது இல்' },
 
-  // ── காமத்துப்பால் (22 பாடல்கள்) ──
+  // ── காமத்துப்பால் (23 பாடல்கள்) ──
   1081: { youtubeUrl: 'https://youtube.com/shorts/IuG-BcxNLc4', youtubeTitle: 'அணங்குகொல் ஆய்மயில் கொல்லோ கனங்குழை — இசையில் குறள் 1081' },
   1084: { youtubeUrl: 'https://youtube.com/shorts/vGJLHcN3F6w', youtubeTitle: 'கண்டார் உயிருண்ணும் தோற்றத்தால் பெண்டகைப் — இசையில் குறள் 1084' },
   1092: { youtubeUrl: 'https://youtube.com/shorts/vzrgBIheAOI', youtubeTitle: 'கண்களவு கொள்ளும் சிறுநோக்கம் காமத்தில் — இசையில் குறள் 1092' },
@@ -145,6 +145,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   1231: { youtubeUrl: 'https://youtube.com/shorts/Y68DsCXTlSU', youtubeTitle: 'சிறுமை நமக்கொழியச் சேட்சென்றார் உள்ளி நறுமலர் நாணின கண்' },
   1241: { youtubeUrl: 'https://youtube.com/shorts/ZD1TsVh3K-8', youtubeTitle: 'நினைத்தொன்று சொல்லாயோ நெஞ்சே எனைத்தொன்றும் எவ்வநோய் தீர்க்கும் மருந்து' },
   1251: { youtubeUrl: 'https://youtube.com/shorts/VDxqx9FpXHg', youtubeTitle: 'காமக் கணிச்சி உடைக்கும் நிறையென்னும் நாணுத்தாழ் வீழ்த்த கதவு' },
+  1261: { youtubeUrl: 'https://youtube.com/shorts/YuSBYtrCxXE', youtubeTitle: 'வாளற்றுப் புற்கென்ற கண்ணும் அவர்சென்ற நாளொற்றித் தேய்ந்த விரல்' },
   1317: { youtubeUrl: 'https://youtube.com/shorts/QAgxZMvDJ4Q', youtubeTitle: 'வழுத்தினாள் தும்மினேன் ஆக அழித்தழுதாள் — இசையில் குறள் 1317' },
   1329: { youtubeUrl: 'https://youtube.com/shorts/IP1vekC0lyE', youtubeTitle: 'ஊடுக மன்னோ ஒளியிழை யாமிரப்ப — இசையில் குறள் 1329' },
 };
