@@ -8,6 +8,7 @@ import { MUSIC_PLAYLIST_ID } from './data/kuralMedia';
 import { AthikaramCatalog } from './components/AthikaramCatalog';
 import { KuralCard } from './components/KuralCard';
 import { KuralDetailModal } from './components/KuralDetailModal';
+import { SiteFooter } from './components/SiteFooter';
 import { MediaModal } from './components/MediaModal';
 import { VideoModal } from './components/VideoModal';
 import { ImageModal } from './components/ImageModal';
@@ -261,6 +262,11 @@ export default function App() {
   const scrollToSection = (id: string) => {
     setActiveNav(id);
     if (id === 'treasury') return go('#/kurals');
+    // The contact footer is on every page — scroll to it where we are
+    if (id === 'contact') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
     if (route.page !== 'home') go('#/');
     if (id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -663,6 +669,9 @@ export default function App() {
       </main>
       )}
 
+
+      {/* Follow us + contact (every page) */}
+      <SiteFooter isDark={isDark} />
 
       {/* Detail / Commentary Modal */}
       <KuralDetailModal

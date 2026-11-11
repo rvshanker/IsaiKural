@@ -1,11 +1,12 @@
 import { KuralMedia } from '../types/kural';
+import { SOCIAL_LINKS } from './site';
 
 /**
  * YouTube playlist and channel for "இசையில் திருக்குறள்" (Creative Corner Tamil)
  * Playlist: https://www.youtube.com/playlist?list=PLWBMZK97f4Ew
  */
 export const MUSIC_PLAYLIST_ID = 'PLWBMZK97f4Ew';
-export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@CreativeCornerTamil';
+export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
 
 /**
  * ─────────────────────────────────────────────────────────────

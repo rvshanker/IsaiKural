@@ -15,7 +15,12 @@ import {
   PlayCircle,
   Volume2,
   UploadCloud,
+  Mail,
+  Youtube,
+  Instagram,
+  Facebook,
 } from 'lucide-react';
+import { SOCIAL_LINKS } from '../data/site';
 import { kuralAudio, KuralVoice } from '../utils/audioPlayer';
 import { AUDIO_ENABLED } from '../config';
 
@@ -184,6 +189,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="flex-1">{isTamil ? 'சேமித்த குறள்கள்' : 'Saved kurals'}</span>
                   <span className="text-xs text-[#E3B866]">{bookmarkCount}</span>
                 </button>
+                <button onClick={go(() => onNavigateSection('contact'))} className={menuItem}>
+                  <Mail className="w-4 h-4" /> {isTamil ? 'தொடர்புக்கு' : 'Contact us'}
+                </button>
+                <div className="flex items-center gap-1 px-3 py-1.5">
+                  {[
+                    { href: SOCIAL_LINKS.youtube, label: 'YouTube', Icon: Youtube },
+                    { href: SOCIAL_LINKS.instagram, label: 'Instagram', Icon: Instagram },
+                    { href: SOCIAL_LINKS.facebook, label: 'Facebook', Icon: Facebook },
+                  ].map(({ href, label, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      title={label}
+                      className="p-2 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
                 <div className="my-2 h-px bg-white/10" />
                 <button onClick={go(onToggleLanguage)} className={menuItem}>
                   <Languages className="w-4 h-4" /> {isTamil ? 'English' : 'தமிழ்'}
