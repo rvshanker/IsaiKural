@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
+const KuralMap = lazy(() => import('./components/KuralMap'));
 import { Navbar } from './components/Navbar';
 import { HeroKuralOfTheDay } from './components/HeroKuralOfTheDay';
 import { HomeSearchBar } from './components/HomeSearchBar';
@@ -39,7 +40,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Music2,
-  RotateCcw
+  RotateCcw,
+  Network
 } from 'lucide-react';
 
 // ── Simple page routing with the URL hash, so the phone's Back button works ──
@@ -50,7 +52,8 @@ type Route =
   | { page: 'saved' }
   | { page: 'videos' }
   | { page: 'video'; n: number }
-  | { page: 'kurals'; paal: Paal | 'all' };
+  | { page: 'kurals'; paal: Paal | 'all' }
+  | { page: 'map'; n?: number };
 
 const PAAL_KEYS: Paal[] = ['அறத்துப்பால்', 'பொருட்பால்', 'காமத்துப்பால்'];
 
@@ -67,6 +70,10 @@ function parseHash(): Route {
   if (head === 'video') {
     const n = parseInt(arg, 10);
     if (n >= 1 && n <= 1330) return { page: 'video', n };
+  }
+  if (head === 'map') {
+    const n = parseInt(arg, 10);
+    return { page: 'map', n: n >= 1 && n <= 1330 ? n : undefined };
   }
   if (head === 'kurals') return { page: 'kurals', paal: PAAL_KEYS.includes(arg as Paal) ? (arg as Paal) : 'all' };
   return { page: 'home' };
@@ -346,7 +353,7 @@ export default function App() {
       isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
     }`}>
       {/* 1) TOP MENU (Google-Style Navigation with Dark Teal Background) */}
-      <Navbar
+      {route.page !== 'map' && <Navbar
         onGoHome={() => scrollToSection('home')}
         onNavigateSection={scrollToSection}
         searchQuery={searchQuery}
@@ -355,6 +362,7 @@ export default function App() {
         onOpenDirectory={() => scrollToSection('athikaram-table')}
         onOpenBookmarks={() => go('#/saved')}
         onOpenVideos={() => go('#/videos')}
+        onOpenMap={() => go('#/map')}
         onOpenAddMedia={CAN_EDIT_MEDIA ? () => openMediaEditor(ALL_KURALS[0]) : undefined}
         isDark={isDark}
         onToggleTheme={() => setIsDark(!isDark)}
@@ -362,7 +370,7 @@ export default function App() {
         activeNav={activeNav}
         language={language}
         onToggleLanguage={handleToggleLanguage}
-      />
+      />}
 
       {route.page === 'home' ? (
       <>
@@ -418,6 +426,25 @@ export default function App() {
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
+        {/* குறள் வரைபடம் — Kurals laid out by meaning */}
+        <button
+          onClick={() => go('#/map')}
+          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
+          }`}
+        >
+          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <Network className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
+            <span className="min-w-0">
+              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+                குறள் வரைபடம்
+              </span>
+              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>பொருள் ஒத்த குறள்கள் அருகருகே · Kurals mapped by meaning</span>
+            </span>
+          </span>
+          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+        </button>
+
         {/* All kurals live on their own page */}
         <button
           onClick={() => go('#/kurals')}
@@ -435,6 +462,8 @@ export default function App() {
         </button>
       </main>
       </>
+      ) : route.page === 'map' ? (
+      <div className="flex-1" />
       ) : route.page === 'videos' || route.page === 'video' ? (
       /* ───────────── VIDEO PAGES: gallery, and one video with its meaning ───────────── */
       <main className="flex-1 w-full max-w-[1100px] mx-auto px-4 sm:px-6 pt-4 pb-10">
@@ -673,6 +702,20 @@ export default function App() {
       {/* Follow us + contact (every page) */}
       <SiteFooter isDark={isDark} />
 
+      {/* குறள் வரைபடம் — full-screen map of Kurals by meaning */}
+      {route.page === 'map' && (
+        <Suspense fallback={<div className="fixed inset-0 z-40 bg-[#0B0F0D]" />}>
+          <KuralMap
+            initialKural={route.n}
+            focus={route}
+            onExit={() => go('#/')}
+            onSelectKural={(n) => window.history.replaceState(null, '', n ? `#/map/${n}` : '#/map')}
+            onOpenDetail={(k) => setSelectedDetailKural(k)}
+            onOpenVideo={(k) => setVideoModalKural(k)}
+          />
+        </Suspense>
+      )}
+
       {/* Detail / Commentary Modal */}
       <KuralDetailModal
         kural={selectedDetailKural}
@@ -682,6 +725,11 @@ export default function App() {
         onOpenVideo={(k) => setVideoModalKural(k)}
         onOpenImage={(k) => setImageModalKural(k)}
         onEditMedia={editMediaHandler}
+        onOpenKural={(k) => setSelectedDetailKural(k)}
+        onShowOnMap={(n) => {
+          setSelectedDetailKural(null);
+          go(`#/map/${n}`);
+        }}
         isDark={isDark}
       />
 

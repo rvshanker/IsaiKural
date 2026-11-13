@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Volume2, Play, Image as ImageIcon, Bookmark, Share2, Edit3, Loader2 } from 'lucide-react';
+import { X, Volume2, Play, Image as ImageIcon, Bookmark, Share2, Edit3, Loader2, Network, PlayCircle } from 'lucide-react';
+import { getKuralByNumber } from '../data/kurals';
+import { useMapData, topicColor, similarReason } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
 import { KuralCouplet } from './KuralCouplet';
 import { kuralAudio } from '../utils/audioPlayer';
@@ -13,6 +15,10 @@ interface KuralDetailModalProps {
   onOpenVideo: (kural: Kural) => void;
   onOpenImage: (kural: Kural) => void;
   onEditMedia?: (kural: Kural) => void;
+  /** open another Kural in this window (from the similar Kurals list) */
+  onOpenKural?: (kural: Kural) => void;
+  /** show this Kural on the Kural map */
+  onShowOnMap?: (num: number) => void;
   isDark: boolean;
 }
 
@@ -24,8 +30,11 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
   onOpenVideo,
   onOpenImage,
   onEditMedia,
+  onOpenKural,
+  onShowOnMap,
   isDark,
 }) => {
+  const { data: mapData } = useMapData(!!kural);
   const [selectedCommentator, setSelectedCommentator] = useState<
     'muVa' | 'karunanidhi' | 'solomon' | 'parimelazhagar' | 'english' | 'all'
   >('all');
@@ -341,11 +350,61 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
                 </div>
               )}
             </div>
+
+            {/* இதைப் போன்ற குறள்கள் — Kurals closest in meaning */}
+            {mapData && onOpenKural && (
+              <div className="mt-6">
+                <h4 className="text-sm font-bold mb-2 text-emerald-800 dark:text-emerald-400">இதைப் போன்ற குறள்கள்</h4>
+                <div className="space-y-1.5">
+                  {mapData.k[kural.number - 1][3].slice(0, 6).map((n) => {
+                    const s = getKuralByNumber(n);
+                    return (
+                      <button
+                        key={n}
+                        onClick={() => onOpenKural(s)}
+                        className={`w-full flex items-start gap-2.5 rounded-xl border px-3 py-2.5 text-left cursor-pointer transition-colors ${
+                          isDark ? 'border-[#312A21] hover:bg-white/5' : 'border-[#EEE8DC] hover:bg-stone-50'
+                        }`}
+                      >
+                        <span className="mt-2 w-2 h-2 rounded-full shrink-0" style={{ background: topicColor(mapData.k[n - 1][2]) }} />
+                        <span className="min-w-0">
+                          <span className="block font-tamil-sans text-[14.5px] leading-snug">
+                            {s.line1}
+                            <br />
+                            {s.line2}
+                          </span>
+                          <span className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[11.5px] text-stone-500 dark:text-stone-400">
+                            <span className="font-semibold text-amber-700 dark:text-amber-400">{n}</span>
+                            <span>· {s.athikaramTamil}</span>
+                            <span className="text-emerald-700 dark:text-emerald-400">
+                              · {similarReason(mapData, kural.number, n, s.athikaramNumber === kural.athikaramNumber)}
+                            </span>
+                            {s.media?.youtubeUrl && (
+                              <span className="inline-flex items-center gap-0.5 text-amber-700 dark:text-amber-400">
+                                · <PlayCircle className="w-3 h-3" /> பாடல்
+                              </span>
+                            )}
+                          </span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-end px-6 py-3 border-t border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-[#1C1916]">
+        <div className="flex items-center justify-between gap-2 px-6 py-3 border-t border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-[#1C1916]">
+          {onShowOnMap ? (
+            <button
+              onClick={() => onShowOnMap(kural.number)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-emerald-700/30 text-emerald-800 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-500/10 transition-colors"
+            >
+              <Network className="w-4 h-4" /> வரைபடத்தில் பார்
+            </button>
+          ) : <span />}
           <button
             onClick={onClose}
             className="px-5 py-2 rounded-full bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 text-xs font-semibold hover:opacity-90 transition-opacity"
