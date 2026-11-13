@@ -146,6 +146,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   1241: { youtubeUrl: 'https://youtube.com/shorts/ZD1TsVh3K-8', youtubeTitle: 'நினைத்தொன்று சொல்லாயோ நெஞ்சே எனைத்தொன்றும் எவ்வநோய் தீர்க்கும் மருந்து' },
   1251: { youtubeUrl: 'https://youtube.com/shorts/VDxqx9FpXHg', youtubeTitle: 'காமக் கணிச்சி உடைக்கும் நிறையென்னும் நாணுத்தாழ் வீழ்த்த கதவு' },
   1261: { youtubeUrl: 'https://youtube.com/shorts/YuSBYtrCxXE', youtubeTitle: 'வாளற்றுப் புற்கென்ற கண்ணும் அவர்சென்ற நாளொற்றித் தேய்ந்த விரல்' },
+  1271: { youtubeUrl: 'https://youtube.com/shorts/wOw3mrlPbYA', youtubeTitle: 'கரப்பினுங் கையிகந் தொல்லாநின் உண்கண் உரைக்கல் உறுவதொன் றுண்டு' },
   1317: { youtubeUrl: 'https://youtube.com/shorts/QAgxZMvDJ4Q', youtubeTitle: 'வழுத்தினாள் தும்மினேன் ஆக அழித்தழுதாள் — இசையில் குறள் 1317' },
   1329: { youtubeUrl: 'https://youtube.com/shorts/IP1vekC0lyE', youtubeTitle: 'ஊடுக மன்னோ ஒளியிழை யாமிரப்ப — இசையில் குறள் 1329' },
 };
