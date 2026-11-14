@@ -5,7 +5,7 @@ import { kuralMatchesSearch } from '../utils/search';
 import { getYouTubeThumbnail } from '../utils/youtube';
 import { useMapData, PAAL_COLORS } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
-import { ArrowLeft, BookOpen, ChevronLeft, Minus, PlayCircle, Plus, Search, X } from 'lucide-react';
+import { BookOpen, ChevronLeft, ChevronsDown, ChevronsUp, Home, Minus, PlayCircle, Plus, Search, X } from 'lucide-react';
 
 interface KuralMapProps {
   initialKural?: number;
@@ -58,10 +58,12 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
   const [size, setSize] = useState({ w: window.innerWidth, h: window.innerHeight });
   const [hover, setHover] = useState<{ a: number; x: number; y: number } | null>(null);
   const [sheetFull, setSheetFull] = useState(false);
+  // search results can be narrowed to one அதிகாரம்
+  const [chapterFilter, setChapterFilter] = useState<number | null>(null);
 
   const view = views[views.length - 1];
-  const isWide = size.w >= 1024;
-  const PANEL_W = 420;
+  const cardOpen = view.kind !== 'home';
+  const cardH = cardOpen ? Math.round(size.h * (sheetFull ? 0.8 : size.w < 640 ? 0.5 : 0.44)) : 0;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -82,11 +84,12 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
   }, []);
 
   // The map's area on screen: right of the panel on big screens, above the panel on phones
+  // The map's area on screen: everything between the title at the top and the search bar / results at the bottom
   const mapBox = useCallback(() => {
-    if (size.w >= 1024) return { x: PANEL_W, y: 0, w: size.w - PANEL_W, h: size.h };
-    const panelH = sheetFull ? size.h * 0.86 : size.h * 0.46;
-    return { x: 0, y: 0, w: size.w, h: size.h - panelH };
-  }, [size, sheetFull]);
+    const top = 64;
+    const bottom = 84 + (cardH ? cardH + 8 : 46);
+    return { x: 0, y: top, w: size.w, h: Math.max(120, size.h - top - bottom) };
+  }, [size, cardH]);
 
   // ── what the current view lights up on the map ──
   const searchHits = useMemo(() => {
@@ -106,6 +109,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
         lit.add(k.athikaramNumber);
         badge.set(k.athikaramNumber, (badge.get(k.athikaramNumber) ?? 0) + 1);
       }
+      if (chapterFilter) center = chapterFilter;
     } else if (view.kind === 'adhikaram') {
       center = view.a;
       lit.add(view.a);
@@ -124,7 +128,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
       }
     }
     return { lit, badge, center, links, active: view.kind !== 'home' };
-  }, [data, view, searchHits]);
+  }, [data, view, searchHits, chapterFilter]);
 
   // ── camera ──
   const requestDraw = useCallback(() => {
@@ -183,7 +187,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
     first.current = false;
     fitTo(view.kind === 'home' ? null : focusInfo.lit.size ? [...focusInfo.lit] : null, animate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, view, size, sheetFull]);
+  }, [data, view, size, cardH]);
 
   useEffect(() => {
     panelRef.current?.scrollTo({ top: 0 });
@@ -227,6 +231,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
       const n = parseInt(t, 10);
       if (n >= 1 && n <= 1330) return push({ kind: 'kural', n });
     }
+    setChapterFilter(null);
     push({ kind: 'search', q: t });
   };
 
@@ -456,34 +461,17 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
   let body: React.ReactNode = null;
 
   if (view.kind === 'home') {
-    body = (
-      <div className="px-3 pb-6">
-        <p className="px-3 pt-1 font-tamil-sans text-[15px] leading-relaxed text-[#C9C3B6]">
-          ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — மொத்தம் 133. பொருள் ஒத்த அதிகாரங்கள் அருகருகே இருக்கும்.
-        </p>
-        <div className="px-3 pt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-[#C9C3B6]">
-          {(Object.keys(PAAL_COLORS) as (keyof typeof PAAL_COLORS)[]).map((p) => (
-            <span key={p} className="inline-flex items-center gap-1.5 font-tamil-sans">
-              <span className="w-3 h-3 rounded-full" style={{ background: PAAL_COLORS[p] }} /> {p}
-            </span>
-          ))}
-        </div>
-        {heading('ஒரு சொல்லைத் தேடிப் பாருங்கள்')}
-        <div className="px-3 flex flex-wrap gap-2">
-          {EXAMPLES.map((w) => (
-            <button key={w} onClick={() => runSearch(w)} className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 font-tamil-sans text-[14px] text-[#EEE8DC] cursor-pointer hover:bg-white/[0.09]">
-              {w}
-            </button>
-          ))}
-        </div>
-        <p className="px-3 pt-4 text-[13px] text-white/45 font-tamil-sans">அல்லது வரைபடத்தில் ஒரு வட்டத்தைத் தொடுங்கள்.</p>
-      </div>
-    );
+    body = null;
   } else if (view.kind === 'search' && searchHits) {
     const chapters = [...focusInfo.badge.entries()].sort((x, y) => y[1] - x[1]);
+    const rows = chapterFilter ? searchHits.filter((k) => k.athikaramNumber === chapterFilter) : searchHits;
+    const pill = (active: boolean) =>
+      `shrink-0 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] cursor-pointer font-tamil-sans ${
+        active ? 'bg-[#F2C66D] border-[#F2C66D] text-[#1B1A16] font-semibold' : 'bg-white/[0.04] border-white/10 text-[#EEE8DC] hover:bg-white/[0.09]'
+      }`;
     body = (
-      <div className="px-2 pb-6">
-        <div className="px-3 pt-1 text-[14px] text-[#C9C3B6] font-tamil-sans">
+      <div className="pb-4">
+        <div className="px-4 pt-1 text-[14px] text-[#C9C3B6] font-tamil-sans">
           {searchHits.length ? (
             <>
               <b className="text-white">“{view.q}”</b> — {searchHits.length} குறள்கள், {chapters.length} அதிகாரங்களில்
@@ -492,19 +480,61 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
             <>“{view.q}” — பொருத்தம் இல்லை. வேறு சொல்லைத் தேடுங்கள்.</>
           )}
         </div>
+
+        {/* filter by அதிகாரம் */}
         {chapters.length > 1 && (
-          <div className="px-3 pt-3 flex flex-wrap gap-1.5">
-            {chapters.slice(0, 12).map(([a, c]) => (
-              <ChapterChip key={a} a={a} count={c} />
+          <div className="flex gap-1.5 overflow-x-auto px-4 pt-3 pb-1 [scrollbar-width:thin]">
+            <button onClick={() => setChapterFilter(null)} className={pill(chapterFilter === null)}>
+              அனைத்தும் <span className="opacity-70">{searchHits.length}</span>
+            </button>
+            {chapters.map(([a, c]) => (
+              <button key={a} onClick={() => setChapterFilter(chapterFilter === a ? null : a)} className={pill(chapterFilter === a)}>
+                {chapterFilter !== a && <span className="w-2 h-2 rounded-full" style={{ background: colorOf(a) }} />}
+                {adh(a).name} <span className="opacity-70">{c}</span>
+              </button>
             ))}
-            {chapters.length > 12 && <span className="self-center text-[12px] text-white/45">+{chapters.length - 12}</span>}
           </div>
         )}
-        {searchHits.length > 0 && heading('குறள்கள்')}
-        {searchHits.slice(0, 300).map((k) => (
-          <KuralRow key={k.number} n={k.number} />
-        ))}
-        {searchHits.length > 300 && <p className="px-3 py-2 text-[12px] text-white/45 font-tamil-sans">முதல் 300 குறள்கள் மட்டும் — சொல்லைக் குறுக்கித் தேடுங்கள்.</p>}
+
+        {/* table: Kural | அதிகாரம் */}
+        {rows.length > 0 && (
+          <div className="mt-2">
+            <div className="sticky top-0 z-[1] grid grid-cols-[44px_1fr_34%] sm:grid-cols-[52px_1fr_240px] gap-3 px-4 py-2 text-[12px] font-semibold text-[#7FB39A] font-tamil-sans border-y border-white/[0.07]" style={{ background: PANEL }}>
+              <span>எண்</span>
+              <span>குறள்</span>
+              <span>அதிகாரம்</span>
+            </div>
+            {rows.slice(0, 400).map((k) => (
+              <div key={k.number} className="grid grid-cols-[44px_1fr_34%] sm:grid-cols-[52px_1fr_240px] gap-3 px-4 py-2.5 border-b border-white/[0.05] hover:bg-white/[0.04]">
+                <button onClick={() => push({ kind: 'kural', n: k.number })} className="text-left text-[13px] font-semibold text-[#F2C66D] cursor-pointer">
+                  {k.number}
+                </button>
+                <button onClick={() => push({ kind: 'kural', n: k.number })} className="text-left font-tamil-sans text-[14.5px] leading-snug text-[#EEE8DC] cursor-pointer">
+                  {k.line1}
+                  <br />
+                  {k.line2}
+                  {k.media?.youtubeUrl && (
+                    <span className="ml-1.5 inline-flex items-center gap-0.5 align-middle text-[11.5px] text-[#F2C66D]">
+                      <PlayCircle className="w-3 h-3" /> பாடல்
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setChapterFilter(chapterFilter === k.athikaramNumber ? null : k.athikaramNumber)}
+                  title="இந்த அதிகாரத்தை மட்டும் காட்டு"
+                  className="flex items-start gap-1.5 text-left text-[13px] leading-snug text-[#C9C3B6] font-tamil-sans cursor-pointer hover:text-white"
+                >
+                  <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ background: colorOf(k.athikaramNumber) }} />
+                  <span>
+                    {k.athikaramTamil}
+                    <span className="block text-[11px] text-white/40">அதிகாரம் {k.athikaramNumber}</span>
+                  </span>
+                </button>
+              </div>
+            ))}
+            {rows.length > 400 && <p className="px-4 py-2 text-[12px] text-white/45 font-tamil-sans">முதல் 400 குறள்கள் மட்டும் — சொல்லைக் குறுக்கித் தேடுங்கள்.</p>}
+          </div>
+        )}
       </div>
     );
   } else if (view.kind === 'adhikaram' && data) {
@@ -589,54 +619,11 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
     );
   }
 
-  const panel = (
-    <>
-      <div className="px-4 pt-3 pb-3 border-b border-white/[0.08]">
-        <div className="flex items-center gap-2">
-          {views.length > 1 ? (
-            <button onClick={back} aria-label="பின்செல்" className="shrink-0 w-10 h-10 rounded-xl border border-white/10 text-white flex items-center justify-center cursor-pointer hover:bg-white/10">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          ) : (
-            <button onClick={onExit} aria-label="முகப்பு" className="shrink-0 w-10 h-10 rounded-xl border border-white/10 text-white flex items-center justify-center cursor-pointer hover:bg-white/10">
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-          )}
-          <div className="relative flex-1 min-w-0">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
-            <input
-              value={input}
-              onChange={(e) => onType(e.target.value)}
-              onFocus={() => !isWide && setSheetFull(true)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  window.clearTimeout(typing.current);
-                  runSearch(input);
-                  (e.target as HTMLInputElement).blur();
-                }
-              }}
-              placeholder="சொல் அல்லது குறள் எண் (எ.கா. மலர்)"
-              className="w-full h-10 rounded-xl bg-[#0D110F] border border-white/10 pl-9 pr-9 text-[15px] text-white placeholder:text-white/40 outline-none focus:border-[#7FB39A]"
-            />
-            {input && (
-              <button onClick={goHome} aria-label="அழி" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/60 hover:text-white cursor-pointer">
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-        {view.kind === 'home' && <div className="pt-3 px-1 font-tamil-sans text-[19px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</div>}
-      </div>
-      <div ref={panelRef} className="flex-1 overflow-y-auto">
-        {body}
-      </div>
-    </>
-  );
-
   const box = mapBox();
+  const barW = Math.min(760, size.w - 24);
 
   return (
-    <div className="fixed inset-0 z-40 select-none" style={{ background: BG }}>
+    <div className="fixed inset-0 z-40 select-none overflow-hidden" style={{ background: BG }}>
       <canvas
         ref={canvasRef}
         style={{ width: size.w, height: size.h, touchAction: 'none', cursor: hover ? 'pointer' : 'grab' }}
@@ -654,26 +641,24 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
         </div>
       )}
 
-      {/* panel: left side on big screens, bottom part on phones */}
-      {isWide ? (
-        <aside className="absolute left-0 top-0 bottom-0 flex flex-col border-r border-white/10" style={{ width: PANEL_W, background: PANEL }}>
-          {panel}
-        </aside>
-      ) : (
-        <aside
-          className="absolute left-0 right-0 bottom-0 flex flex-col rounded-t-2xl border-t border-white/10 shadow-[0_-10px_30px_rgba(0,0,0,0.45)] transition-[height] duration-300"
-          style={{ height: sheetFull ? '86vh' : '46vh', background: PANEL }}
-        >
-          <button onClick={() => setSheetFull((v) => !v)} aria-label={sheetFull ? 'சுருக்கு' : 'விரி'} className="w-full flex justify-center pt-2 pb-0.5 cursor-pointer">
-            <span className="w-12 h-1.5 rounded-full bg-white/30" />
-          </button>
-          {panel}
-        </aside>
-      )}
+      {/* top: link home, title, colour key */}
+      <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center gap-x-4 gap-y-2 pointer-events-none">
+        <a href="#/" onClick={(e) => { e.preventDefault(); onExit(); }} className="pointer-events-auto inline-flex items-center gap-2 rounded-xl bg-[#151A17] border border-white/10 px-3 h-10 text-[14px] text-white font-tamil-sans hover:bg-[#1D2420]">
+          <Home className="w-4 h-4" /> முகப்பு
+        </a>
+        <div className="font-tamil-sans text-[18px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</div>
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-[12px] text-[#C9C3B6] font-tamil-sans">
+          {(Object.keys(PAAL_COLORS) as (keyof typeof PAAL_COLORS)[]).map((p) => (
+            <span key={p} className="inline-flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: PAAL_COLORS[p] }} /> {p}
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* zoom buttons */}
-      {data && box.h > 160 && (
-        <div className="absolute flex flex-col gap-1.5" style={{ right: 12, top: box.y + box.h - 100 }}>
+      {data && box.h > 150 && (
+        <div className="absolute flex flex-col gap-1.5" style={{ right: 12, top: box.y + box.h - 92 }}>
           <button onClick={() => zoomButton(1.5)} aria-label="பெரிதாக்கு" className="w-10 h-10 rounded-xl bg-[#151A17] border border-white/10 text-white flex items-center justify-center cursor-pointer hover:bg-[#1D2420]">
             <Plus className="w-5 h-5" />
           </button>
@@ -682,6 +667,62 @@ export const KuralMap: React.FC<KuralMapProps> = ({ initialKural, focus, onExit,
           </button>
         </div>
       )}
+
+      {/* bottom: results (search, a Kural or an அதிகாரம்) above the search bar */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-3 flex flex-col gap-2" style={{ width: barW }}>
+        {cardOpen && (
+          <div className="min-w-0 flex flex-col rounded-2xl border border-white/10 shadow-[0_-8px_30px_rgba(0,0,0,0.5)] overflow-hidden transition-[height] duration-300" style={{ height: cardH, background: PANEL }}>
+            <div className="flex items-center justify-between gap-2 px-2 pt-2 pb-1">
+              <button onClick={back} aria-label="பின்செல்" className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-[13px] text-white/75 font-tamil-sans cursor-pointer hover:bg-white/10">
+                <ChevronLeft className="w-4 h-4" /> பின்
+              </button>
+              <div className="flex items-center gap-1">
+                <button onClick={() => setSheetFull((v) => !v)} aria-label={sheetFull ? 'சுருக்கு' : 'விரி'} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 cursor-pointer">
+                  {sheetFull ? <ChevronsDown className="w-5 h-5" /> : <ChevronsUp className="w-5 h-5" />}
+                </button>
+                <button onClick={goHome} aria-label="மூடு" className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 cursor-pointer">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div ref={panelRef} className="flex-1 overflow-y-auto">
+              {body}
+            </div>
+          </div>
+        )}
+
+        {view.kind === 'home' && (
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {EXAMPLES.map((w) => (
+              <button key={w} onClick={() => runSearch(w)} className="rounded-full border border-white/10 bg-[#151A17] px-3 py-1 font-tamil-sans text-[13px] text-[#EEE8DC] cursor-pointer hover:bg-[#1D2420]">
+                {w}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+          <input
+            value={input}
+            onChange={(e) => onType(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                window.clearTimeout(typing.current);
+                runSearch(input);
+                (e.target as HTMLInputElement).blur();
+              }
+            }}
+            placeholder="ஒரு சொல்லைத் தேடுங்கள் — மழை, rain, மலர், 1281…"
+            className="w-full h-14 rounded-2xl bg-[#151A17] border border-white/15 pl-12 pr-11 text-[16px] text-white placeholder:text-white/40 outline-none focus:border-[#7FB39A] shadow-[0_6px_24px_rgba(0,0,0,0.45)]"
+          />
+          {input && (
+            <button onClick={goHome} aria-label="அழி" className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-white/60 hover:text-white cursor-pointer">
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* chapter name on hover (mouse) */}
       {hover && (
