@@ -439,7 +439,7 @@ export default function App() {
               <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
                 குறள் வரைபடம்
               </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>பொருள் ஒத்த குறள்கள் அருகருகே · Kurals mapped by meaning</span>
+              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>133 அதிகாரங்களில் ஒரு சொல்லைத் தேடுங்கள் · Search every Kural by word</span>
             </span>
           </span>
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
@@ -705,14 +705,7 @@ export default function App() {
       {/* குறள் வரைபடம் — full-screen map of Kurals by meaning */}
       {route.page === 'map' && (
         <Suspense fallback={<div className="fixed inset-0 z-40 bg-[#0B0F0D]" />}>
-          <KuralMap
-            initialKural={route.n}
-            focus={route}
-            onExit={() => go('#/')}
-            onSelectKural={(n) => window.history.replaceState(null, '', n ? `#/map/${n}` : '#/map')}
-            onOpenDetail={(k) => setSelectedDetailKural(k)}
-            onOpenVideo={(k) => setVideoModalKural(k)}
-          />
+          <KuralMap onExit={() => go('#/')} onOpenDetail={(k) => setSelectedDetailKural(k)} />
         </Suspense>
       )}
 
@@ -725,11 +718,6 @@ export default function App() {
         onOpenVideo={(k) => setVideoModalKural(k)}
         onOpenImage={(k) => setImageModalKural(k)}
         onEditMedia={editMediaHandler}
-        onOpenKural={(k) => setSelectedDetailKural(k)}
-        onShowOnMap={(n) => {
-          setSelectedDetailKural(null);
-          go(`#/map/${n}`);
-        }}
         isDark={isDark}
       />
 

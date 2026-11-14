@@ -34,7 +34,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
   onShowOnMap,
   isDark,
 }) => {
-  const { data: mapData } = useMapData(!!kural);
+  const { data: mapData } = useMapData(!!kural && !!onOpenKural);
   const [selectedCommentator, setSelectedCommentator] = useState<
     'muVa' | 'karunanidhi' | 'solomon' | 'parimelazhagar' | 'english' | 'all'
   >('all');
