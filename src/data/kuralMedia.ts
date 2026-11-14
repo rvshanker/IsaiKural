@@ -148,7 +148,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   1261: { youtubeUrl: 'https://youtube.com/shorts/YuSBYtrCxXE', youtubeTitle: 'வாளற்றுப் புற்கென்ற கண்ணும் அவர்சென்ற நாளொற்றித் தேய்ந்த விரல்' },
   1271: { youtubeUrl: 'https://youtube.com/shorts/wOw3mrlPbYA', youtubeTitle: 'கரப்பினுங் கையிகந் தொல்லாநின் உண்கண் உரைக்கல் உறுவதொன் றுண்டு' },
   1281: { youtubeUrl: 'https://youtube.com/shorts/bG1v6Iedqq4', youtubeTitle: 'உள்ளக் களித்தலும் காண மகிழ்தலும் கள்ளுக்கில் காமத்திற் குண்டு' },
-  1291: { youtubeUrl: 'https://youtube.com/shorts/58k9_SqHXkg', youtubeTitle: 'அவர்நெஞ்சு அவர்க்காதல் கண்டும் எவன்நெஞ்சே நீஎமக்கு ஆகா தது' },
+  1291: { youtubeUrl: 'https://youtube.com/shorts/f50OBN_BWnw', youtubeTitle: 'அவர்நெஞ்சு அவர்க்காதல் கண்டும் எவன்நெஞ்சே நீஎமக்கு ஆகா தது' },
   1302: { youtubeUrl: 'https://youtube.com/shorts/7qXsCrc0miE', youtubeTitle: 'உப்பமைந் தற்றால் புலவி அதுசிறிது மிக்கற்றால் நீள விடல்' },
   1317: { youtubeUrl: 'https://youtube.com/shorts/QAgxZMvDJ4Q', youtubeTitle: 'வழுத்தினாள் தும்மினேன் ஆக அழித்தழுதாள் — இசையில் குறள் 1317' },
   1329: { youtubeUrl: 'https://youtube.com/shorts/IP1vekC0lyE', youtubeTitle: 'ஊடுக மன்னோ ஒளியிழை யாமிரப்ப — இசையில் குறள் 1329' },
