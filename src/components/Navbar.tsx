@@ -20,6 +20,7 @@ import {
   Instagram,
   Facebook,
   Network,
+  Lightbulb,
 } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/site';
 import { kuralAudio, KuralVoice } from '../utils/audioPlayer';
@@ -35,6 +36,7 @@ interface NavbarProps {
   onOpenBookmarks: () => void;
   onOpenVideos?: () => void;
   onOpenMap?: () => void;
+  onOpenFacts?: () => void;
   onOpenAddMedia?: () => void;
   isDark: boolean;
   onToggleTheme: () => void;
@@ -65,6 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBookmarks,
   onOpenVideos,
   onOpenMap,
+  onOpenFacts,
   onOpenAddMedia,
   isDark,
   onToggleTheme,
@@ -184,6 +187,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {onOpenMap && (
                   <button onClick={go(onOpenMap)} className={menuItem}>
                     <Network className="w-4 h-4" /> குறள் வரைபடம்
+                  </button>
+                )}
+                {onOpenFacts && (
+                  <button onClick={go(onOpenFacts)} className={menuItem}>
+                    <Lightbulb className="w-4 h-4" /> சுவையான உண்மைகள்
                   </button>
                 )}
                 {onOpenAddMedia && (

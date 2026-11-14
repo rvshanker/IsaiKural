@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 const KuralMap = lazy(() => import('./components/KuralMap'));
+const FactsPage = lazy(() => import('./components/FactsPage'));
 import { Navbar } from './components/Navbar';
 import { HeroKuralOfTheDay } from './components/HeroKuralOfTheDay';
 import { HomeSearchBar } from './components/HomeSearchBar';
@@ -41,7 +42,8 @@ import {
   ChevronRight,
   Music2,
   RotateCcw,
-  Network
+  Network,
+  Lightbulb
 } from 'lucide-react';
 
 // ── Simple page routing with the URL hash, so the phone's Back button works ──
@@ -53,7 +55,8 @@ type Route =
   | { page: 'videos' }
   | { page: 'video'; n: number }
   | { page: 'kurals'; paal: Paal | 'all' }
-  | { page: 'map'; n?: number };
+  | { page: 'map'; n?: number }
+  | { page: 'facts' };
 
 const PAAL_KEYS: Paal[] = ['அறத்துப்பால்', 'பொருட்பால்', 'காமத்துப்பால்'];
 
@@ -75,6 +78,7 @@ function parseHash(): Route {
     const n = parseInt(arg, 10);
     return { page: 'map', n: n >= 1 && n <= 1330 ? n : undefined };
   }
+  if (head === 'facts') return { page: 'facts' };
   if (head === 'kurals') return { page: 'kurals', paal: PAAL_KEYS.includes(arg as Paal) ? (arg as Paal) : 'all' };
   return { page: 'home' };
 }
@@ -363,6 +367,7 @@ export default function App() {
         onOpenBookmarks={() => go('#/saved')}
         onOpenVideos={() => go('#/videos')}
         onOpenMap={() => go('#/map')}
+        onOpenFacts={() => go('#/facts')}
         onOpenAddMedia={CAN_EDIT_MEDIA ? () => openMediaEditor(ALL_KURALS[0]) : undefined}
         isDark={isDark}
         onToggleTheme={() => setIsDark(!isDark)}
@@ -445,6 +450,25 @@ export default function App() {
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
+        {/* சுவையான உண்மைகள் — interesting facts */}
+        <button
+          onClick={() => go('#/facts')}
+          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
+          }`}
+        >
+          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <Lightbulb className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
+            <span className="min-w-0">
+              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+                சுவையான உண்மைகள்
+              </span>
+              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>திருக்குறள் பற்றி நீங்கள் அறியாதவை · Interesting facts about Thirukkural</span>
+            </span>
+          </span>
+          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+        </button>
+
         {/* All kurals live on their own page */}
         <button
           onClick={() => go('#/kurals')}
@@ -464,6 +488,26 @@ export default function App() {
       </>
       ) : route.page === 'map' ? (
       <div className="flex-1" />
+      ) : route.page === 'facts' ? (
+      /* ───────────── சுவையான உண்மைகள்: interesting facts ───────────── */
+      <main className="flex-1 w-full max-w-[1000px] mx-auto px-4 sm:px-6 pt-4 pb-12">
+        <button
+          onClick={() => go('#/')}
+          className={`inline-flex items-center gap-1 -ml-2 px-2 py-1.5 rounded-full text-[14px] cursor-pointer ${
+            isDark ? 'text-[#A9BDB2] hover:bg-white/5' : 'text-[#1D5A43] hover:bg-[#1D5A43]/5'
+          }`}
+        >
+          <ChevronLeft className="w-5 h-5" /> முகப்பு
+        </button>
+        <Suspense fallback={<div className="h-64" />}>
+          <FactsPage
+            isDark={isDark}
+            onOpenKural={(k) => setSelectedDetailKural(k)}
+            onOpenMap={() => go('#/map')}
+            onOpenVideos={() => go('#/videos')}
+          />
+        </Suspense>
+      </main>
       ) : route.page === 'videos' || route.page === 'video' ? (
       /* ───────────── VIDEO PAGES: gallery, and one video with its meaning ───────────── */
       <main className="flex-1 w-full max-w-[1100px] mx-auto px-4 sm:px-6 pt-4 pb-10">
