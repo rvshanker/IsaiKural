@@ -90,6 +90,12 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
           <Fact title="நூலின் பெயரும் ஆசிரியர் பெயரும் உள்ளே இல்லை" en="Neither the words 'குறள்' nor 'வள்ளுவர்' appear in the couplets.">
             “குறள்”, “திருக்குறள்”, “வள்ளுவர்” — இந்தச் சொற்கள் எதுவும் 1330 குறள்களில் வரவில்லை. நூலுக்கும் ஆசிரியருக்கும் பின்னாளில் வந்த பெயர்கள் இவை.
           </Fact>
+          <Fact title="'… எனப்படுவது யாதெனின்' — கேள்வியும் பதிலும்" en="Valluvar often asks 'What is X?' and answers it himself. யாதெனின் ('if you ask what it is') appears in 10 couplets; the full phrase 'எனப்படுவது யாதெனின் யாதொன்றும்' appears twice.">
+            “வாய்மை எனப்படுவது யாதெனின் யாதொன்றும் தீமை இலாத சொலல்” (<KuralLink n={291} />), “நல்லாறு எனப்படுவது யாதெனின் யாதொன்றும் கொல்லாமை சூழும் நெறி” (<KuralLink n={324} />) — ஒரே வடிவில் இரண்டு குறள்கள். “யாதெனின்” மொத்தம் 10 குறள்களில் வருகிறது: பழைமை (<KuralLink n={801} />), வெண்மை (<KuralLink n={844} />), பேதைமை (<KuralLink n={831} />) போன்றவற்றையும் வள்ளுவர் இப்படியே கேட்டு விளக்குகிறார். “யாதொன்றும்” 5 குறள்களில் வருகிறது.
+          </Fact>
+          <Fact title="அனிச்சம் — மிக மென்மையான மலர்" en="The anicham flower, said to wilt at a mere sniff, appears in 4 couplets: once for how gently a guest must be treated, and three times to praise the beloved's tenderness.">
+            முகர்ந்தாலே வாடும் அனிச்ச மலர் 4 குறள்களில் வருகிறது. விருந்தினர் முகம் கோணினாலே வாடுவர் என்று விருந்தோம்பலில் (<KuralLink n={90} />); காதலி அனிச்சத்தை விட மென்மையானவள் என்று நலம் புனைந்துரைத்தலில் மூன்று முறை (<KuralLink n={1111} />, <KuralLink n={1115} />, <KuralLink n={1120} />).
+          </Fact>
           <Fact title="அதிகம் வரும் சொல் — 'படும்'" en="The most frequent word is படும் (42 couplets), followed by தரும் (37) and கெடும் (28).">
             “படும்” 42 குறள்களில், “தரும்” 37 குறள்களில், “கெடும்” 28 குறள்களில் வருகின்றன — எது நன்மை தரும், எது கெடுக்கும் என்று சொல்லும் நூல் இது.
           </Fact>
