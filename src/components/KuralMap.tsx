@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ALL_KURALS, getKuralByNumber } from '../data/kurals';
 import { ATHIKARAMS } from '../data/chapters';
-import { CHAPTER_POINTS, CIRCLE_SPACING } from '../data/mapLayout';
+import { CHAPTER_POINTS, CIRCLE_R, MAP_IMAGE, MAP_W, MAP_H } from '../data/mapLayout';
 import { kuralMatchesSearch } from '../utils/search';
 import { PAAL_COLORS } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
-import { Home, PlayCircle, Search, X } from 'lucide-react';
+import { Home, Maximize2, Minus, PlayCircle, Plus, Search, X } from 'lucide-react';
 
 interface KuralMapProps {
   onExit: () => void;
@@ -13,7 +13,7 @@ interface KuralMapProps {
 }
 
 /**
- * குறள் வரைபடம்: a drawing of Thiruvalluvar whose beard and shawl are made of the 133 அதிகாரங்கள்.
+ * குறள் வரைபடம்: a picture of Thiruvalluvar covered with 133 numbered circles, one per அதிகாரம்.
  * One simple page: the picture, a search bar under it, and the results under that.
  * Searching lights up the chapters that hold matching Kurals; tapping a circle lists that chapter's Kurals.
  */
@@ -29,61 +29,15 @@ const colorOf = (a: number, alpha = 1) => {
   return `rgba(${v >> 16}, ${(v >> 8) & 255}, ${v & 255}, ${alpha})`;
 };
 
-// ── the picture of Thiruvalluvar, in the same 1000 × 1000 units as the circles ──
-const SKIN = '#3A3228';
-const ROBE = '#24221E';
-const BEARD = '#302C26';
-const LINE = '#9C8664';
-const SHAWL: [number, number][] = [[410, 600], [590, 600], [700, 650], [860, 705], [930, 785], [950, 960], [50, 960], [70, 785], [140, 705], [300, 650]];
-const BEARD_SHAPE: [number, number][] = [[372, 352], [628, 352], [612, 470], [575, 580], [530, 665], [500, 690], [470, 665], [425, 580], [388, 470]];
-
-function drawValluvar(g: CanvasRenderingContext2D, t: (x: number, y: number) => [number, number], k: number) {
-  const poly = (pts: [number, number][], fill: string) => {
-    g.beginPath();
-    pts.forEach(([x, y], i) => {
-      const [sx, sy] = t(x, y);
-      if (i) g.lineTo(sx, sy);
-      else g.moveTo(sx, sy);
-    });
-    g.closePath();
-    g.fillStyle = fill;
-    g.fill();
-    g.strokeStyle = LINE;
-    g.lineWidth = Math.max(1, 2.5 * k);
-    g.stroke();
-  };
-  // ellipse given by its box, like a drawing program; from/to in degrees for a part of it
-  const oval = (x0: number, y0: number, x1: number, y1: number, fill: string | null, from = 0, to = 360) => {
-    const [cx, cy] = t((x0 + x1) / 2, (y0 + y1) / 2);
-    g.beginPath();
-    g.ellipse(cx, cy, ((x1 - x0) / 2) * k, ((y1 - y0) / 2) * k, 0, (from * Math.PI) / 180, (to * Math.PI) / 180);
-    if (fill) {
-      g.fillStyle = fill;
-      g.fill();
-    }
-    g.strokeStyle = LINE;
-    g.lineWidth = Math.max(1, (fill ? 2.5 : 3.5) * k);
-    g.stroke();
-  };
-
-  oval(440, 70, 560, 190, SKIN); // hair knot
-  oval(365, 140, 635, 430, SKIN); // head
-  poly(SHAWL, ROBE);
-  poly(BEARD_SHAPE, BEARD);
-  // calm face: brows, closed eyes, nose, moustache
-  oval(410, 250, 480, 290, null, 200, 340);
-  oval(520, 250, 590, 290, null, 200, 340);
-  oval(418, 280, 478, 305, null, 20, 160);
-  oval(522, 280, 582, 305, null, 20, 160);
-  g.beginPath();
-  const [nx0, ny0] = t(500, 285);
-  const [nx1, ny1] = t(492, 335);
-  g.moveTo(nx0, ny0);
-  g.lineTo(nx1, ny1);
-  g.stroke();
-  oval(480, 325, 520, 345, null, 0, 180);
-  oval(430, 335, 500, 375, null, 200, 340);
-  oval(500, 335, 570, 375, null, 200, 340);
+// the picture is loaded once and shared
+let picture: HTMLImageElement | null = null;
+function loadPicture(onLoad: () => void) {
+  if (!picture) {
+    picture = new Image();
+    picture.src = MAP_IMAGE;
+  }
+  if (picture.complete && picture.naturalWidth) onLoad();
+  else picture.addEventListener('load', onLoad, { once: true });
 }
 
 type Selection = { kind: 'none' } | { kind: 'search'; q: string } | { kind: 'chapter'; a: number };
@@ -100,8 +54,48 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  // the picture is square: as wide as the page allows, but never taller than about 70% of the screen
-  const side = Math.round(Math.min(boxW, vh * 0.7, 820));
+  // the picture is 3:2: as wide as the page allows, but never taller than about 72% of the screen
+  const viewW = Math.round(Math.min(boxW, vh * 0.72 * (MAP_W / MAP_H), 1100));
+  const viewH = Math.round((viewW * MAP_H) / MAP_W);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => loadPicture(() => setLoaded(true)), []);
+
+  // zoom: z = 1 shows the whole picture; ox/oy move it around when zoomed in
+  const [zoom, setZoom] = useState({ z: 1, ox: 0, oy: 0 });
+  const zoomRef = useRef(zoom);
+  zoomRef.current = zoom;
+  const clampZoom = useCallback(
+    (z: number, ox: number, oy: number) => {
+      z = Math.min(6, Math.max(1, z));
+      ox = Math.min(0, Math.max(viewW - viewW * z, ox));
+      oy = Math.min(0, Math.max(viewH - viewH * z, oy));
+      return { z, ox, oy };
+    },
+    [viewW, viewH]
+  );
+  const zoomAt = useCallback(
+    (px: number, py: number, factor: number) => {
+      const c = zoomRef.current;
+      const z = Math.min(6, Math.max(1, c.z * factor));
+      const f = z / c.z;
+      setZoom(clampZoom(z, px - (px - c.ox) * f, py - (py - c.oy) * f));
+    },
+    [clampZoom]
+  );
+  useEffect(() => setZoom({ z: 1, ox: 0, oy: 0 }), [viewW]);
+  // Ctrl + scroll (and trackpad pinch) zooms the picture; plain scrolling still scrolls the page
+  useEffect(() => {
+    const cv = canvasRef.current;
+    if (!cv) return;
+    const onWheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const rect = cv.getBoundingClientRect();
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * 0.01));
+    };
+    cv.addEventListener('wheel', onWheel, { passive: false });
+    return () => cv.removeEventListener('wheel', onWheel);
+  }, [zoomAt]);
 
   useEffect(() => {
     const measure = () => {
@@ -131,23 +125,23 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
   const ringed = sel.kind === 'chapter' ? sel.a : chapterFilter;
 
   // ── drawing ──
-  const k = side / 1000;
-  const t = useCallback((x: number, y: number): [number, number] => [x * k, y * k], [k]);
-  const r = CIRCLE_SPACING * 0.45 * k;
+  const k = (viewW / MAP_W) * zoom.z;
+  const t = useCallback((x: number, y: number): [number, number] => [x * k + zoom.ox, y * k + zoom.oy], [k, zoom]);
+  const r = CIRCLE_R * k;
 
   const draw = useCallback(() => {
     const cv = canvasRef.current;
     if (!cv) return;
     const dpr = window.devicePixelRatio || 1;
-    if (cv.width !== side * dpr) {
-      cv.width = side * dpr;
-      cv.height = side * dpr;
+    if (cv.width !== viewW * dpr || cv.height !== viewH * dpr) {
+      cv.width = viewW * dpr;
+      cv.height = viewH * dpr;
     }
     const g = cv.getContext('2d')!;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.fillStyle = BG;
-    g.fillRect(0, 0, side, side);
-    drawValluvar(g, t, k);
+    g.fillRect(0, 0, viewW, viewH);
+    if (picture && loaded) g.drawImage(picture, zoom.ox, zoom.oy, MAP_W * k, MAP_H * k);
 
     const active = sel.kind !== 'none';
     g.textAlign = 'center';
@@ -156,7 +150,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
       const a = i + 1;
       const [sx, sy] = t(x, y);
       const lit = !active || (sel.kind === 'search' ? counts.has(a) : sel.a === a);
-      g.fillStyle = colorOf(a, lit ? 0.95 : 0.16);
+      g.fillStyle = lit ? colorOf(a, 0.97) : 'rgba(30, 32, 30, 0.88)';
       g.beginPath();
       g.arc(sx, sy, r, 0, Math.PI * 2);
       g.fill();
@@ -168,8 +162,8 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
         g.stroke();
       }
       // the chapter number fits inside even on a phone; names are shown below the picture
-      g.fillStyle = lit ? '#0D110F' : 'rgba(255,255,255,0.4)';
-      g.font = `700 ${Math.max(7, Math.min(14, r * 0.78))}px Inter, sans-serif`;
+      g.fillStyle = lit ? '#0D110F' : 'rgba(255,255,255,0.45)';
+      g.font = `700 ${Math.max(7, Math.min(18, r * 0.72))}px Inter, sans-serif`;
       g.fillText(String(a), sx, sy + 0.5);
       // how many matching Kurals this chapter holds
       const c = counts.get(a);
@@ -186,11 +180,66 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
         g.fillText(String(c), bx, by + 0.5);
       }
     });
-  }, [side, t, k, r, sel, counts, ringed, hover]);
+  }, [viewW, viewH, t, k, r, sel, counts, ringed, hover, zoom, loaded]);
 
   useEffect(() => {
     draw();
   }, [draw]);
+
+  // ── touch / mouse on the picture ──
+  const pointers = useRef(new Map<number, { x: number; y: number }>());
+  const moved = useRef(0);
+  const pinch = useRef<{ d: number; z: number } | null>(null);
+  const local = (e: React.PointerEvent) => {
+    const rect = canvasRef.current!.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+  const onPointerDown = (e: React.PointerEvent) => {
+    pointers.current.set(e.pointerId, local(e));
+    moved.current = 0;
+    if (pointers.current.size === 2) {
+      const [a, b] = [...pointers.current.values()];
+      pinch.current = { d: Math.hypot(a.x - b.x, a.y - b.y), z: zoomRef.current.z };
+      (e.target as Element).setPointerCapture(e.pointerId);
+    } else if (zoomRef.current.z > 1) {
+      (e.target as Element).setPointerCapture(e.pointerId);
+    }
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const p = local(e);
+    const prev = pointers.current.get(e.pointerId);
+    if (!prev) {
+      if (e.pointerType === 'mouse') {
+        const a = chapterAt(e.clientX, e.clientY);
+        setHover(a ? { a, x: p.x, y: p.y } : null);
+      }
+      return;
+    }
+    pointers.current.set(e.pointerId, p);
+    if (pointers.current.size === 2 && pinch.current) {
+      const [a, b] = [...pointers.current.values()];
+      const target = pinch.current.z * (Math.hypot(a.x - b.x, a.y - b.y) / pinch.current.d);
+      zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, target / zoomRef.current.z);
+      moved.current += 10;
+      return;
+    }
+    const dx = p.x - prev.x;
+    const dy = p.y - prev.y;
+    moved.current += Math.abs(dx) + Math.abs(dy);
+    if (zoomRef.current.z > 1) {
+      const c = zoomRef.current;
+      setZoom(clampZoom(c.z, c.ox + dx, c.oy + dy));
+      setHover(null);
+    }
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2) pinch.current = null;
+    if (moved.current < 8 && pointers.current.size === 0 && e.type === 'pointerup') {
+      const a = chapterAt(e.clientX, e.clientY);
+      if (a) openChapter(a);
+    }
+  };
 
   const chapterAt = (clientX: number, clientY: number): number | null => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -367,7 +416,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
           <h1 className="font-tamil-sans text-[20px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</h1>
         </div>
         <div className="font-tamil-sans text-[14px] text-[#A9B3AD] flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span>ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — 1 முதல் 133 வரை.</span>
+          <span>ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — 1 முதல் 133 வரை. பெரிதாக்க + அழுத்துங்கள்.</span>
           {(Object.keys(PAAL_COLORS) as (keyof typeof PAAL_COLORS)[]).map((p) => (
             <span key={p} className="inline-flex items-center gap-1.5 text-[13px]">
               <span className="w-2.5 h-2.5 rounded-full" style={{ background: PAAL_COLORS[p] }} /> {p}
@@ -375,27 +424,21 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
           ))}
         </div>
 
-        {/* the picture */}
-        <div className="relative mt-2 mx-auto" style={{ width: side, height: side }}>
+        {/* the picture: + / − buttons, pinch on phones, Ctrl + scroll or trackpad pinch on computers; drag to move when zoomed */}
+        <div className="relative mt-2 mx-auto rounded-2xl overflow-hidden" style={{ width: viewW, height: viewH }}>
           <canvas
             ref={canvasRef}
             role="img"
-            aria-label="திருவள்ளுவர் படம் — அவரது தாடியும் மேலாடையும் 133 அதிகாரங்களால் ஆனவை"
-            style={{ width: side, height: side, cursor: hover ? 'pointer' : 'default' }}
-            onPointerMove={(e) => {
-              if (e.pointerType !== 'mouse') return;
-              const a = chapterAt(e.clientX, e.clientY);
-              const rect = canvasRef.current!.getBoundingClientRect();
-              setHover(a ? { a, x: e.clientX - rect.left, y: e.clientY - rect.top } : null);
-            }}
+            aria-label="திருவள்ளுவர் படம் — 133 அதிகாரங்களும் எண்ணிட்ட வட்டங்களாக"
+            style={{ width: viewW, height: viewH, cursor: hover ? 'pointer' : zoom.z > 1 ? 'grab' : 'default', touchAction: zoom.z > 1 ? 'none' : 'pan-y' }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
             onPointerLeave={() => setHover(null)}
-            onClick={(e) => {
-              const a = chapterAt(e.clientX, e.clientY);
-              if (a) openChapter(a);
-            }}
           />
           {hover && (
-            <div className="pointer-events-none absolute z-10 rounded-lg bg-[#151A17] border border-white/10 px-3 py-1.5 shadow-xl whitespace-nowrap" style={{ left: Math.min(hover.x + 12, side - 200), top: hover.y + 14 }}>
+            <div className="pointer-events-none absolute z-10 rounded-lg bg-[#151A17] border border-white/10 px-3 py-1.5 shadow-xl whitespace-nowrap" style={{ left: Math.min(hover.x + 12, viewW - 210), top: Math.min(hover.y + 14, viewH - 56) }}>
               <div className="font-tamil-sans text-[14px] font-bold text-white">
                 {hover.a}. {adh(hover.a).name}
               </div>
@@ -405,6 +448,19 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
               </div>
             </div>
           )}
+          <div className="absolute right-2 bottom-2 flex flex-col gap-1.5">
+            <button onClick={() => zoomAt(viewW / 2, viewH / 2, 1.5)} aria-label="பெரிதாக்கு" className="w-9 h-9 rounded-xl bg-[#151A17]/90 border border-white/15 text-white flex items-center justify-center cursor-pointer hover:bg-[#1D2420]">
+              <Plus className="w-5 h-5" />
+            </button>
+            <button onClick={() => zoomAt(viewW / 2, viewH / 2, 1 / 1.5)} disabled={zoom.z <= 1} aria-label="சிறிதாக்கு" className="w-9 h-9 rounded-xl bg-[#151A17]/90 border border-white/15 text-white flex items-center justify-center cursor-pointer hover:bg-[#1D2420] disabled:opacity-35 disabled:cursor-default">
+              <Minus className="w-5 h-5" />
+            </button>
+            {zoom.z > 1 && (
+              <button onClick={() => setZoom({ z: 1, ox: 0, oy: 0 })} aria-label="முழுப் படம்" className="w-9 h-9 rounded-xl bg-[#151A17]/90 border border-white/15 text-white flex items-center justify-center cursor-pointer hover:bg-[#1D2420]">
+                <Maximize2 className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* search, under the picture */}
