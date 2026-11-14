@@ -12,10 +12,10 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
  * ─────────────────────────────────────────────────────────────
  *  SHARED MEDIA — visible to EVERY visitor of the site
  * ─────────────────────────────────────────────────────────────
- *  All 133 musical renditions from the "இசையில் திருக்குறள்" series.
+ *  All 132 musical renditions from the "இசையில் திருக்குறள்" series.
  */
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
-  // ── அறத்துப்பால் (49 பாடல்கள்) ──
+  // ── அறத்துப்பால் (48 பாடல்கள்) ──
   1: { youtubeUrl: 'https://youtube.com/shorts/6kje63rE2Ow', youtubeTitle: 'அகர முதல எழுத்தெல்லாம் ஆதி — இசையில் குறள் 1' },
   10: { youtubeUrl: 'https://youtube.com/shorts/-Ii5FXO9OwQ', youtubeTitle: 'பிறவிப் பெருங்கடல் நீந்துவர் நீந்தார் — இசையில் குறள் 10' },
   12: { youtubeUrl: 'https://youtube.com/shorts/wsk5ae0Reeo', youtubeTitle: 'துப்பார்க்குத் துப்பாய துப்பாக்கித் துப்பார்க்குத் — இசையில் குறள் 12' },
@@ -27,7 +27,6 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   51: { youtubeUrl: 'https://youtube.com/shorts/YvSPuQYTOZI', youtubeTitle: 'மனைக்தக்க மாண்புடையள் ஆகித்தற் கொண்டான் — இசையில் குறள் 51' },
   60: { youtubeUrl: 'https://youtube.com/shorts/mXOCD4iSLwk', youtubeTitle: 'மங்கலம் என்ப மனைமாட்சி மற்று அதன் — இசையில் குறள் 60' },
   66: { youtubeUrl: 'https://youtube.com/shorts/_tVi7eSnoQA', youtubeTitle: 'குழல்இனிது யாழ்இனிது என்பதம் மக்கள் — இசையில் குறள் 66' },
-  71: { youtubeUrl: 'https://youtu.be/rTkLZO7uaNY', youtubeTitle: 'அன்பிற்கும் உண்டோ அடைக்குந்தாழ் ஆர்வலர் புன்கணீர் பூசல் தரும்' },
   72: { youtubeUrl: 'https://youtube.com/shorts/qChLIRzaImA', youtubeTitle: 'அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார் — இசையில் குறள் 72' },
   73: { youtubeUrl: 'https://youtube.com/shorts/g7sPb-wn7b8', youtubeTitle: 'அன்போடு இயைந்த வழக்கென்ப ஆருயிர்க்கு — இசையில் குறள் 73' },
   85: { youtubeUrl: 'https://youtube.com/shorts/hg-fYar-rCg', youtubeTitle: 'வித்தும் இடல்வேண்டும் கொல்லோ விருந்தோம்பி — இசையில் குறள் 85' },
