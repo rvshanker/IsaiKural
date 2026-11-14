@@ -12,10 +12,10 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
  * ─────────────────────────────────────────────────────────────
  *  SHARED MEDIA — visible to EVERY visitor of the site
  * ─────────────────────────────────────────────────────────────
- *  All 130 musical renditions from the "இசையில் திருக்குறள்" series.
+ *  All 133 musical renditions from the "இசையில் திருக்குறள்" series.
  */
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
-  // ── அறத்துப்பால் (47 பாடல்கள்) ──
+  // ── அறத்துப்பால் (49 பாடல்கள்) ──
   1: { youtubeUrl: 'https://youtube.com/shorts/6kje63rE2Ow', youtubeTitle: 'அகர முதல எழுத்தெல்லாம் ஆதி — இசையில் குறள் 1' },
   10: { youtubeUrl: 'https://youtube.com/shorts/-Ii5FXO9OwQ', youtubeTitle: 'பிறவிப் பெருங்கடல் நீந்துவர் நீந்தார் — இசையில் குறள் 10' },
   12: { youtubeUrl: 'https://youtube.com/shorts/wsk5ae0Reeo', youtubeTitle: 'துப்பார்க்குத் துப்பாய துப்பாக்கித் துப்பார்க்குத் — இசையில் குறள் 12' },
@@ -27,6 +27,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   51: { youtubeUrl: 'https://youtube.com/shorts/YvSPuQYTOZI', youtubeTitle: 'மனைக்தக்க மாண்புடையள் ஆகித்தற் கொண்டான் — இசையில் குறள் 51' },
   60: { youtubeUrl: 'https://youtube.com/shorts/mXOCD4iSLwk', youtubeTitle: 'மங்கலம் என்ப மனைமாட்சி மற்று அதன் — இசையில் குறள் 60' },
   66: { youtubeUrl: 'https://youtube.com/shorts/_tVi7eSnoQA', youtubeTitle: 'குழல்இனிது யாழ்இனிது என்பதம் மக்கள் — இசையில் குறள் 66' },
+  71: { youtubeUrl: 'https://youtu.be/rTkLZO7uaNY', youtubeTitle: 'அன்பிற்கும் உண்டோ அடைக்குந்தாழ் ஆர்வலர் புன்கணீர் பூசல் தரும்' },
   72: { youtubeUrl: 'https://youtube.com/shorts/qChLIRzaImA', youtubeTitle: 'அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார் — இசையில் குறள் 72' },
   73: { youtubeUrl: 'https://youtube.com/shorts/g7sPb-wn7b8', youtubeTitle: 'அன்போடு இயைந்த வழக்கென்ப ஆருயிர்க்கு — இசையில் குறள் 73' },
   85: { youtubeUrl: 'https://youtube.com/shorts/hg-fYar-rCg', youtubeTitle: 'வித்தும் இடல்வேண்டும் கொல்லோ விருந்தோம்பி — இசையில் குறள் 85' },
@@ -44,6 +45,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   191: { youtubeUrl: 'https://youtube.com/shorts/YDvO7jJReDk', youtubeTitle: 'பல்லார் முனியப் பயனில சொல்லுவான் — இசையில் குறள் 191' },
   205: { youtubeUrl: 'https://youtube.com/shorts/czAGjxa0ItI', youtubeTitle: 'இலன்என்று தீயவை செய்யற்க செய்யின் — இசையில் குறள் 205' },
   215: { youtubeUrl: 'https://youtube.com/shorts/KaTr0reoN2U', youtubeTitle: 'ஊருணி நீர்நிறைந் தற்றே உலகவாம் — இசையில் குறள் 215' },
+  221: { youtubeUrl: 'https://youtube.com/shorts/WtTh2QFUhzs', youtubeTitle: 'வறியார்க்கொன்று ஈவதே ஈகைமற் றெல்லாம் குறியெதிர்ப்பை நீர துடைத்து' },
   222: { youtubeUrl: 'https://youtube.com/shorts/kpetyjL55eY', youtubeTitle: 'நல்லாறு எனினும் கொளல்தீது மேலுலகம் இல்லெனினும் ஈதலே நன்று' },
   231: { youtubeUrl: 'https://youtube.com/shorts/QDJMzi5qP54', youtubeTitle: 'ஈதல் இசைபட வாழ்தல் அதுவல்லது — இசையில் குறள் 231' },
   241: { youtubeUrl: 'https://youtube.com/shorts/UGG769HJcLA', youtubeTitle: 'அருட்செல்வம் செல்வத்துள் செல்வம் பொருட்செல்வம் — இசையில் குறள் 241' },
@@ -64,7 +66,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   371: { youtubeUrl: 'https://youtu.be/D9lAeaSEwSc', youtubeTitle: 'ஆகூழால் தோன்றும் அசைவின்மை கைப்பொருள் போகூழால் தோன்றும் மடி' },
   380: { youtubeUrl: 'https://youtube.com/shorts/AiOzSjI0rxs', youtubeTitle: 'ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380' },
 
-  // ── பொருட்பால் (58 பாடல்கள்) ──
+  // ── பொருட்பால் (59 பாடல்கள்) ──
   393: { youtubeUrl: 'https://youtu.be/bxKjz9Og7Nk', youtubeTitle: 'கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு புண்ணுடையர் கல்லா தவர்' },
   402: { youtubeUrl: 'https://youtube.com/shorts/89cUYGyJeFY', youtubeTitle: 'கல்லாதான் சொற்கா முறுதல் முலையிரண்டும் — இசையில் குறள் 402' },
   416: { youtubeUrl: 'https://youtube.com/shorts/X0RT5IOdDso', youtubeTitle: 'எனைத்தானும் நல்லவை கேட்க அனைத்தானும் — இசையில் குறள் 416' },
@@ -88,6 +90,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   582: { youtubeUrl: 'https://youtube.com/shorts/XOoRqffRrTo', youtubeTitle: 'எல்லார்க்கும் எல்லாம் நிகழ்பவை எஞ்ஞான்றும் — இசையில் குறள் 582' },
   591: { youtubeUrl: 'https://youtube.com/shorts/v6i_LhoHgbI', youtubeTitle: 'உடையர் எனப்படுவது ஊக்கம் அஃதில்லார் — இசையில் குறள் 591' },
   600: { youtubeUrl: 'https://youtube.com/shorts/kWYljVzn-xA', youtubeTitle: 'உரமொருவற்கு உள்ள வெறுக்கைஅஃ தில்லார் — இசையில் குறள் 600' },
+  614: { youtubeUrl: 'https://youtu.be/NIr0YIl1Ce8', youtubeTitle: 'தாளாண்மை இல்லாதான் வேளாண்மை பேடிகை வாளாண்மை போலக் கெடும்' },
   631: { youtubeUrl: 'https://youtube.com/shorts/mJn5hx0F2R0', youtubeTitle: 'கருவியும் காலமும் செய்கையும் செய்யும் — இசையில் குறள் 631' },
   641: { youtubeUrl: 'https://youtube.com/shorts/JIo7ZHRwEIg', youtubeTitle: 'நாநலம் என்னும் நலனுடைமை அந்நலம் — இசையில் குறள் 641' },
   651: { youtubeUrl: 'https://youtube.com/shorts/qPFVMYTMH7A', youtubeTitle: 'துணைநலம் ஆக்கம் த்ருஉம் வினைநலம் வேண்டிய எல்லாந் தரும்' },
