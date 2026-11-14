@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Volume2, Play, Image as ImageIcon, Bookmark, Share2, Edit3, Loader2, Network, PlayCircle } from 'lucide-react';
 import { getKuralByNumber } from '../data/kurals';
-import { useMapData, topicColor, similarReason } from '../utils/kuralMapData';
+import { useMapData, PAAL_COLORS } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
 import { KuralCouplet } from './KuralCouplet';
 import { kuralAudio } from '../utils/audioPlayer';
@@ -356,7 +356,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               <div className="mt-6">
                 <h4 className="text-sm font-bold mb-2 text-emerald-800 dark:text-emerald-400">இதைப் போன்ற குறள்கள்</h4>
                 <div className="space-y-1.5">
-                  {mapData.k[kural.number - 1][3].slice(0, 6).map((n) => {
+                  {mapData.k[kural.number - 1].slice(0, 6).map((n) => {
                     const s = getKuralByNumber(n);
                     return (
                       <button
@@ -366,7 +366,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
                           isDark ? 'border-[#312A21] hover:bg-white/5' : 'border-[#EEE8DC] hover:bg-stone-50'
                         }`}
                       >
-                        <span className="mt-2 w-2 h-2 rounded-full shrink-0" style={{ background: topicColor(mapData.k[n - 1][2]) }} />
+                        <span className="mt-2 w-2 h-2 rounded-full shrink-0" style={{ background: PAAL_COLORS[s.paal] }} />
                         <span className="min-w-0">
                           <span className="block font-tamil-sans text-[14.5px] leading-snug">
                             {s.line1}
@@ -377,7 +377,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
                             <span className="font-semibold text-amber-700 dark:text-amber-400">{n}</span>
                             <span>· {s.athikaramTamil}</span>
                             <span className="text-emerald-700 dark:text-emerald-400">
-                              · {similarReason(mapData, kural.number, n, s.athikaramNumber === kural.athikaramNumber)}
+                              · {s.athikaramNumber === kural.athikaramNumber ? 'இதே அதிகாரம்' : 'வேறு அதிகாரம் · ஒத்த பொருள்'}
                             </span>
                             {s.media?.youtubeUrl && (
                               <span className="inline-flex items-center gap-0.5 text-amber-700 dark:text-amber-400">
