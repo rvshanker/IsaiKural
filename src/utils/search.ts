@@ -17,6 +17,16 @@ export function normalizeForSearch(text: string): string {
     .trim();
 }
 
+const wordStartCache = new Map<string, RegExp>();
+function wordStart(w: string): RegExp {
+  let re = wordStartCache.get(w);
+  if (!re) {
+    re = new RegExp(`(^|[^a-z])${w.replace(/[^a-z0-9]/g, '')}`);
+    wordStartCache.set(w, re);
+  }
+  return re;
+}
+
 /** Same as normalizeForSearch, with every space removed (Kurals are split into words differently in different sources). */
 const compact = (text: string) => normalizeForSearch(text).replace(/ /g, '');
 
@@ -65,6 +75,13 @@ export function kuralMatchesSearch(k: Kural, query: string): boolean {
   const q = normalizeForSearch(raw);
   if (!q) return true;
   const { couplet, coupletCompact, other } = indexFor(k);
+
+  // English / transliteration: match from the start of a word, so "rain" finds "rain" and "rainy"
+  // but not "restrain" or "train"
+  if (/^[a-z0-9 ]+$/.test(q)) {
+    const words = q.split(' ').filter(Boolean);
+    return words.every(w => wordStart(w).test(other));
+  }
 
   // Phrase anywhere in the couplet (spacing-insensitive) or in the other fields
   if (coupletCompact.includes(compact(raw))) return true;
