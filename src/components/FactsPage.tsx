@@ -96,13 +96,74 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
           <Fact title="அனிச்சம் — மிக மென்மையான மலர்" en="The anicham flower, said to wilt at a mere sniff, appears in 4 couplets: once for how gently a guest must be treated, and three times to praise the beloved's tenderness.">
             முகர்ந்தாலே வாடும் அனிச்ச மலர் 4 குறள்களில் வருகிறது. விருந்தினர் முகம் கோணினாலே வாடுவர் என்று விருந்தோம்பலில் (<KuralLink n={90} />); காதலி அனிச்சத்தை விட மென்மையானவள் என்று நலம் புனைந்துரைத்தலில் மூன்று முறை (<KuralLink n={1111} />, <KuralLink n={1115} />, <KuralLink n={1120} />).
           </Fact>
-          <Fact title="அதிகம் வரும் சொல் — 'படும்'" en="The most frequent word is படும் (42 couplets), followed by தரும் (37) and கெடும் (28).">
-            “படும்” 42 குறள்களில், “தரும்” 37 குறள்களில், “கெடும்” 28 குறள்களில் வருகின்றன — எது நன்மை தரும், எது கெடுக்கும் என்று சொல்லும் நூல் இது.
-          </Fact>
         </div>
         <p className={`mt-2 text-[12px] ${muted}`}>
           இந்தப் பகுதியின் எண்ணிக்கைகள் இத்தளத்தில் உள்ள குறள் பாடத்தைக் கொண்டு கணக்கிடப்பட்டவை. · Counts in this section are worked out from the Kural text on this site.
         </p>
+      </Section>
+
+      <Section ta="எண்களின் கதை" en="By the numbers: what a word-by-word count of the 1330 couplets shows">
+        <div className="grid gap-3 sm:grid-cols-2 items-start">
+          {/* three books as one bar */}
+          <div className={`rounded-2xl border px-5 py-4 ${card}`}>
+            <h3 className={`font-tamil-sans text-[17px] font-bold ${ink}`}>பாதிக்கு மேல் பொருட்பால்</h3>
+            <div className="mt-3 flex h-7 w-full overflow-hidden rounded-full">
+              {[
+                { ta: 'அறம்', n: 380, c: '#F2C879' },
+                { ta: 'பொருள்', n: 700, c: '#9BDB6A' },
+                { ta: 'இன்பம்', n: 250, c: '#E8549A' },
+              ].map((p) => (
+                <div key={p.ta} className="flex items-center justify-center text-[12px] font-semibold text-[#1B1A16]" style={{ width: `${(p.n / 1330) * 100}%`, background: p.c }}>
+                  {((p.n / 1330) * 100).toFixed(1)}%
+                </div>
+              ))}
+            </div>
+            <div className={`mt-2 flex justify-between font-tamil-sans text-[13px] ${body}`}>
+              <span>அறம் 380</span>
+              <span>பொருள் 700</span>
+              <span>இன்பம் 250</span>
+            </div>
+            <p className={`mt-2 text-[13px] ${muted}`}>More than half of all couplets (52.6%) are in the Book of Wealth.</p>
+          </div>
+
+          {/* last-word chart */}
+          <div className={`rounded-2xl border px-5 py-4 ${card}`}>
+            <h3 className={`font-tamil-sans text-[17px] font-bold ${ink}`}>அதிகம் வரும் சொற்கள் எல்லாம் கடைசிச் சொற்கள்</h3>
+            <div className="mt-3 space-y-1.5">
+              {[
+                ['படும்', 42],
+                ['தரும்', 37],
+                ['இல்', 32],
+                ['கெடும்', 28],
+                ['செயல்', 22],
+                ['தலை', 21],
+              ].map(([w, n]) => (
+                <div key={w as string} className="flex items-center gap-2">
+                  <span className={`w-16 shrink-0 font-tamil-sans text-[14px] ${ink}`}>{w}</span>
+                  <div className="flex-1 h-5 rounded-md bg-black/5 dark:bg-white/5 overflow-hidden">
+                    <div className="h-full rounded-md bg-[#5D9BEA]" style={{ width: `${((n as number) / 42) * 100}%` }} />
+                  </div>
+                  <span className={`w-7 text-right text-[13px] font-semibold ${accent}`}>{n}</span>
+                </div>
+              ))}
+            </div>
+            <p className={`mt-2 font-tamil-sans text-[14px] leading-relaxed ${body}`}>இந்தச் சொற்கள் ஒவ்வொன்றும் குறளின் இறுதிச் சொல்லாக மட்டுமே வருகின்றன — நடுவில் ஒரு முறைகூட இல்லை.</p>
+            <p className={`mt-1 text-[13px] ${muted}`}>Each of these top words appears only as the closing word of a couplet, never in the middle.</p>
+          </div>
+
+          <Fact title="கடைசி எழுத்தே அதிகம் வரும் எழுத்து" en="ன், the letter the book ends on, is also its most used letter: 2,112 times, ahead of ம் (1,915), ல் (1,461) and ர் (1,315).">
+            நூல் முடியும் எழுத்தான <b>ன்</b>, திருக்குறளில் அதிகம் வரும் எழுத்தும் கூட — 2,112 முறை. அடுத்து ம் (1,915), ல் (1,461), ர் (1,315). மொத்தம் சுமார் 40,900 எழுத்துகள்.
+          </Fact>
+          <Fact title="9,310 சீர்கள் — 6,300-க்கும் மேற்பட்ட சொல் வடிவங்கள்" en="1330 × 7 = 9,310 metrical words. About 6,340 different word forms are used, and about 5,180 of them appear only once.">
+            1330 குறள் × 7 சீர் = 9,310 சீர்கள். அவற்றில் சுமார் 6,340 வெவ்வேறு சொல் வடிவங்கள்; அவற்றில் ஏறத்தாழ 5,180 ஒரே ஒரு முறைதான் வருகின்றன. (சந்தியைப் பிரிக்கும் முறையைப் பொறுத்து எண்ணிக்கை சிறிது மாறும்.)
+          </Fact>
+          <Fact title="சிறிய குறளும் நீண்ட குறளும்" en="The shortest couplets have 23 letters (833, 1304, 1329); the longest have 39 (957, 1246).">
+            மிகச் சிறியவை 23 எழுத்துகள் — <KuralLink n={833} />, <KuralLink n={1304} />, <KuralLink n={1329} />. மிக நீளமானவை 39 எழுத்துகள் — <KuralLink n={957} />, <KuralLink n={1246} />.
+          </Fact>
+          <Fact title="பெயர் சொல்லப்படும் மலர்கள்" en="Named flowers: anicham (4 couplets), kuvalai, the blue water lily (1114), and the lotus, only in epithets such as தாமரையினாள் (617) and தாமரைக் கண்ணான் (1103).">
+            அனிச்சம் (4 குறள்கள்), குவளை (<KuralLink n={1114} />). தாமரை “தாமரையினாள்” (<KuralLink n={617} />), “தாமரைக் கண்ணான்” (<KuralLink n={1103} />) என்று பெயர்களுக்குள் மட்டும் வருகிறது. “மலர்” என்ற பொதுச் சொல் 5 குறள்களில் வருகிறது.
+          </Fact>
+        </div>
       </Section>
 
       <Section ta="நூலின் வரலாறு" en="History of the book">
