@@ -41,7 +41,7 @@ export function useMapData(enabled = true) {
 
 /** One colour per பால் */
 export const PAAL_COLORS: Record<Paal, string> = {
-  அறத்துப்பால்: '#4FA383',
-  பொருட்பால்: '#5D8FD0',
-  காமத்துப்பால்: '#D46F93',
+  அறத்துப்பால்: '#F2C879',
+  பொருட்பால்: '#9BDB6A',
+  காமத்துப்பால்: '#E8549A',
 };

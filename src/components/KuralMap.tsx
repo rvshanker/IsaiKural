@@ -54,8 +54,8 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  // the picture is 3:2: as wide as the page allows, but never taller than about 72% of the screen
-  const viewW = Math.round(Math.min(boxW, vh * 0.72 * (MAP_W / MAP_H), 1100));
+  // the picture is 3:2: as wide as the page allows, but no taller than 60% of the screen, so the results start right under it
+  const viewW = Math.round(Math.min(boxW, vh * 0.6 * (MAP_W / MAP_H), 1100));
   const viewH = Math.round((viewW * MAP_H) / MAP_W);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => loadPicture(() => setLoaded(true)), []);
@@ -83,15 +83,14 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
     [clampZoom]
   );
   useEffect(() => setZoom({ z: 1, ox: 0, oy: 0 }), [viewW]);
-  // Ctrl + scroll (and trackpad pinch) zooms the picture; plain scrolling still scrolls the page
+  // scrolling over the picture zooms it in and out (trackpad pinch too)
   useEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
     const onWheel = (e: WheelEvent) => {
-      if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       const rect = cv.getBoundingClientRect();
-      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * 0.01));
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0012)));
     };
     cv.addEventListener('wheel', onWheel, { passive: false });
     return () => cv.removeEventListener('wheel', onWheel);
@@ -259,16 +258,14 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
     return best;
   };
 
-  const showResults = () => setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 
   const openChapter = (a: number) => {
     setSel({ kind: 'chapter', a });
     setChapterFilter(null);
     setHover(null);
-    showResults();
   };
 
-  const runSearch = (q: string, scroll = true) => {
+  const runSearch = (q: string) => {
     setInput(q);
     setChapterFilter(null);
     const s = q.trim();
@@ -281,7 +278,6 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
       }
     }
     setSel({ kind: 'search', q: s });
-    if (scroll) showResults();
   };
 
   const typing = useRef(0);
@@ -290,7 +286,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
     window.clearTimeout(typing.current);
     // a Kural number opens only on Enter, so typing "12" on the way to "1281" doesn't open Kural 12
     if (/^\d+$/.test(q.trim())) return;
-    typing.current = window.setTimeout(() => runSearch(q, false), 400);
+    typing.current = window.setTimeout(() => runSearch(q), 400);
   };
 
   const clear = () => {
@@ -416,7 +412,7 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
           <h1 className="font-tamil-sans text-[20px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</h1>
         </div>
         <div className="font-tamil-sans text-[14px] text-[#A9B3AD] flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span>ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — 1 முதல் 133 வரை. பெரிதாக்க + அழுத்துங்கள்.</span>
+          <span>ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — 1 முதல் 133 வரை. உருட்டிப் பெரிதாக்கலாம், இழுத்து நகர்த்தலாம்.</span>
           {(Object.keys(PAAL_COLORS) as (keyof typeof PAAL_COLORS)[]).map((p) => (
             <span key={p} className="inline-flex items-center gap-1.5 text-[13px]">
               <span className="w-2.5 h-2.5 rounded-full" style={{ background: PAAL_COLORS[p] }} /> {p}
@@ -424,13 +420,13 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
           ))}
         </div>
 
-        {/* the picture: + / − buttons, pinch on phones, Ctrl + scroll or trackpad pinch on computers; drag to move when zoomed */}
+        {/* the picture: scroll or pinch to zoom, drag to move, or use the + / − buttons */}
         <div className="relative mt-2 mx-auto rounded-2xl overflow-hidden" style={{ width: viewW, height: viewH }}>
           <canvas
             ref={canvasRef}
             role="img"
             aria-label="திருவள்ளுவர் படம் — 133 அதிகாரங்களும் எண்ணிட்ட வட்டங்களாக"
-            style={{ width: viewW, height: viewH, cursor: hover ? 'pointer' : zoom.z > 1 ? 'grab' : 'default', touchAction: zoom.z > 1 ? 'none' : 'pan-y' }}
+            style={{ width: viewW, height: viewH, cursor: hover ? 'pointer' : zoom.z > 1 ? 'grab' : 'default', touchAction: 'none' }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
