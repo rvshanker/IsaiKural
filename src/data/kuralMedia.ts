@@ -62,6 +62,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   333: { youtubeUrl: 'https://youtube.com/shorts/e67CB9D2_YY', youtubeTitle: 'அற்கா இயல்பிற்றுச் செல்வம் அதுபெற்றால் — இசையில் குறள் 333' },
   341: { youtubeUrl: 'https://youtube.com/shorts/Sq2C8HVo2nk', youtubeTitle: 'யாதனின் யாதனின் நீங்கியான் நோதல் — இசையில் குறள் 341' },
   350: { youtubeUrl: 'https://youtube.com/shorts/2kkFK7DWfHU', youtubeTitle: 'பற்றுக பற்றற்றான் பற்றினை அப்பற்றைப் — இசையில் குறள் 350' },
+  351: { youtubeUrl: 'https://youtu.be/fp7AL4ZJCF0', youtubeTitle: 'பொருளல்ல வற்றைப் பொருளென்று உணரும் — இசையில் குறள் 351' },
   362: { youtubeUrl: 'https://youtube.com/shorts/gIMOkId845U', youtubeTitle: 'வேண்டுங்கால் வேண்டும் பிறவாமை மற்றது வேண்டாமை வேண்ட வரும்' },
   371: { youtubeUrl: 'https://youtu.be/D9lAeaSEwSc', youtubeTitle: 'ஆகூழால் தோன்றும் அசைவின்மை கைப்பொருள் போகூழால் தோன்றும் மடி' },
   380: { youtubeUrl: 'https://youtube.com/shorts/AiOzSjI0rxs', youtubeTitle: 'ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380' },
