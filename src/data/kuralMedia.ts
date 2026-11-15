@@ -66,6 +66,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   362: { youtubeUrl: 'https://youtube.com/shorts/gIMOkId845U', youtubeTitle: 'வேண்டுங்கால் வேண்டும் பிறவாமை மற்றது வேண்டாமை வேண்ட வரும்' },
   371: { youtubeUrl: 'https://youtu.be/D9lAeaSEwSc', youtubeTitle: 'ஆகூழால் தோன்றும் அசைவின்மை கைப்பொருள் போகூழால் தோன்றும் மடி' },
   380: { youtubeUrl: 'https://youtube.com/shorts/AiOzSjI0rxs', youtubeTitle: 'ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380' },
+  381: { youtubeUrl: 'https://youtube.com/shorts/cBABiLCt_sQ', youtubeTitle: 'படைகுடி கூழ்அமைச்சு நட்பரண் ஆறும் — இசையில் குறள் 381' },
 
   // ── பொருட்பால் (59 பாடல்கள்) ──
   393: { youtubeUrl: 'https://youtu.be/bxKjz9Og7Nk', youtubeTitle: 'கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு புண்ணுடையர் கல்லா தவர்' },
