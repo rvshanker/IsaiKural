@@ -139,6 +139,23 @@ export default function App() {
   // Only the daily kural and search are open by default; other sections collapse
   const [catalogOpen, setCatalogOpen] = useState<boolean>(false);
   const [route, setRoute] = useState<Route>(parseHash);
+
+  // A clear browser-tab / bookmark / share title for each page
+  useEffect(() => {
+    const site = 'இசையில் திருக்குறள்';
+    let t = `திருக்குறள் — ${site}`;
+    if (route.page === 'chapter') {
+      const a = ATHIKARAMS[route.n - 1];
+      if (a) t = `${a.number}. ${a.name} — ${site}`;
+    } else if (route.page === 'video') t = `குறள் ${route.n} · பாடல் — ${site}`;
+    else if (route.page === 'videos') t = `பாடல்கள் — ${site}`;
+    else if (route.page === 'kurals') t = `${route.paal === 'all' ? 'அனைத்து குறள்கள்' : route.paal} — ${site}`;
+    else if (route.page === 'search') t = `“${route.q}” தேடல் — ${site}`;
+    else if (route.page === 'saved') t = `சேமித்த குறள்கள் — ${site}`;
+    else if (route.page === 'map') t = `குறள் வரைபடம் — ${site}`;
+    else if (route.page === 'facts') t = `சுவையான உண்மைகள் — ${site}`;
+    document.title = t;
+  }, [route]);
   const routeRef = useRef<Route>(route);
   const homeScrollY = useRef(0);
   const [lastChapter, setLastChapter] = useState<number | 'all'>('all');
@@ -635,10 +652,7 @@ export default function App() {
         {/* Sub-group (Iyal) tabs for the selected Paal: e.g. பாயிரவியல் – 4 | இல்லறவியல் – 20 | துறவறவியல் – 13 | ஊழியல் – 1 */}
         {route.page === 'kurals' && route.paal !== 'all' && activePaalIyals.length > 0 && (
           <div className="mb-4">
-            <div className={`text-[13px] font-tamil-sans font-bold mb-1.5 ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-              {route.paal} – {ATHIKARAMS.filter(a => a.paal === route.paal).length} அதிகாரங்கள்
-            </div>
-            <div className="flex flex-wrap gap-1.5 pb-1">
+            <div className="-mx-3 px-3 sm:mx-0 sm:px-0 flex sm:flex-wrap gap-1.5 pb-1 overflow-x-auto [scrollbar-width:none]">
               <button
                 onClick={() => setSelectedIyalFilter('all')}
                 className={`shrink-0 px-3 py-1.5 rounded-lg sm:rounded-full text-xs font-medium border transition-colors cursor-pointer ${

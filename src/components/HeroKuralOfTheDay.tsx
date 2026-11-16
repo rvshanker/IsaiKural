@@ -78,7 +78,7 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
           <div className="flex items-center justify-center gap-4 sm:gap-5">
             <span className={`hidden sm:block h-px w-14 ${isDark ? 'bg-[#EEE8DC]/50' : 'bg-[#16392E]/60'}`} />
             <BookGlyph className={`w-8 h-7 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} />
-            <h2 className="font-heading text-[19px] sm:text-[21px] tracking-[0.01em]">Random Kural of the Day</h2>
+            <h2 className="leading-tight"><span className="block font-tamil-sans font-bold text-[18px] sm:text-[20px]">இன்றைய குறள்</span><span className="block font-heading text-[12.5px] sm:text-[13px] opacity-70 tracking-[0.02em]">Kural of the Day</span></h2>
             <span className={`hidden sm:block h-px w-14 ${isDark ? 'bg-[#EEE8DC]/50' : 'bg-[#16392E]/60'}`} />
           </div>
 

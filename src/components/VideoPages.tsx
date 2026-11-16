@@ -52,8 +52,8 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ kurals, onOpen, play
       {/* Filtering Bar: Paal tabs & Quick search */}
       <div className="mb-6 space-y-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          {/* Paal filter tabs */}
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          {/* Paal filter tabs: one sideways-scrolling row on phones */}
+          <div className="-mx-3 px-3 sm:mx-0 sm:px-0 flex sm:flex-wrap gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none]">
             {[
               { key: 'all', label: 'அனைத்தும்', count: paalCounts.all },
               { key: 'அறத்துப்பால்', label: 'அறத்துப்பால்', count: paalCounts.aram },
@@ -65,7 +65,7 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ kurals, onOpen, play
                 <button
                   key={tab.key}
                   onClick={() => setSelectedPaal(tab.key)}
-                  className={`px-3 py-1.5 rounded-full text-[12.5px] sm:text-[13px] font-medium transition-all cursor-pointer border ${
+                  className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full text-[12.5px] sm:text-[13px] font-medium transition-all cursor-pointer border ${
                     active
                       ? isDark
                         ? 'bg-[#1F3A2F] border-[#7FB39A] text-[#E3EEE6] font-semibold'
