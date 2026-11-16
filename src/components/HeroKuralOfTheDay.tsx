@@ -82,12 +82,24 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
             <span className={`hidden sm:block h-px w-14 ${isDark ? 'bg-[#EEE8DC]/50' : 'bg-[#16392E]/60'}`} />
           </div>
 
-          {/* Couplet — line 1 (4 words) and line 2 (3 words), each kept on its own row */}
-          <button
+          {/* The whole middle of the card (Kural, number, meaning) opens the full details;
+              the song button inside it opens the video instead */}
+          <div
+            role="button"
+            tabIndex={0}
             onClick={() => onOpenDetails(kural)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onOpenDetails(kural);
+              }
+            }}
             title="முழு விளக்கம் & உரைகள்"
-            className="block w-full mt-5 cursor-pointer rounded-lg focus-visible:outline-2 focus-visible:outline-[#1D4234]"
+            className={`group block w-full mt-4 px-2 py-2 -mx-0 cursor-pointer rounded-xl transition-colors focus-visible:outline-2 focus-visible:outline-[#1D4234] ${
+              isDark ? 'hover:bg-white/[0.04]' : 'hover:bg-[#1D4234]/[0.04]'
+            }`}
           >
+            {/* Couplet — line 1 (4 words) and line 2 (3 words), each kept on its own row */}
             <KuralCouplet
               line1={kural.line1}
               line2={kural.line2}
@@ -95,30 +107,37 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
               align="center"
               className="font-tamil-sans font-bold leading-[1.6]"
             />
-          </button>
 
-          <div className={`mt-3 text-[15px] flex items-center justify-center gap-2 ${isDark ? 'text-[#C9C2B3]' : 'text-[#4E5E56]'}`}>
-            <span>— குறள் {kural.number} —</span>
-            {kural.media?.youtubeUrl && onOpenVideo && (
-              <button
-                type="button"
-                onClick={() => onOpenVideo(kural)}
-                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-600 hover:bg-red-700 text-white shadow-2xs transition-transform active:scale-95 cursor-pointer"
-                title="இக்குறளுக்குரிய காணொளியைக் காண்க"
-              >
-                <Play className="w-2.5 h-2.5 fill-current" />
-                <span>காணொளி</span>
-              </button>
-            )}
+            <div className={`mt-3 text-[15px] flex items-center justify-center gap-2 ${isDark ? 'text-[#C9C2B3]' : 'text-[#4E5E56]'}`}>
+              <span>— குறள் {kural.number} —</span>
+              {kural.media?.youtubeUrl && onOpenVideo && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenVideo(kural);
+                  }}
+                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-600 hover:bg-red-700 text-white shadow-2xs transition-transform active:scale-95 cursor-pointer"
+                  title="இக்குறளுக்குரிய காணொளியைக் காண்க"
+                >
+                  <Play className="w-2.5 h-2.5 fill-current" />
+                  <span>காணொளி</span>
+                </button>
+              )}
+            </div>
+
+            <p
+              className={`font-tamil-sans mt-3 text-[15px] sm:text-[17px] leading-[1.75] max-w-[520px] mx-auto line-clamp-3 ${
+                isDark ? 'text-[#DCD5C7]' : 'text-[#2E3B35]'
+              }`}
+            >
+              {kural.commentaries.muVa}
+            </p>
+
+            <span className={`mt-2 inline-flex items-center gap-0.5 font-tamil-sans text-[13.5px] font-semibold underline-offset-4 group-hover:underline ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`}>
+              முழு விளக்கம் காண்க <ChevronRight className="w-4 h-4" />
+            </span>
           </div>
-
-          <p
-            className={`font-tamil-sans mt-3 text-[15px] sm:text-[17px] leading-[1.75] max-w-[520px] mx-auto line-clamp-3 ${
-              isDark ? 'text-[#DCD5C7]' : 'text-[#2E3B35]'
-            }`}
-          >
-            {kural.commentaries.muVa}
-          </p>
 
           {/* Controls */}
           <div className="mt-3 flex items-center justify-between">
