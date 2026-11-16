@@ -108,18 +108,8 @@ export default function App() {
   const [userMedia, setUserMedia] = useState<UserMediaMap>(loadUserMedia);
   const [bookmarks, setBookmarks] = useState<number[]>(loadBookmarks);
 
-  // Language state
-  const [language, setLanguage] = useState<'en' | 'ta'>(() => {
-    return (localStorage.getItem('thirukkural_lang') as 'en' | 'ta') || 'ta';
-  });
-
-  const handleToggleLanguage = () => {
-    setLanguage(prev => {
-      const next = prev === 'en' ? 'ta' : 'en';
-      localStorage.setItem('thirukkural_lang', next);
-      return next;
-    });
-  };
+  // The menu is always in Tamil (the old English switch only changed a few menu words, so it was removed)
+  const language = 'ta' as const;
 
   // Modals state
   const [selectedDetailKural, setSelectedDetailKural] = useState<Kural | null>(null);
@@ -391,7 +381,6 @@ export default function App() {
         bookmarkCount={bookmarks.length}
         activeNav={activeNav}
         language={language}
-        onToggleLanguage={handleToggleLanguage}
       />}
 
       {route.page === 'home' ? (

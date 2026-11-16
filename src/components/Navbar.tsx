@@ -11,7 +11,6 @@ import {
   Dices,
   Home,
   LayoutGrid,
-  Languages,
   PlayCircle,
   Volume2,
   UploadCloud,
@@ -43,7 +42,6 @@ interface NavbarProps {
   bookmarkCount: number;
   activeNav: string;
   language: 'en' | 'ta';
-  onToggleLanguage: () => void;
 }
 
 /** Line-art lotus used as the site mark. */
@@ -73,7 +71,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleTheme,
   bookmarkCount,
   language,
-  onToggleLanguage,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearch, setMobileSearch] = useState(false);
@@ -228,9 +225,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ))}
                 </div>
                 <div className="my-2 h-px bg-white/10" />
-                <button onClick={go(onToggleLanguage)} className={menuItem}>
-                  <Languages className="w-4 h-4" /> {isTamil ? 'English' : 'தமிழ்'}
-                </button>
                 <button onClick={go(onToggleTheme)} className={menuItem}>
                   {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   {isDark ? (isTamil ? 'பகல் தோற்றம்' : 'Light mode') : isTamil ? 'இரவுத் தோற்றம்' : 'Dark mode'}
