@@ -12,7 +12,7 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
  * ─────────────────────────────────────────────────────────────
  *  SHARED MEDIA — visible to EVERY visitor of the site
  * ─────────────────────────────────────────────────────────────
- *  All 132 musical renditions from the "இசையில் திருக்குறள்" series.
+ *  All 133 musical renditions from the "இசையில் திருக்குறள்" series.
  */
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
   // ── அறத்துப்பால் (48 பாடல்கள்) ──
@@ -68,7 +68,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   380: { youtubeUrl: 'https://youtube.com/shorts/AiOzSjI0rxs', youtubeTitle: 'ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380' },
   381: { youtubeUrl: 'https://youtube.com/shorts/cBABiLCt_sQ', youtubeTitle: 'படைகுடி கூழ்அமைச்சு நட்பரண் ஆறும் — இசையில் குறள் 381' },
 
-  // ── பொருட்பால் (59 பாடல்கள்) ──
+  // ── பொருட்பால் (60 பாடல்கள்) ──
   393: { youtubeUrl: 'https://youtu.be/bxKjz9Og7Nk', youtubeTitle: 'கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு புண்ணுடையர் கல்லா தவர்' },
   402: { youtubeUrl: 'https://youtube.com/shorts/89cUYGyJeFY', youtubeTitle: 'கல்லாதான் சொற்கா முறுதல் முலையிரண்டும் — இசையில் குறள் 402' },
   416: { youtubeUrl: 'https://youtube.com/shorts/X0RT5IOdDso', youtubeTitle: 'எனைத்தானும் நல்லவை கேட்க அனைத்தானும் — இசையில் குறள் 416' },
@@ -79,6 +79,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   441: { youtubeUrl: 'https://youtube.com/shorts/6OnJuRuf8rQ', youtubeTitle: 'அறனறிந்து மூத்த அறிவுடையார் கேண்மை — இசையில் குறள் 441' },
   451: { youtubeUrl: 'https://youtube.com/shorts/yxikY8bwoIc', youtubeTitle: 'சிற்றினம் அஞ்சும் பெருமை சிறுமைதான் — இசையில் குறள் 451' },
   461: { youtubeUrl: 'https://youtube.com/shorts/7HPD3BPUR6I', youtubeTitle: 'அழிவதூஉம் ஆவதூஉம் ஆகி வழிபயக்கும் — இசையில் குறள் 461' },
+  471: { youtubeUrl: 'https://youtube.com/shorts/oOHlvo07xRs', youtubeTitle: 'வினைவலியும் தன்வலியும் மாற்றான் வலியும் துணைவலியும் தூக்கிச் செயல்' },
   481: { youtubeUrl: 'https://youtube.com/shorts/7nT_YErl7uQ', youtubeTitle: 'பகல்வெல்லும் கூகையைக் காக்கை இகல்வெல்லும் — இசையில் குறள் 481' },
   491: { youtubeUrl: 'https://youtube.com/shorts/Yh4RjCisLMM', youtubeTitle: 'தொடங்கற்க எவ்வினையும் எள்ளற்க முற்றும் — இசையில் குறள் 491' },
   501: { youtubeUrl: 'https://youtube.com/shorts/oBTQLWH0Zgc', youtubeTitle: 'அறம்பொருள் இன்பம் உயிரச்சம் நான்கின் — இசையில் குறள் 501' },
