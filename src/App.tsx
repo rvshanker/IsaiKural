@@ -762,6 +762,7 @@ export default function App() {
         onOpenVideo={(k) => setVideoModalKural(k)}
         onOpenImage={(k) => setImageModalKural(k)}
         onEditMedia={editMediaHandler}
+        onNavigate={(k) => setSelectedDetailKural(k)}
         isDark={isDark}
       />
 

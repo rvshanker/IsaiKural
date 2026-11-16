@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Volume2, Play, Image as ImageIcon, Bookmark, Share2, Edit3, Loader2, Network, PlayCircle } from 'lucide-react';
+import { X, Volume2, Play, Image as ImageIcon, Bookmark, Share2, Edit3, Loader2, Network, PlayCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getKuralByNumber } from '../data/kurals';
 import { useMapData, PAAL_COLORS } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
@@ -19,6 +19,8 @@ interface KuralDetailModalProps {
   onOpenKural?: (kural: Kural) => void;
   /** show this Kural on the Kural map */
   onShowOnMap?: (num: number) => void;
+  /** step to the previous / next Kural without closing the window */
+  onNavigate?: (kural: Kural) => void;
   isDark: boolean;
 }
 
@@ -32,6 +34,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
   onEditMedia,
   onOpenKural,
   onShowOnMap,
+  onNavigate,
   isDark,
 }) => {
   const { data: mapData } = useMapData(!!kural && !!onOpenKural);
@@ -53,7 +56,26 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
     return unsubscribe;
   }, [kural?.number]);
 
+  const bodyRef = React.useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    bodyRef.current?.scrollTo({ top: 0 });
+  }, [kural?.number]);
+  useEffect(() => {
+    if (!kural) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [!!kural]);
+
   if (!kural) return null;
+
+  const prevKural = kural.number > 1 ? getKuralByNumber(kural.number - 1) : null;
+  const nextKural = kural.number < 1330 ? getKuralByNumber(kural.number + 1) : null;
 
   const handlePlayAudio = () => {
     kuralAudio.playKural(kural.number, kural.line1, kural.line2);
@@ -63,34 +85,39 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
   const hasImage = !!kural.media?.imageUrl;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div 
-        className={`relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-2xl shadow-2xl border overflow-hidden ${
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div
+        className={`relative w-full max-w-3xl h-[94dvh] sm:h-auto sm:max-h-[90vh] flex flex-col rounded-t-2xl sm:rounded-2xl shadow-2xl border overflow-hidden ${
           isDark ? 'bg-[#181512] border-[#312A21] text-stone-100' : 'bg-white border-[#E8E2D5] text-stone-900'
         }`}
       >
-        {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200 dark:border-stone-800">
-          <div className="flex items-center gap-2 text-xs">
-            <span className="px-2.5 py-1 rounded-full bg-[#E5A93C] text-[#1B1408] font-bold">
+        {/* Top Header: number and chapter on the left, bookmark and close on the right */}
+        <div className="flex items-start justify-between gap-3 px-4 sm:px-6 pt-3 pb-3 sm:py-4 border-b border-stone-200 dark:border-stone-800">
+          <div className="min-w-0 flex items-start gap-2.5">
+            <span className="shrink-0 mt-0.5 px-2.5 py-1 rounded-full bg-[#E5A93C] text-[#1B1408] text-[13px] font-bold whitespace-nowrap">
               குறள் {kural.number}
             </span>
-            <span className="font-semibold text-[#8C2D19] dark:text-[#E5A93C]">
-              {kural.athikaramTamil} ({kural.athikaramEnglish})
-            </span>
-            <span className="text-stone-400">·</span>
-            <span className="text-stone-500 dark:text-stone-400">
-              {kural.paal}
-            </span>
+            <div className="min-w-0 leading-tight">
+              <div className="font-tamil-sans text-[15px] font-bold text-[#8C2D19] dark:text-[#E5A93C] truncate">
+                {kural.athikaramNumber}. {kural.athikaramTamil}
+              </div>
+              <div className="text-[12px] text-stone-500 dark:text-stone-400 truncate">
+                {kural.athikaramEnglish} · {kural.paal}
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               onClick={() => onToggleBookmark(kural.number)}
               title={isBookmarked ? 'Remove Bookmark' : 'Bookmark'}
+              aria-label={isBookmarked ? 'Remove Bookmark' : 'Bookmark'}
               className={`p-2 rounded-full border transition-colors ${
-                isBookmarked 
-                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 border-amber-300' 
+                isBookmarked
+                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 border-amber-300'
                   : 'border-stone-200 dark:border-stone-700 text-stone-500 hover:text-stone-900 dark:hover:text-white'
               }`}
             >
@@ -99,7 +126,8 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+              aria-label="மூடுக"
+              className="p-2 rounded-full text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -107,9 +135,9 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="overflow-y-auto p-6 space-y-6">
+        <div ref={bodyRef} className="flex-1 overflow-y-auto px-4 py-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* Main Couplet */}
-          <div className="space-y-2 p-5 rounded-xl bg-[#F9F7F2] dark:bg-[#201C18] border border-[#ECE5D8] dark:border-[#2E271D]">
+          <div className="space-y-2 px-3.5 py-4 sm:p-5 rounded-xl bg-[#F9F7F2] dark:bg-[#201C18] border border-[#ECE5D8] dark:border-[#2E271D]">
             <KuralCouplet
               line1={kural.line1}
               line2={kural.line2}
@@ -123,8 +151,9 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               </p>
             )}
 
-            {/* Media & Audio Action Bar */}
-            <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-stone-200/60 dark:border-stone-800">
+            {/* Media & Audio Action Bar (only when there is something to show) */}
+            {(AUDIO_ENABLED || hasVideo || hasImage || onEditMedia) && (
+            <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-stone-200/60 dark:border-stone-800">
               {AUDIO_ENABLED && <>
               {/* Listen Audio */}
               <button
@@ -188,10 +217,10 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               {hasVideo && (
                 <button
                   onClick={() => onOpenVideo(kural)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400 border border-red-200 dark:border-red-900/40 hover:bg-red-100 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-semibold bg-[#E5A93C] text-[#1B1408] hover:brightness-105 transition"
                 >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>காணொளி விளக்கம் (Watch Video)</span>
+                  <Play className="w-4 h-4 fill-current" />
+                  <span>இசையில் கேளுங்கள்</span>
                 </button>
               )}
 
@@ -215,131 +244,89 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
                 <span>{hasVideo || hasImage ? 'ஊடகம் மாற்று' : 'காணொளி / படம் இணை'}</span>
               </button>}
             </div>
+            )}
           </div>
 
-          {/* Commentator Switcher Tabs */}
+          {/* Commentator Switcher Tabs: one scrolling row of short names */}
           <div>
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
-                உரையாசிரியர்கள் (Classical Tamil Commentaries)
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-1 p-1 rounded-xl bg-stone-100 dark:bg-[#201C18] border border-stone-200 dark:border-stone-800 text-xs">
-              <button
-                onClick={() => setSelectedCommentator('all')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'all'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                அனைத்து உரைகளும் (All)
-              </button>
-              <button
-                onClick={() => setSelectedCommentator('muVa')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'muVa'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                மு. வரதராசனார்
-              </button>
-              <button
-                onClick={() => setSelectedCommentator('karunanidhi')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'karunanidhi'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                மு. கருணாநிதி
-              </button>
-              <button
-                onClick={() => setSelectedCommentator('solomon')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'solomon'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                சாலமன் பாப்பையா
-              </button>
-              <button
-                onClick={() => setSelectedCommentator('parimelazhagar')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'parimelazhagar'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                பரிமேலழகர்
-              </button>
-              <button
-                onClick={() => setSelectedCommentator('english')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  selectedCommentator === 'english'
-                    ? 'bg-[#E5A93C] text-[#1B1408] font-semibold shadow-xs'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                }`}
-              >
-                English
-              </button>
+            <div className="mb-2 text-xs font-bold tracking-wide text-stone-500 dark:text-stone-400 font-tamil-sans">உரைகள் · Commentaries</div>
+            <div className="-mx-4 px-4 sm:mx-0 sm:px-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] pb-1">
+              {(
+                [
+                  ['all', 'அனைத்தும்'],
+                  ['muVa', 'மு.வ.'],
+                  ['karunanidhi', 'கலைஞர்'],
+                  ['solomon', 'சாலமன் பாப்பையா'],
+                  ['parimelazhagar', 'பரிமேலழகர்'],
+                  ['english', 'English'],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() => setSelectedCommentator(key)}
+                  className={`shrink-0 px-3.5 py-1.5 rounded-full text-[13px] font-tamil-sans border transition-colors whitespace-nowrap ${
+                    selectedCommentator === key
+                      ? 'bg-[#E5A93C] border-[#E5A93C] text-[#1B1408] font-semibold'
+                      : 'border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             {/* Commentary Cards Display */}
             <div className="mt-4 space-y-3">
               {(selectedCommentator === 'all' || selectedCommentator === 'muVa') && kural.commentaries.muVa && (
-                <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
                   <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
                     மு. வரதராசனார் உரை:
                   </h5>
-                  <p className="text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
                     {kural.commentaries.muVa}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'karunanidhi') && kural.commentaries.karunanidhi && (
-                <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-orange-500/5 border border-orange-500/20">
                   <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
                     கலைஞர் மு. கருணாநிதி உரை:
                   </h5>
-                  <p className="text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
                     {kural.commentaries.karunanidhi}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'solomon') && kural.commentaries.solomon && (
-                <div className="p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                   <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
                     சாலமன் பாப்பையா உரை:
                   </h5>
-                  <p className="text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
                     {kural.commentaries.solomon}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'parimelazhagar') && kural.commentaries.parimelazhagar && (
-                <div className="p-4 rounded-xl bg-stone-500/5 border border-stone-500/20">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-stone-500/5 border border-stone-500/20">
                   <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
                     பரிமேலழகர் உரை (Classical Commentary):
                   </h5>
-                  <p className="text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
                     {kural.commentaries.parimelazhagar}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'english') && (
-                <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
                   <h5 className="text-xs font-bold text-blue-700 dark:text-blue-400 mb-1">
                     English Translation & Explanation:
                   </h5>
-                  <p className="text-sm text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[15px] sm:text-sm text-stone-800 dark:text-stone-200 leading-relaxed">
                     {kural.commentaries.english}
                   </p>
                   {kural.commentaries.englishExplanation && (
@@ -395,9 +382,26 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="flex items-center justify-between gap-2 px-6 py-3 border-t border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-[#1C1916]">
-          {onShowOnMap ? (
+        {/* Modal Footer: previous / next Kural; the close button only on bigger screens (phones have ✕ at the top) */}
+        <div className="flex items-center justify-between gap-2 px-4 sm:px-6 py-2.5 sm:py-3 pb-[max(0.625rem,env(safe-area-inset-bottom))] border-t border-stone-200 dark:border-stone-800 bg-stone-50/80 dark:bg-[#1C1916]">
+          {onNavigate ? (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => prevKural && onNavigate(prevKural)}
+                disabled={!prevKural}
+                className="inline-flex items-center gap-1 pl-2.5 pr-3.5 py-2 rounded-full border border-stone-200 dark:border-stone-700 text-[13px] font-semibold disabled:opacity-35 hover:bg-stone-100 dark:hover:bg-stone-800"
+              >
+                <ChevronLeft className="w-4 h-4" /> {prevKural ? prevKural.number : ''}
+              </button>
+              <button
+                onClick={() => nextKural && onNavigate(nextKural)}
+                disabled={!nextKural}
+                className="inline-flex items-center gap-1 pl-3.5 pr-2.5 py-2 rounded-full border border-stone-200 dark:border-stone-700 text-[13px] font-semibold disabled:opacity-35 hover:bg-stone-100 dark:hover:bg-stone-800"
+              >
+                {nextKural ? nextKural.number : ''} <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          ) : onShowOnMap ? (
             <button
               onClick={() => onShowOnMap(kural.number)}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-emerald-700/30 text-emerald-800 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-500/10 transition-colors"
