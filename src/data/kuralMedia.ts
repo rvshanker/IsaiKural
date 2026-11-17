@@ -12,7 +12,7 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
  * ─────────────────────────────────────────────────────────────
  *  SHARED MEDIA — visible to EVERY visitor of the site
  * ─────────────────────────────────────────────────────────────
- *  All 133 musical renditions from the "இசையில் திருக்குறள்" series.
+ *  All 134 musical renditions from the "இசையில் திருக்குறள்" series.
  */
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
   // ── அறத்துப்பால் (48 பாடல்கள்) ──
@@ -68,7 +68,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   380: { youtubeUrl: 'https://youtube.com/shorts/AiOzSjI0rxs', youtubeTitle: 'ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380' },
   381: { youtubeUrl: 'https://youtube.com/shorts/cBABiLCt_sQ', youtubeTitle: 'படைகுடி கூழ்அமைச்சு நட்பரண் ஆறும் — இசையில் குறள் 381' },
 
-  // ── பொருட்பால் (60 பாடல்கள்) ──
+  // ── பொருட்பால் (61 பாடல்கள்) ──
   393: { youtubeUrl: 'https://youtu.be/bxKjz9Og7Nk', youtubeTitle: 'கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு புண்ணுடையர் கல்லா தவர்' },
   402: { youtubeUrl: 'https://youtube.com/shorts/89cUYGyJeFY', youtubeTitle: 'கல்லாதான் சொற்கா முறுதல் முலையிரண்டும் — இசையில் குறள் 402' },
   416: { youtubeUrl: 'https://youtube.com/shorts/X0RT5IOdDso', youtubeTitle: 'எனைத்தானும் நல்லவை கேட்க அனைத்தானும் — இசையில் குறள் 416' },
@@ -86,6 +86,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   512: { youtubeUrl: 'https://youtube.com/shorts/I-k1bkJ-YFc', youtubeTitle: 'வாரி பெருக்கி வளம்படுத்து உற்றவை — இசையில் குறள் 512' },
   521: { youtubeUrl: 'https://youtube.com/shorts/_7kTSCUxlOE', youtubeTitle: 'பற்றற்ற கண்ணும் பழைமைபா ராட்டுதல் — இசையில் குறள் 521' },
   530: { youtubeUrl: 'https://youtube.com/shorts/zyaZbEfUzR0', youtubeTitle: 'உழைப்பிரிந்து காரணத்தின் வந்தானை வேந்தன் — இசையில் குறள் 530' },
+  532: { youtubeUrl: 'https://youtube.com/shorts/hCnkcQHHuPE', youtubeTitle: 'பொச்சாப்புக் கொல்லும் புகழை அறிவினை நிச்ச நிரப்புக்கொன் றாங்கு' },
   541: { youtubeUrl: 'https://youtube.com/shorts/YjXXrugD2Vs', youtubeTitle: 'ஓர்ந்துகண் ணோடாது இறைபுரிந்து யார்மாட்டும் — இசையில் குறள் 541' },
   555: { youtubeUrl: 'https://youtube.com/shorts/boTznRhvqJE', youtubeTitle: 'அல்லற்பட்டு ஆற்றாது அழுதகண் ணீரன்றே — இசையில் குறள் 555' },
   566: { youtubeUrl: 'https://youtube.com/shorts/DtZr6xP_000', youtubeTitle: 'கடுஞ்சொல்லன் கண்ணிலன் ஆயின் நெடுஞ்செல்வம் — இசையில் குறள் 566' },
