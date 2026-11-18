@@ -96,6 +96,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   600: { youtubeUrl: 'https://youtube.com/shorts/kWYljVzn-xA', youtubeTitle: 'உரமொருவற்கு உள்ள வெறுக்கைஅஃ தில்லார் — இசையில் குறள் 600' },
   601: { youtubeUrl: 'https://youtube.com/shorts/u79us44QmdA', youtubeTitle: 'குடியென்னும் குன்றா விளக்கம் — இசையில் குறள் 601' },
   614: { youtubeUrl: 'https://youtu.be/NIr0YIl1Ce8', youtubeTitle: 'தாளாண்மை இல்லாதான் வேளாண்மை பேடிகை வாளாண்மை போலக் கெடும்' },
+  621: { youtubeUrl: 'https://youtube.com/shorts/YtUMs6Vuqz0', youtubeTitle: 'இடுக்கண் வருங்கால் நகுக — இசையில் குறள் 621' },
   631: { youtubeUrl: 'https://youtube.com/shorts/mJn5hx0F2R0', youtubeTitle: 'கருவியும் காலமும் செய்கையும் செய்யும் — இசையில் குறள் 631' },
   641: { youtubeUrl: 'https://youtube.com/shorts/JIo7ZHRwEIg', youtubeTitle: 'நாநலம் என்னும் நலனுடைமை அந்நலம் — இசையில் குறள் 641' },
   651: { youtubeUrl: 'https://youtube.com/shorts/qPFVMYTMH7A', youtubeTitle: 'துணைநலம் ஆக்கம் த்ருஉம் வினைநலம் வேண்டிய எல்லாந் தரும்' },
