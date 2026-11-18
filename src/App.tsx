@@ -230,7 +230,12 @@ export default function App() {
 
       return true;
     });
-  }, [allAvailableKurals, activePaal, activeAthikaram, mediaFilter, searchQuery, bookmarks]);
+  }, [allAvailableKurals, activePaal, activeAthikaram, mediaFilter, searchQuery, bookmarks, route, selectedIyalFilter]);
+
+  // Switching இயல் starts the list from the top again
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [selectedIyalFilter]);
 
   // Follow the URL: each list page sets its own filters
   useEffect(() => {
