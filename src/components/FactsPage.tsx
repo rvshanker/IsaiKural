@@ -247,6 +247,30 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
           />
         </Card>
 
+        <Card title="குறளில் வரும் 5 பறவைகள்" en="Each bird is a lesson: the crow that beats the owl by day (481), the heron that waits for its moment (490). மயில் counts its feather too (பீலி, 475). Tap a bird to read one.">
+          <Bars
+            color={ARAM}
+            rows={[
+              { label: 'காக்கை', n: 2, onClick: () => open(527) },
+              { label: 'மயில்', n: 2, onClick: () => open(1081) },
+              { label: 'கூகை', n: 1, onClick: () => open(481) },
+              { label: 'கொக்கு', n: 1, onClick: () => open(490) },
+              { label: 'அன்னம்', n: 1, onClick: () => open(1120) },
+            ]}
+          />
+        </Card>
+
+        <Card title="குறளில் வரும் 3 நீர்வாழ் உயிரினங்கள்" en="The tortoise that pulls in its limbs (126), the crocodile that wins only in deep water (495), and the fish that swallows the hook (931). Tap one to read it.">
+          <Bars
+            color={BLUE}
+            rows={[
+              { label: 'ஆமை', n: 1, onClick: () => open(126) },
+              { label: 'முதலை', n: 1, onClick: () => open(495) },
+              { label: 'மீன்', n: 1, onClick: () => open(931) },
+            ]}
+          />
+        </Card>
+
         <Card title="சிறிய குறளும் நீண்ட குறளும்" en="Counted in Tamil letters. Tap one to read it.">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className={`text-[13px] w-24 ${body} font-tamil-sans`}>23 எழுத்து</span>
