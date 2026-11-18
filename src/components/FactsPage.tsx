@@ -247,6 +247,49 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
           />
         </Card>
 
+        <Card title="குறளில் வரும் 10 விலங்குகள்" en="யானை leads with 8 couplets — courage, strength and pride. The yak that dies if it loses its hair stands for honour (969). Tap an animal to read one.">
+          <Bars
+            color={PORUL}
+            labelW="w-24"
+            rows={[
+              { label: 'யானை', n: 8, onClick: () => open(599) },
+              { label: 'ஆ (பசு)', n: 3, onClick: () => open(1066) },
+              { label: 'புலி', n: 2, onClick: () => open(273) },
+              { label: 'பாம்பு', n: 2, onClick: () => open(890) },
+              { label: 'நரி', n: 1, onClick: () => open(500) },
+              { label: 'முயல்', n: 1, onClick: () => open(772) },
+              { label: 'கவரிமா', n: 1, onClick: () => open(969) },
+              { label: 'ஏறு', n: 1, onClick: () => open(59) },
+              { label: 'பகடு', n: 1, onClick: () => open(624) },
+              { label: 'மா (குதிரை)', n: 1, onClick: () => open(814) },
+            ]}
+          />
+        </Card>
+
+        <Card title="குறளில் வரும் 5 பறவைகள்" en="Each bird is a lesson: the crow that beats the owl by day (481), the heron that waits for its moment (490). மயில் counts its feather too (பீலி, 475). Tap a bird to read one.">
+          <Bars
+            color={ARAM}
+            rows={[
+              { label: 'காக்கை', n: 2, onClick: () => open(527) },
+              { label: 'மயில்', n: 2, onClick: () => open(1081) },
+              { label: 'கூகை', n: 1, onClick: () => open(481) },
+              { label: 'கொக்கு', n: 1, onClick: () => open(490) },
+              { label: 'அன்னம்', n: 1, onClick: () => open(1120) },
+            ]}
+          />
+        </Card>
+
+        <Card title="குறளில் வரும் 3 நீர்வாழ் உயிரினங்கள்" en="The tortoise that pulls in its limbs (126), the crocodile that wins only in deep water (495), and the fish that swallows the hook (931). Tap one to read it.">
+          <Bars
+            color={BLUE}
+            rows={[
+              { label: 'ஆமை', n: 1, onClick: () => open(126) },
+              { label: 'முதலை', n: 1, onClick: () => open(495) },
+              { label: 'மீன்', n: 1, onClick: () => open(931) },
+            ]}
+          />
+        </Card>
+
         <Card title="சிறிய குறளும் நீண்ட குறளும்" en="Counted in Tamil letters. Tap one to read it.">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className={`text-[13px] w-24 ${body} font-tamil-sans`}>23 எழுத்து</span>
