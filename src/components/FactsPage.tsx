@@ -247,6 +247,25 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
           />
         </Card>
 
+        <Card title="குறளில் வரும் 10 விலங்குகள்" en="யானை leads with 8 couplets — courage, strength and pride. The yak that dies if it loses its hair stands for honour (969). Tap an animal to read one.">
+          <Bars
+            color={PORUL}
+            labelW="w-24"
+            rows={[
+              { label: 'யானை', n: 8, onClick: () => open(599) },
+              { label: 'ஆ (பசு)', n: 3, onClick: () => open(1066) },
+              { label: 'புலி', n: 2, onClick: () => open(273) },
+              { label: 'பாம்பு', n: 2, onClick: () => open(890) },
+              { label: 'நரி', n: 1, onClick: () => open(500) },
+              { label: 'முயல்', n: 1, onClick: () => open(772) },
+              { label: 'கவரிமா', n: 1, onClick: () => open(969) },
+              { label: 'ஏறு', n: 1, onClick: () => open(59) },
+              { label: 'பகடு', n: 1, onClick: () => open(624) },
+              { label: 'மா (குதிரை)', n: 1, onClick: () => open(814) },
+            ]}
+          />
+        </Card>
+
         <Card title="குறளில் வரும் 5 பறவைகள்" en="Each bird is a lesson: the crow that beats the owl by day (481), the heron that waits for its moment (490). மயில் counts its feather too (பீலி, 475). Tap a bird to read one.">
           <Bars
             color={ARAM}
