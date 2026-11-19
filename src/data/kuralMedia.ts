@@ -121,6 +121,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   842: { youtubeUrl: 'https://youtube.com/shorts/GNPpv13puQw' },
   853: { youtubeUrl: 'https://youtube.com/shorts/xIr7cx3b9Y8', youtubeTitle: 'இகலென்னும் எவ்வநோய் நீக்கின் தவலில்லாத் தாவில் விளக்கம் தரும்' },
   863: { youtubeUrl: 'https://youtu.be/AJ3sBEF6QB0', youtubeTitle: 'அஞ்சும் அறியான் அமைவிலன் ஈகலான் தஞ்சம் எளியன் பகைக்கு' },
+  871: { youtubeUrl: 'https://youtu.be/Mw1pCHTiD5U', youtubeTitle: 'பகையென்னும் பண்பி லதனை — இசையில் குறள் 871' },
   901: { youtubeUrl: 'https://youtube.com/shorts/AKIAFi-RknY', youtubeTitle: 'மனைவிழைவார் மாண்பயன் எய்தார் வினைவிழையார் வேண்டாப் பொருளும் அது' },
   915: { youtubeUrl: 'https://youtube.com/shorts/8Mkj-ZB7J7k', youtubeTitle: 'பொதுநலத்தார் புன்னலம் தோயார் மதிநலத்தின் — இசையில் குறள் 915' },
   923: { youtubeUrl: 'https://youtu.be/Mwh0l4aUZ9k', youtubeTitle: 'ஈன்றாள் முகத்தேயும் இன்னாதால் என்மற்றுச் சான்றோர் முகத்துக் களி' },
