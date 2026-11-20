@@ -73,7 +73,16 @@ export const KuralListItem: React.FC<KuralListItemProps> = ({
             <span>காணொளி</span>
           </button>
         )}
-        {showChapter && <span className={`text-[13px] truncate ${muted}`}>{kural.athikaramTamil}</span>}
+        {showChapter && (
+          <a
+            href={`#/adhikaram/${kural.athikaramNumber}`}
+            onClick={(e) => e.stopPropagation()}
+            title={`${kural.athikaramNumber}. ${kural.athikaramTamil} — அதிகாரப் பக்கம்`}
+            className={`text-[13px] truncate underline decoration-dotted underline-offset-4 hover:text-[#1D5A43] hover:decoration-solid ${muted}`}
+          >
+            {kural.athikaramTamil}
+          </a>
+        )}
       </div>
 
       {/* Couplet — tap to open all commentaries */}
