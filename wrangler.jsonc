@@ -13,5 +13,8 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "isaikural-feedback", "database_id": "c872b4b7-12ae-40bd-90a6-db626b290110" }
   ],
+  "send_email": [
+    { "name": "NOTIFY", "destination_address": "cc.info.studio@gmail.com" }
+  ],
   "observability": { "enabled": true }
 }
