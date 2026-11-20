@@ -17,7 +17,7 @@ import { ImageModal } from './components/ImageModal';
 import { ALL_KURALS, getKuralByNumber } from './data/kurals';
 import { ATHIKARAMS } from './data/chapters';
 import { CAN_EDIT_MEDIA } from './config';
-import { kuralMatchesSearch } from './utils/search';
+import { kuralMatchesSearch, matchChapters } from './utils/search';
 import { Kural, Paal, KuralMedia } from './types/kural';
 import { 
   loadUserMedia, 
@@ -616,6 +616,43 @@ export default function App() {
             <HomeSearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} onSearchSubmit={handleSearchSubmit} isDark={isDark} />
           </div>
         )}
+
+        {/* Search page: adhikarams whose name matches — open the chapter page */}
+        {route.page === 'search' && (() => {
+          const chapters = matchChapters(ATHIKARAMS, route.q, 6);
+          if (!chapters.length) return null;
+          return (
+            <div className="mb-5">
+              <p className={`text-[13px] font-semibold mb-2 ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>
+                அதிகாரங்கள் · Chapters
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {chapters.map(c => (
+                  <a
+                    key={c.number}
+                    href={`#/adhikaram/${c.number}`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-[14px] border transition-colors ${
+                      isDark
+                        ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4A6B5C]'
+                        : 'bg-white border-[#ECEBE5] hover:border-[#1D5A43]'
+                    }`}
+                  >
+                    <span className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-bold bg-[#1D4234] text-white">
+                      {c.number}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className={`block font-tamil-sans text-[16px] font-semibold truncate ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>{c.name}</span>
+                      <span className={`block text-[12.5px] truncate ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>
+                        {c.nameEn} · குறள் {c.startKural}–{c.endKural}
+                      </span>
+                    </span>
+                    <ChevronRight className={`w-5 h-5 shrink-0 ${isDark ? 'text-[#9FB0A6]' : 'text-[#1D5A43]'}`} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Browsing pages: one swipeable row of filters */}
         {(route.page === 'kurals' || route.page === 'saved') && (

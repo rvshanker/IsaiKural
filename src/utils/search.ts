@@ -91,3 +91,40 @@ export function kuralMatchesSearch(k: Kural, query: string): boolean {
   const words = q.split(' ').filter(w => w.length > 1);
   return words.length > 1 && words.every(w => couplet.includes(w) || other.includes(w));
 }
+
+/**
+ * Adhikarams whose Tamil or English name matches the search text.
+ * Tamil: spacing-insensitive "contains" ("அன்பு" → அன்புடைமை); English: from the start of a word.
+ * An exact name match comes first.
+ */
+export function matchChapters<T extends { number: number; name: string; nameEn: string }>(
+  chapters: T[],
+  query: string,
+  limit = 6
+): T[] {
+  const raw = query.trim();
+  if (!raw || /^\d+$/.test(raw)) return [];
+  const q = normalizeForSearch(raw);
+  if (!q) return [];
+  const latin = /^[a-z0-9 ]+$/.test(q);
+  if (latin && q.replace(/ /g, '').length < 3) return [];
+  if (!latin && compact(raw).length < 2) return [];
+  const qc = compact(raw);
+  const scored: { c: T; s: number }[] = [];
+  for (const c of chapters) {
+    let s = -1;
+    if (latin) {
+      const en = normalizeForSearch(c.nameEn);
+      const words = q.split(' ').filter(Boolean);
+      if (en === q) s = 0;
+      else if (words.every(w => wordStart(w).test(en))) s = en.startsWith(q) ? 1 : 2;
+    } else {
+      const ta = compact(c.name);
+      if (ta === qc) s = 0;
+      else if (ta.startsWith(qc)) s = 1;
+      else if (ta.includes(qc)) s = 2;
+    }
+    if (s >= 0) scored.push({ c, s });
+  }
+  return scored.sort((a, b) => a.s - b.s || a.c.number - b.c.number).slice(0, limit).map(x => x.c);
+}
