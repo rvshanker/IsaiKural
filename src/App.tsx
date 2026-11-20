@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 const KuralMap = lazy(() => import('./components/KuralMap'));
 const FactsPage = lazy(() => import('./components/FactsPage'));
+const FeedbackPage = lazy(() => import('./components/FeedbackPage'));
+const AdminFeedback = lazy(() => import('./components/AdminFeedback'));
 import { Navbar } from './components/Navbar';
 import { HeroKuralOfTheDay } from './components/HeroKuralOfTheDay';
 import { HomeSearchBar } from './components/HomeSearchBar';
@@ -56,7 +58,9 @@ type Route =
   | { page: 'video'; n: number }
   | { page: 'kurals'; paal: Paal | 'all' }
   | { page: 'map'; n?: number }
-  | { page: 'facts' };
+  | { page: 'facts' }
+  | { page: 'feedback' }
+  | { page: 'admin' };
 
 const PAAL_KEYS: Paal[] = ['அறத்துப்பால்', 'பொருட்பால்', 'காமத்துப்பால்'];
 
@@ -79,6 +83,8 @@ function parseHash(): Route {
     return { page: 'map', n: n >= 1 && n <= 1330 ? n : undefined };
   }
   if (head === 'facts') return { page: 'facts' };
+  if (head === 'feedback') return { page: 'feedback' };
+  if (head === 'admin') return { page: 'admin' };
   if (head === 'kurals') return { page: 'kurals', paal: PAAL_KEYS.includes(arg as Paal) ? (arg as Paal) : 'all' };
   return { page: 'home' };
 }
@@ -144,6 +150,8 @@ export default function App() {
     else if (route.page === 'saved') t = `சேமித்த குறள்கள் — ${site}`;
     else if (route.page === 'map') t = `குறள் வரைபடம் — ${site}`;
     else if (route.page === 'facts') t = `சுவையான உண்மைகள் — ${site}`;
+    else if (route.page === 'feedback') t = `கருத்து தெரிவிக்க — ${site}`;
+    else if (route.page === 'admin') t = `Admin — ${site}`;
     document.title = t;
   }, [route]);
   const routeRef = useRef<Route>(route);
@@ -380,6 +388,7 @@ export default function App() {
         onOpenVideos={() => go('#/videos')}
         onOpenMap={() => go('#/map')}
         onOpenFacts={() => go('#/facts')}
+        onOpenFeedback={() => go('#/feedback')}
         onOpenAddMedia={CAN_EDIT_MEDIA ? () => openMediaEditor(ALL_KURALS[0]) : undefined}
         isDark={isDark}
         onToggleTheme={() => setIsDark(!isDark)}
@@ -499,6 +508,36 @@ export default function App() {
       </>
       ) : route.page === 'map' ? (
       <div className="flex-1" />
+      ) : route.page === 'feedback' || route.page === 'admin' ? (
+      <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
+        <button
+          onClick={() => go('#/')}
+          className={`inline-flex items-center gap-1 -ml-2 px-2 py-1.5 rounded-full text-[14px] cursor-pointer ${
+            isDark ? 'text-[#A9BDB2] hover:bg-white/5' : 'text-[#1D5A43] hover:bg-[#1D5A43]/5'
+          }`}
+        >
+          <ChevronLeft className="w-5 h-5" /> முகப்பு
+        </button>
+        <Suspense fallback={<div className="h-64" />}>
+          {route.page === 'feedback' ? (
+            <>
+              <h1 className={`mt-2 font-tamil-sans text-[24px] sm:text-[30px] font-bold ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>கருத்து தெரிவிக்க</h1>
+              <p className={`text-[14px] mt-0.5 ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>
+                உங்கள் பரிந்துரைகள், பிழைத் திருத்தங்கள், பாராட்டுகள் — எதுவாயினும் எழுதுங்கள் · Share a suggestion, report a mistake, or just say hello
+              </p>
+              <FeedbackPage isDark={isDark} onHome={() => go('#/')} />
+            </>
+          ) : (
+            <AdminFeedback
+              isDark={isDark}
+              onOpenKural={n => {
+                const k = allAvailableKurals.find(x => x.number === n);
+                if (k) setSelectedDetailKural(k);
+              }}
+            />
+          )}
+        </Suspense>
+      </main>
       ) : route.page === 'facts' ? (
       /* ───────────── சுவையான உண்மைகள்: interesting facts ───────────── */
       <main className="flex-1 w-full max-w-[1000px] mx-auto px-4 sm:px-6 pt-4 pb-12">

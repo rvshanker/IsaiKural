@@ -7,6 +7,7 @@ import {
   Bookmark,
   BookOpen,
   Search,
+  MessageSquare,
   Plus,
   Dices,
   Home,
@@ -36,6 +37,7 @@ interface NavbarProps {
   onOpenVideos?: () => void;
   onOpenMap?: () => void;
   onOpenFacts?: () => void;
+  onOpenFeedback?: () => void;
   onOpenAddMedia?: () => void;
   isDark: boolean;
   onToggleTheme: () => void;
@@ -66,6 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenVideos,
   onOpenMap,
   onOpenFacts,
+  onOpenFeedback,
   onOpenAddMedia,
   isDark,
   onToggleTheme,
@@ -189,6 +192,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {onOpenFacts && (
                   <button onClick={go(onOpenFacts)} className={menuItem}>
                     <Lightbulb className="w-4 h-4" /> சுவையான உண்மைகள்
+                  </button>
+                )}
+                {onOpenFeedback && (
+                  <button onClick={go(onOpenFeedback)} className={menuItem}>
+                    <MessageSquare className="w-4 h-4" /> கருத்து தெரிவிக்க
                   </button>
                 )}
                 {onOpenAddMedia && (

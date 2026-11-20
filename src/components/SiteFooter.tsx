@@ -1,6 +1,6 @@
 import React from 'react';
-import { Youtube, ListMusic, Instagram, Facebook, Mail } from 'lucide-react';
-import { SOCIAL_LINKS, CONTACT_EMAIL } from '../data/site';
+import { Youtube, ListMusic, Instagram, Facebook, MessageSquare } from 'lucide-react';
+import { SOCIAL_LINKS } from '../data/site';
 
 interface SiteFooterProps {
   isDark: boolean;
@@ -11,7 +11,7 @@ const links = [
   { href: SOCIAL_LINKS.playlist, label: 'Playlist', Icon: ListMusic, color: 'text-[#FF0000]', external: true },
   { href: SOCIAL_LINKS.instagram, label: 'Instagram', Icon: Instagram, color: 'text-[#E1306C]', external: true },
   { href: SOCIAL_LINKS.facebook, label: 'Facebook', Icon: Facebook, color: 'text-[#1877F2]', external: true },
-  { href: `mailto:${CONTACT_EMAIL}`, label: 'தொடர்புக்கு', Icon: Mail, color: '', external: false },
+  { href: '#/feedback', label: 'கருத்து தெரிவிக்க', Icon: MessageSquare, color: '', external: false },
 ];
 
 /** One simple line at the bottom of every page: social icons + contact. */
@@ -27,7 +27,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ isDark }) => (
         key={label}
         href={href}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        title={label === 'தொடர்புக்கு' ? CONTACT_EMAIL : label}
+        title={label}
         aria-label={label}
         className={`inline-flex items-center gap-1 sm:gap-1.5 transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#16392E]'}`}
       >
