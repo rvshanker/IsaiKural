@@ -46,3 +46,10 @@ export function getYouTubeThumbnail(urlOrId: string | undefined): string | null 
   if (!id) return null;
   return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }
+
+/** Full-size vertical thumbnail (YouTube Shorts: 1080×1920). Not every video has one — see VideoThumb. */
+export function getYouTubeVerticalThumbnail(urlOrId: string | undefined): string | null {
+  const id = extractYouTubeId(urlOrId);
+  if (!id) return null;
+  return `https://i.ytimg.com/vi/${id}/oar2.jpg`;
+}

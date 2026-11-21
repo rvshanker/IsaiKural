@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Play, ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, ExternalLink, Search, Youtube } from 'lucide-react';
 import { Kural } from '../types/kural';
 import { KuralCouplet } from './KuralCouplet';
-import { getYouTubeEmbedUrl, getYouTubeThumbnail } from '../utils/youtube';
+import { getYouTubeEmbedUrl, getYouTubeThumbnail, getYouTubeVerticalThumbnail } from '../utils/youtube';
 import { YOUTUBE_CHANNEL_URL } from '../data/kuralMedia';
 import { kuralMatchesSearch } from '../utils/search';
 
@@ -99,47 +99,32 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ kurals, onOpen, play
         </div>
       </div>
 
-      {/* Grid of video cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {filteredKurals.map((k) => {
-          const thumb = getYouTubeThumbnail(k.media?.youtubeUrl);
-          return (
-            <button
-              key={k.number}
-              onClick={() => onOpen(k.number)}
-              className="group text-left cursor-pointer rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4234]"
-            >
-              <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[#1D4234]">
-                {thumb && (
-                  <img
-                    src={thumb}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover scale-[1.35] transition-transform duration-300 group-hover:scale-[1.42]"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 text-white text-[12px] font-semibold backdrop-blur-sm">
-                  குறள் {k.number}
+      {/* Grid of video cards — small vertical cards, sharp full-size Shorts thumbnails */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+        {filteredKurals.map((k) => (
+          <button
+            key={k.number}
+            onClick={() => onOpen(k.number)}
+            className="group text-left cursor-pointer rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4234]"
+          >
+            <div className="relative aspect-[9/16] rounded-lg overflow-hidden bg-[#1D4234]">
+              <VideoThumb url={k.media?.youtubeUrl} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/60 text-white text-[11px] font-semibold backdrop-blur-sm">
+                {k.number}
+              </span>
+              <span className="absolute inset-0 flex items-center justify-center">
+                <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/85 flex items-center justify-center shadow-lg opacity-90 transition-transform group-hover:scale-110">
+                  <Play className="w-4 h-4 text-[#1D4234] fill-current ml-0.5" />
                 </span>
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <span className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
-                    <Play className="w-5 h-5 text-[#1D4234] fill-current ml-0.5" />
-                  </span>
-                </span>
-                <span className="absolute bottom-2 left-2 right-2 font-tamil-sans text-white text-[13px] font-semibold leading-snug line-clamp-2 drop-shadow">
-                  {k.line1}
-                </span>
-              </div>
-              <div className="mt-1.5 flex items-center justify-between gap-1 text-[12px]">
-                <p className={`truncate font-medium ${muted}`}>{k.athikaramTamil}</p>
-                <span className={`shrink-0 text-[11px] px-1.5 py-0.2 rounded ${isDark ? 'bg-white/5 text-[#A9BDB2]' : 'bg-[#E3EEE6] text-[#1D5A43]'}`}>
-                  {k.paal.slice(0, 3)}
-                </span>
-              </div>
-            </button>
-          );
-        })}
+              </span>
+              <span className="hidden sm:block absolute bottom-1.5 left-1.5 right-1.5 font-tamil-sans text-white text-[11.5px] font-semibold leading-snug line-clamp-2 drop-shadow">
+                {k.line1}
+              </span>
+            </div>
+            <p className={`mt-1 truncate text-[11px] sm:text-[12px] font-medium ${muted}`}>{k.athikaramTamil}</p>
+          </button>
+        ))}
       </div>
 
       {/* External links: Playlist + YouTube Channel */}
@@ -312,3 +297,28 @@ export const VideoDetail: React.FC<VideoDetailProps> = ({
     </div>
   );
 };
+
+/** Sharp vertical thumbnail; falls back to the standard (cropped) one when a video has no vertical image. */
+function VideoThumb({ url }: { url?: string }) {
+  const vertical = getYouTubeVerticalThumbnail(url);
+  const standard = getYouTubeThumbnail(url);
+  const [useStandard, setUseStandard] = React.useState(false);
+  const src = useStandard ? standard : vertical;
+  if (!src) return null;
+  return (
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onLoad={(e) => {
+        // YouTube answers a missing vertical thumbnail with a tiny 120×90 placeholder
+        if (!useStandard && e.currentTarget.naturalWidth <= 120) setUseStandard(true);
+      }}
+      onError={() => !useStandard && setUseStandard(true)}
+      className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 ${
+        useStandard ? 'scale-[1.35] group-hover:scale-[1.42]' : 'group-hover:scale-[1.05]'
+      }`}
+    />
+  );
+}
