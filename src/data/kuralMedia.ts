@@ -138,6 +138,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   1021: { youtubeUrl: 'https://youtube.com/shorts/Cs3Gw0Xuatk', youtubeTitle: 'கருமம் செயஒருவன் கைதூவேன் என்னும் — இசையில் குறள் 1021' },
   1031: { youtubeUrl: 'https://youtube.com/shorts/jktcgP5nBwI', youtubeTitle: 'சுழன்றும்ஏர்ப் பின்னது உலகம் — இசையில் குறள் 1031' },
   1041: { youtubeUrl: 'https://youtube.com/shorts/nVtZ2PH3_mc', youtubeTitle: 'இன்மையின் இன்னாதது யாதெனின் — இசையில் குறள் 1041' },
+  1051: { youtubeUrl: 'https://youtube.com/shorts/L5mQGrBxkyA', youtubeTitle: 'இரக்க இரத்தக்கார்க் காணின் — இசையில் குறள் 1051' },
 
   // ── காமத்துப்பால் (25 பாடல்கள்) ──
   1081: { youtubeUrl: 'https://youtube.com/shorts/IuG-BcxNLc4', youtubeTitle: 'அணங்குகொல் ஆய்மயில் கொல்லோ கனங்குழை — இசையில் குறள் 1081' },
