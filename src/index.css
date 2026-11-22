@@ -55,3 +55,17 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* ── iPhone app (Capacitor): keep content clear of the notch / Dynamic Island and the home bar ── */
+html.native-app header.sticky {
+  padding-top: env(safe-area-inset-top);
+}
+html.native-app body {
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+html.native-app [role='dialog'] {
+  /* bottom-sheet windows: keep the last buttons above the home bar */
+  padding-bottom: env(safe-area-inset-bottom);
+}

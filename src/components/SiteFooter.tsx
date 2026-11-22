@@ -36,5 +36,8 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ isDark }) => (
         <span className={external ? 'hidden sm:inline' : ''}>{label}</span>
       </a>
     ))}
+    <a href="#/privacy" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#16392E]'}`}>
+      தனியுரிமை · Privacy
+    </a>
   </footer>
 );

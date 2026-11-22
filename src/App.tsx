@@ -3,6 +3,7 @@ const KuralMap = lazy(() => import('./components/KuralMap'));
 const FactsPage = lazy(() => import('./components/FactsPage'));
 const FeedbackPage = lazy(() => import('./components/FeedbackPage'));
 const AdminFeedback = lazy(() => import('./components/AdminFeedback'));
+const PrivacyPage = lazy(() => import('./components/PrivacyPage'));
 import { Navbar } from './components/Navbar';
 import { HeroKuralOfTheDay } from './components/HeroKuralOfTheDay';
 import { HomeSearchBar } from './components/HomeSearchBar';
@@ -17,6 +18,8 @@ import { MediaModal } from './components/MediaModal';
 import { VideoModal } from './components/VideoModal';
 import { ImageModal } from './components/ImageModal';
 import { ALL_KURALS, getKuralByNumber } from './data/kurals';
+import { isNativeApp, initNativeApp } from './utils/native';
+import { ReminderCard } from './components/ReminderCard';
 import { ATHIKARAMS } from './data/chapters';
 import { CAN_EDIT_MEDIA } from './config';
 import { kuralMatchesSearch, matchChapters } from './utils/search';
@@ -60,7 +63,8 @@ type Route =
   | { page: 'map'; n?: number }
   | { page: 'facts' }
   | { page: 'feedback' }
-  | { page: 'admin' };
+  | { page: 'admin' }
+  | { page: 'privacy' };
 
 const PAAL_KEYS: Paal[] = ['அறத்துப்பால்', 'பொருட்பால்', 'காமத்துப்பால்'];
 
@@ -85,6 +89,7 @@ function parseHash(): Route {
   if (head === 'facts') return { page: 'facts' };
   if (head === 'feedback') return { page: 'feedback' };
   if (head === 'admin') return { page: 'admin' };
+  if (head === 'privacy') return { page: 'privacy' };
   if (head === 'kurals') return { page: 'kurals', paal: PAAL_KEYS.includes(arg as Paal) ? (arg as Paal) : 'all' };
   return { page: 'home' };
 }
@@ -152,6 +157,7 @@ export default function App() {
     else if (route.page === 'facts') t = `சுவையான உண்மைகள் — ${site}`;
     else if (route.page === 'feedback') t = `கருத்து தெரிவிக்க — ${site}`;
     else if (route.page === 'admin') t = `Admin — ${site}`;
+    else if (route.page === 'privacy') t = `Privacy Policy — ${site}`;
     document.title = t;
   }, [route]);
   const routeRef = useRef<Route>(route);
@@ -248,6 +254,7 @@ export default function App() {
   // Follow the URL: each list page sets its own filters
   useEffect(() => {
     const onHash = () => {
+      if (openKuralFromHash()) return;
       const next = parseHash();
       if (routeRef.current.page === 'home') homeScrollY.current = window.scrollY;
       routeRef.current = next;
@@ -259,6 +266,23 @@ export default function App() {
     };
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  // Shared Kural links (#/kural/391) and tapped reminders open that Kural; app start-up hooks
+  function openKuralFromHash() {
+    const m = window.location.hash.match(/^#\/kural\/(\d+)/);
+    const k = m ? getKuralByNumber(parseInt(m[1], 10)) : undefined;
+    if (!k) return false;
+    window.history.replaceState(null, '', '#/');
+    routeRef.current = { page: 'home' };
+    setRoute({ page: 'home' });
+    setSelectedDetailKural(k);
+    return true;
+  }
+  useEffect(() => {
+    openKuralFromHash();
+    initNativeApp(getKuralByNumber);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -413,6 +437,11 @@ export default function App() {
       </div>
 
       <main className="flex-1 w-full max-w-[1440px] mx-auto px-3 sm:px-8 lg:px-[38px] pt-5 pb-6 space-y-4">
+        {isNativeApp && (
+          <div className="px-0 lg:px-[68px]">
+            <ReminderCard isDark={isDark} />
+          </div>
+        )}
         {/* SEARCH */}
         <div className="px-0 lg:px-[68px] pb-1">
           <HomeSearchBar
@@ -508,7 +537,7 @@ export default function App() {
       </>
       ) : route.page === 'map' ? (
       <div className="flex-1" />
-      ) : route.page === 'feedback' || route.page === 'admin' ? (
+      ) : route.page === 'feedback' || route.page === 'admin' || route.page === 'privacy' ? (
       <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
         <button
           onClick={() => go('#/')}
@@ -519,7 +548,9 @@ export default function App() {
           <ChevronLeft className="w-5 h-5" /> முகப்பு
         </button>
         <Suspense fallback={<div className="h-64" />}>
-          {route.page === 'feedback' ? (
+          {route.page === 'privacy' ? (
+            <PrivacyPage isDark={isDark} />
+          ) : route.page === 'feedback' ? (
             <>
               <h1 className={`mt-2 font-tamil-sans text-[24px] sm:text-[30px] font-bold ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>கருத்து தெரிவிக்க</h1>
               <p className={`text-[14px] mt-0.5 ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>

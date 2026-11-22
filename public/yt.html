@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>இசையில் திருக்குறள்</title>
+<style>html,body{margin:0;height:100%;background:#000}iframe{border:0;width:100%;height:100%;display:block}</style>
+</head>
+<body>
+<script>
+  // Player page for the isaikural iPhone app: YouTube needs a real web address as the embedding site.
+  var p = new URLSearchParams(location.search);
+  var v = (p.get('v') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 11);
+  var list = (p.get('list') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+  var auto = p.get('autoplay') === '1' ? '&autoplay=1' : '';
+  var src = v
+    ? 'https://www.youtube-nocookie.com/embed/' + v + '?rel=0&modestbranding=1&playsinline=1' + auto
+    : list ? 'https://www.youtube-nocookie.com/embed/videoseries?list=' + list + '&rel=0&playsinline=1' + auto : '';
+  if (src) {
+    var f = document.createElement('iframe');
+    f.src = src;
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    document.body.appendChild(f);
+  }
+</script>
+</body>
+</html>

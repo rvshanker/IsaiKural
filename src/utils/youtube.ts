@@ -1,3 +1,4 @@
+import { isNativeApp } from './native';
 /**
  * Extracts YouTube Video ID from various link formats:
  * - https://www.youtube.com/watch?v=VIDEO_ID
@@ -38,6 +39,9 @@ export function extractYouTubeId(urlOrId: string | undefined): string | null {
 export function getYouTubeEmbedUrl(urlOrId: string | undefined): string | null {
   const id = extractYouTubeId(urlOrId);
   if (!id) return null;
+  // In the iPhone app the page lives at capacitor://localhost, which YouTube's player refuses (error 153:
+  // no web address). Play it through a tiny page on isaikural.com instead.
+  if (isNativeApp) return `https://isaikural.com/yt.html?v=${id}`;
   return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&playsinline=1`;
 }
 

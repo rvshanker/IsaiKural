@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
+import { API_BASE, isNativeApp } from '../utils/native';
 
 interface Props {
   isDark: boolean;
@@ -40,7 +41,7 @@ export const FeedbackPage: React.FC<Props> = ({ isDark, onHome }) => {
     setState('sending');
     try {
       const n = parseInt(kural, 10);
-      const res = await fetch('/api/feedback', {
+      const res = await fetch(`${API_BASE}/api/feedback`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -49,7 +50,7 @@ export const FeedbackPage: React.FC<Props> = ({ isDark, onHome }) => {
           name,
           contact,
           kural: n >= 1 && n <= 1330 ? n : undefined,
-          page: document.referrer || '',
+          page: isNativeApp ? 'iPhone app' : document.referrer || '',
           website,
         }),
       });

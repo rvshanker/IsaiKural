@@ -169,12 +169,28 @@ async function handleApi(req: Request, env: Env, url: URL, ctx: { waitUntil: (p:
   return json({ error: 'Not found' }, 404);
 }
 
+// The iPhone app (Capacitor) runs at capacitor://localhost and may send feedback.
+const APP_ORIGINS = ['capacitor://localhost', 'ionic://localhost'];
+function withCors(req: Request, res: Response) {
+  const origin = req.headers.get('origin') || '';
+  if (!APP_ORIGINS.includes(origin)) return res;
+  const r = new Response(res.body, res);
+  r.headers.set('access-control-allow-origin', origin);
+  r.headers.set('access-control-allow-methods', 'POST, OPTIONS');
+  r.headers.set('access-control-allow-headers', 'content-type');
+  r.headers.set('vary', 'origin');
+  return r;
+}
+
 export default {
   async fetch(req: Request, env: Env, ctx: { waitUntil: (p: Promise<unknown>) => void }): Promise<Response> {
     const url = new URL(req.url);
     if (url.pathname.startsWith('/api/')) {
+      if (req.method === 'OPTIONS') return withCors(req, new Response(null, { status: 204 }));
       try {
-        return await handleApi(req, env, url, ctx);
+        // Admin endpoints stay same-site only; only the public feedback POST is opened to the app
+        const res = await handleApi(req, env, url, ctx);
+        return url.pathname === '/api/feedback' && req.method === 'POST' ? withCors(req, res) : res;
       } catch (e) {
         return json({ error: 'Server error' }, 500);
       }

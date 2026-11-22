@@ -6,6 +6,7 @@ import { Kural } from '../types/kural';
 import { KuralCouplet } from './KuralCouplet';
 import { kuralAudio } from '../utils/audioPlayer';
 import { AUDIO_ENABLED } from '../config';
+import { shareKural } from '../utils/native';
 
 interface KuralDetailModalProps {
   kural: Kural | null;
@@ -41,6 +42,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
   const [selectedCommentator, setSelectedCommentator] = useState<
     'muVa' | 'karunanidhi' | 'solomon' | 'parimelazhagar' | 'english' | 'all'
   >('all');
+  const [shareNote, setShareNote] = useState("");
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [isLoadingAudio, setIsLoadingAudio] = useState(false);
   const [currentVoice, setCurrentVoice] = useState(kuralAudio.getVoice());
@@ -90,7 +92,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
-        className={`relative w-full max-w-3xl h-[94dvh] sm:h-auto sm:max-h-[90vh] flex flex-col rounded-t-2xl sm:rounded-2xl shadow-2xl border overflow-hidden ${
+        role="dialog" className={`relative w-full max-w-3xl h-[94dvh] sm:h-auto sm:max-h-[90vh] flex flex-col rounded-t-2xl sm:rounded-2xl shadow-2xl border overflow-hidden ${
           isDark ? 'bg-[#181512] border-[#312A21] text-stone-100' : 'bg-white border-[#E8E2D5] text-stone-900'
         }`}
       >
@@ -111,6 +113,23 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              onClick={async () => {
+                const r = await shareKural(kural);
+                if (r === 'copied') {
+                  setShareNote('நகலெடுக்கப்பட்டது');
+                  setTimeout(() => setShareNote(''), 1800);
+                }
+              }}
+              title="பகிர் · Share"
+              aria-label="பகிர் · Share"
+              className="relative p-2 rounded-full border border-stone-200 dark:border-stone-700 text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors"
+            >
+              <Share2 className="w-4 h-4" />
+              {shareNote && (
+                <span className="absolute top-full mt-1 right-0 whitespace-nowrap px-2 py-1 rounded-md bg-stone-900 text-white text-[11.5px]">{shareNote}</span>
+              )}
+            </button>
             <button
               onClick={() => onToggleBookmark(kural.number)}
               title={isBookmarked ? 'Remove Bookmark' : 'Bookmark'}

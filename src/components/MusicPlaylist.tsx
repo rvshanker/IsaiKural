@@ -1,3 +1,4 @@
+import { isNativeApp } from '../utils/native';
 import React from 'react';
 import { ChevronDown, Music2, ExternalLink } from 'lucide-react';
 
@@ -38,7 +39,7 @@ export const MusicPlaylist: React.FC<MusicPlaylistProps> = ({ playlistId, isOpen
           <div className="relative w-full max-w-[960px] mx-auto aspect-video rounded-xl overflow-hidden bg-black">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&rel=0`}
+              src={isNativeApp ? `https://isaikural.com/yt.html?list=${encodeURIComponent(playlistId)}` : `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&rel=0`}
               title="இசையில் திருக்குறள் — YouTube playlist"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
