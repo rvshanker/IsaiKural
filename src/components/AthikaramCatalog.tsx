@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronRight, ChevronDown, Music2 } from 'lucide-react';
-import { ALL_KURALS } from '../data/kurals';
+import { ALL_KURALS, getSongListVersion } from '../data/kurals';
 import { ATHIKARAMS } from '../data/chapters';
 import { Athikaram, Paal } from '../types/kural';
 
@@ -11,11 +11,16 @@ const PAALS: { key: Paal; short: string; en: string; color: string; tint: string
 ];
 
 /** how many Kurals in each chapter have a song video */
-const SONGS_PER_CHAPTER = (() => {
+let songsCache: { v: number; m: Map<number, number> } | null = null;
+function songsPerChapter() {
+  // recounted when the iPhone app downloads a newer song list
+  const v = getSongListVersion();
+  if (songsCache?.v === v) return songsCache.m;
   const m = new Map<number, number>();
   for (const k of ALL_KURALS) if (k.media?.youtubeUrl) m.set(k.athikaramNumber, (m.get(k.athikaramNumber) ?? 0) + 1);
+  songsCache = { v, m };
   return m;
-})();
+}
 
 /** Chapters of one paal, split into their இயல் (sub-sections) in order. */
 function groupByIyal(paal: Paal) {
@@ -186,7 +191,7 @@ export const AthikaramCatalog: React.FC<AthikaramCatalogProps> = ({ onSelectAthi
                 {g.items.map((ath) => {
                   const p = PAALS.find((x) => x.key === ath.paal)!;
                   const selected = activeAthikaram === ath.number;
-                  const songs = SONGS_PER_CHAPTER.get(ath.number) ?? 0;
+                  const songs = songsPerChapter().get(ath.number) ?? 0;
                   return (
                     <button
                       key={ath.number}

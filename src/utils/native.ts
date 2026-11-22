@@ -152,3 +152,52 @@ export async function initNativeApp(getKural: (n: number) => Kural | undefined) 
     /* ignore */
   }
 }
+
+/* ───────────── Song list (updates without a new App Store version) ───────────── */
+
+const SONGS_KEY = 'isaikural-songs';
+const SONGS_URL = 'https://isaikural.com/kural-media.json';
+
+/** Before the first screen: use the song list saved from the last download, if any. */
+export async function loadSavedSongList() {
+  if (!isNativeApp) return;
+  try {
+    const saved = localStorage.getItem(SONGS_KEY);
+    if (!saved) return;
+    const { applySongList } = await import('../data/kurals');
+    applySongList(JSON.parse(saved));
+  } catch {
+    /* keep the built-in list */
+  }
+}
+
+/** Download the latest song list; calls onChange when it differs from what the app is showing. */
+export async function refreshSongList(onChange: () => void) {
+  if (!isNativeApp) return;
+  try {
+    const res = await fetch(SONGS_URL, { cache: 'no-store' });
+    if (!res.ok) return;
+    const text = await res.text();
+    const list = JSON.parse(text);
+    if (!list || typeof list !== 'object' || Object.keys(list).length < 10) return; // ignore a broken download
+    if (localStorage.getItem(SONGS_KEY) === text) return;
+    localStorage.setItem(SONGS_KEY, text);
+    const { applySongList } = await import('../data/kurals');
+    applySongList(list);
+    onChange();
+  } catch {
+    /* offline: keep what we have */
+  }
+}
+
+/** Check for new songs now and every time the app comes back to the screen. */
+export async function watchSongList(onChange: () => void) {
+  if (!isNativeApp) return;
+  refreshSongList(onChange);
+  try {
+    const { App } = await import('@capacitor/app');
+    App.addListener('resume', () => refreshSongList(onChange));
+  } catch {
+    /* ignore */
+  }
+}

@@ -30,7 +30,7 @@ export const FactsPage: React.FC<FactsPageProps> = ({ isDark, onOpenKural, onOpe
   const green = isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]';
   const chip = isDark ? 'border-white/10 bg-white/[0.04] hover:bg-white/[0.09]' : 'border-[#E4E2DA] bg-white hover:bg-[#F3F1EA]';
 
-  const songs = useMemo(() => ALL_KURALS.filter((k) => k.media?.youtubeUrl).length, []);
+  const songs = ALL_KURALS.filter((k) => k.media?.youtubeUrl).length;
   const open = (n: number) => onOpenKural(getKuralByNumber(n));
 
   // ── building blocks ──

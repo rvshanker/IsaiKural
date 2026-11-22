@@ -1,0 +1,4 @@
+# The iPhone app (capacitor://localhost) downloads the song list from here
+/kural-media.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300

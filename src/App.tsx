@@ -18,7 +18,7 @@ import { MediaModal } from './components/MediaModal';
 import { VideoModal } from './components/VideoModal';
 import { ImageModal } from './components/ImageModal';
 import { ALL_KURALS, getKuralByNumber } from './data/kurals';
-import { isNativeApp, initNativeApp } from './utils/native';
+import { isNativeApp, initNativeApp, watchSongList } from './utils/native';
 import { ReminderCard } from './components/ReminderCard';
 import { ATHIKARAMS } from './data/chapters';
 import { CAN_EDIT_MEDIA } from './config';
@@ -175,12 +175,19 @@ export default function App() {
   };
 
   // Provide all 1,330 authentic kurals with user custom media
+  // Bumped when the iPhone app downloads a newer song list, so every list re-reads ALL_KURALS
+  const [songListVersion, setSongListVersion] = useState(0);
+  useEffect(() => {
+    watchSongList(() => setSongListVersion(v => v + 1));
+  }, []);
+
   const allAvailableKurals = useMemo(() => {
     return ALL_KURALS.map(k => {
       const custom = userMedia[k.number];
       return custom ? { ...k, media: { ...k.media, ...custom } } : k;
     });
-  }, [userMedia]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userMedia, songListVersion]);
 
   // Daily kural object
   const currentDailyKural = useMemo(() => {
