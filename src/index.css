@@ -69,3 +69,10 @@ html.native-app [role='dialog'] {
   /* bottom-sheet windows: keep the last buttons above the home bar */
   padding-bottom: env(safe-area-inset-bottom);
 }
+html.native-app,
+html.native-app body {
+  /* nothing in the app should ever slide sideways; chip rows still scroll inside themselves.
+     clip (not hidden) so the sticky top bar keeps working */
+  overflow-x: clip;
+  max-width: 100%;
+}

@@ -113,6 +113,10 @@ export async function applyReminder(setting: ReminderSetting, getKural: (n: numb
 export async function initNativeApp(getKural: (n: number) => Kural | undefined) {
   if (!isNativeApp) return;
   document.documentElement.classList.add('native-app');
+  // An app should not zoom: no pinch-zoom and no automatic zoom into search boxes (which left the page sliding sideways)
+  document
+    .querySelector('meta[name="viewport"]')
+    ?.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
   // Outside links (YouTube channel, Instagram, Facebook…) open in Safari or their own app
   document.addEventListener(
     'click',

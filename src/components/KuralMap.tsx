@@ -5,7 +5,7 @@ import { CHAPTER_POINTS, CIRCLE_R, MAP_IMAGE, MAP_W, MAP_H } from '../data/mapLa
 import { kuralMatchesSearch } from '../utils/search';
 import { PAAL_COLORS } from '../utils/kuralMapData';
 import { Kural } from '../types/kural';
-import { Home, Maximize2, Minus, PlayCircle, Plus, Search, X } from 'lucide-react';
+import { ChevronLeft, Maximize2, Minus, PlayCircle, Plus, Search, X } from 'lucide-react';
 
 interface KuralMapProps {
   onExit: () => void;
@@ -395,22 +395,21 @@ export const KuralMap: React.FC<KuralMapProps> = ({ onExit, onOpenDetail }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-40 overflow-y-auto" style={{ background: BG }}>
+    <div className="flex-1 w-full" style={{ background: BG }}>
       <div ref={wrapRef} className="mx-auto w-full max-w-[880px] px-3 sm:px-6 pb-16">
         {/* top: home link, title, colour key */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-3 pb-2">
-          <a
-            href="#/"
-            onClick={(e) => {
-              e.preventDefault();
-              onExit();
-            }}
-            className="inline-flex items-center gap-2 rounded-xl bg-[#151A17] border border-white/10 px-3 h-10 text-[14px] text-white font-tamil-sans hover:bg-[#1D2420]"
-          >
-            <Home className="w-4 h-4" /> முகப்பு
-          </a>
-          <h1 className="font-tamil-sans text-[20px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</h1>
-        </div>
+        {/* same "‹ முகப்பு" back link as every other page; the normal top bar sits above */}
+        <a
+          href="#/"
+          onClick={(e) => {
+            e.preventDefault();
+            onExit();
+          }}
+          className="mt-3 -ml-2 inline-flex items-center gap-1 px-2 py-1.5 rounded-full text-[14px] text-[#A9BDB2] hover:bg-white/5 font-tamil-sans"
+        >
+          <ChevronLeft className="w-5 h-5" /> முகப்பு
+        </a>
+        <h1 className="mt-1 mb-2 font-tamil-sans text-[24px] sm:text-[30px] font-bold text-[#F4EFE4]">குறள் வரைபடம்</h1>
         <div className="font-tamil-sans text-[14px] text-[#A9B3AD] flex flex-wrap items-center gap-x-3 gap-y-1">
           <span>ஒவ்வொரு வட்டமும் ஒரு அதிகாரம் — 1 முதல் 133 வரை. உருட்டிப் பெரிதாக்கலாம், இழுத்து நகர்த்தலாம்.</span>
           {(Object.keys(PAAL_COLORS) as (keyof typeof PAAL_COLORS)[]).map((p) => (

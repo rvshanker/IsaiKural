@@ -408,7 +408,7 @@ export default function App() {
       isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
     }`}>
       {/* 1) TOP MENU (Google-Style Navigation with Dark Teal Background) */}
-      {route.page !== 'map' && <Navbar
+      {<Navbar
         onGoHome={() => scrollToSection('home')}
         onNavigateSection={scrollToSection}
         searchQuery={searchQuery}
@@ -543,7 +543,9 @@ export default function App() {
       </main>
       </>
       ) : route.page === 'map' ? (
-      <div className="flex-1" />
+        <Suspense fallback={<div className="flex-1 bg-[#0D110F]" />}>
+          <KuralMap onExit={() => go('#/')} onOpenDetail={(k) => setSelectedDetailKural(k)} />
+        </Suspense>
       ) : route.page === 'feedback' || route.page === 'admin' || route.page === 'privacy' ? (
       <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
         <button
@@ -868,12 +870,6 @@ export default function App() {
       {/* Follow us + contact (every page) */}
       <SiteFooter isDark={isDark} />
 
-      {/* குறள் வரைபடம் — full-screen map of Kurals by meaning */}
-      {route.page === 'map' && (
-        <Suspense fallback={<div className="fixed inset-0 z-40 bg-[#0B0F0D]" />}>
-          <KuralMap onExit={() => go('#/')} onOpenDetail={(k) => setSelectedDetailKural(k)} />
-        </Suspense>
-      )}
 
       {/* Detail / Commentary Modal */}
       <KuralDetailModal
