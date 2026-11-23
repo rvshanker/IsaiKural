@@ -21,6 +21,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   11: { youtubeUrl: 'https://youtube.com/shorts/s_TEjsCQyqE', youtubeTitle: 'வான்நின்று உலகம் வழங்கி வருதலால் — இசையில் குறள் 11' },
   12: { youtubeUrl: 'https://youtube.com/shorts/wsk5ae0Reeo', youtubeTitle: 'துப்பார்க்குத் துப்பாய துப்பாக்கித் துப்பார்க்குத் — இசையில் குறள் 12' },
   21: { youtubeUrl: 'https://youtu.be/siKa8UE3TU8', youtubeTitle: 'ஒழுக்கத்து நீத்தார் பெருமை விழுப்பத்து வேண்டும் பனுவல் துணிவு' },
+  22: { youtubeUrl: 'https://youtube.com/shorts/YevL3VdpAfQ', youtubeTitle: 'துறந்தார் பெருமை துணைக்கூறின் வையத்து — இசையில் குறள் 22' },
   31: { youtubeUrl: 'https://youtube.com/shorts/G00mAqud0uE', youtubeTitle: 'சிறப்புஈனும் செல்வமும் ஈனும் அறத்தினூஉங்கு — இசையில் குறள் 31' },
   39: { youtubeUrl: 'https://youtube.com/shorts/SJxMHl3aMWE', youtubeTitle: 'அறத்தான் வருவதே இன்பம் மற்றெல்லாம் — இசையில் குறள் 39' },
   45: { youtubeUrl: 'https://youtube.com/shorts/4PDYYk5L2_A', youtubeTitle: 'அன்பும் அறனும் உடைத்தாயின் இல்வாழ்க்கை — இசையில் குறள் 45' },
