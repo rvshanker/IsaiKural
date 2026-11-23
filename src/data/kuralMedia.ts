@@ -50,6 +50,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   231: { youtubeUrl: 'https://youtube.com/shorts/QDJMzi5qP54', youtubeTitle: 'ஈதல் இசைபட வாழ்தல் அதுவல்லது — இசையில் குறள் 231' },
   241: { youtubeUrl: 'https://youtube.com/shorts/UGG769HJcLA', youtubeTitle: 'அருட்செல்வம் செல்வத்துள் செல்வம் பொருட்செல்வம் — இசையில் குறள் 241' },
   250: { youtubeUrl: 'https://youtube.com/shorts/az7LweZVpiU', youtubeTitle: 'வலியார்முன் தன்னை நினைக்கதான் தன்னின் — இசையில் குறள் 250' },
+  251: { youtubeUrl: 'https://youtube.com/shorts/rlVQFQHpxAU', youtubeTitle: 'தன்னூன் பெருக்கற்குத் தான்பிறிது ஊனுண்பான் — இசையில் குறள் 251' },
   265: { youtubeUrl: 'https://youtube.com/shorts/9dP378E-NM8', youtubeTitle: 'வேண்டிய வேண்டியாங் கெய்தலால் செய்தவம் — இசையில் குறள் 265' },
   279: { youtubeUrl: 'https://youtube.com/shorts/FJey-HfkHsA', youtubeTitle: 'கணைகொடிது யாழ்கோடு செவ்விதுஆங் கன்ன — இசையில் குறள் 279' },
   280: { youtubeUrl: 'https://youtube.com/shorts/pJVfAbwpPNM', youtubeTitle: 'மழித்தலும் நீட்டலும் வேண்டா உலகம் — இசையில் குறள் 280' },
