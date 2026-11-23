@@ -21,6 +21,7 @@ import {
   Facebook,
   Network,
   Lightbulb,
+  Trophy,
 } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/site';
 import { kuralAudio, KuralVoice } from '../utils/audioPlayer';
@@ -37,6 +38,7 @@ interface NavbarProps {
   onOpenVideos?: () => void;
   onOpenMap?: () => void;
   onOpenFacts?: () => void;
+  onOpenQuiz?: () => void;
   onOpenFeedback?: () => void;
   onOpenAddMedia?: () => void;
   isDark: boolean;
@@ -68,6 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenVideos,
   onOpenMap,
   onOpenFacts,
+  onOpenQuiz,
   onOpenFeedback,
   onOpenAddMedia,
   isDark,
@@ -187,6 +190,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {onOpenMap && (
                   <button onClick={go(onOpenMap)} className={menuItem}>
                     <Network className="w-4 h-4" /> குறள் வரைபடம்
+                  </button>
+                )}
+                {onOpenQuiz && (
+                  <button onClick={go(onOpenQuiz)} className={menuItem}>
+                    <Trophy className="w-4 h-4" /> குறள் வினாடி வினா
                   </button>
                 )}
                 {onOpenFacts && (

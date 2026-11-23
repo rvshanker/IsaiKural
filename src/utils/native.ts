@@ -21,15 +21,19 @@ export function kuralShareText(k: Kural) {
 
 /** Share a Kural: the iPhone share sheet in the app, the Web Share API or the clipboard on the website. */
 export async function shareKural(k: Kural): Promise<'shared' | 'copied' | 'cancelled'> {
-  const text = kuralShareText(k);
+  return shareText(kuralShareText(k), `குறள் ${k.number}`);
+}
+
+/** Share any text: the iPhone share sheet in the app, the browser's share sheet, or copy to the clipboard. */
+export async function shareText(text: string, title = 'இசையில் திருக்குறள்'): Promise<'shared' | 'copied' | 'cancelled'> {
   try {
     if (isNativeApp) {
       const { Share } = await import('@capacitor/share');
-      await Share.share({ title: `குறள் ${k.number}`, text });
+      await Share.share({ title, text });
       return 'shared';
     }
     if (navigator.share) {
-      await navigator.share({ title: `குறள் ${k.number}`, text });
+      await navigator.share({ title, text });
       return 'shared';
     }
     await navigator.clipboard.writeText(text);
