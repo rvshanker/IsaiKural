@@ -64,7 +64,7 @@ type Route =
   | { page: 'kurals'; paal: Paal | 'all' }
   | { page: 'map'; n?: number }
   | { page: 'facts' }
-  | { page: 'quiz' }
+  | { page: 'quiz'; set?: string }
   | { page: 'feedback' }
   | { page: 'admin' }
   | { page: 'privacy' };
@@ -90,7 +90,7 @@ function parseHash(): Route {
     return { page: 'map', n: n >= 1 && n <= 1330 ? n : undefined };
   }
   if (head === 'facts') return { page: 'facts' };
-  if (head === 'quiz') return { page: 'quiz' };
+  if (head === 'quiz') return { page: 'quiz', set: arg ? decodeURIComponent(arg) : undefined };
   if (head === 'feedback') return { page: 'feedback' };
   if (head === 'admin') return { page: 'admin' };
   if (head === 'privacy') return { page: 'privacy' };
@@ -615,7 +615,7 @@ export default function App() {
           <ChevronLeft className="w-5 h-5" /> முகப்பு
         </button>
         <Suspense fallback={<div className="h-64" />}>
-          <QuizPage isDark={isDark} onOpenKural={(k) => setSelectedDetailKural(k)} />
+          <QuizPage key={route.set || 'quiz'} isDark={isDark} initialSet={route.set} onOpenKural={(k) => setSelectedDetailKural(k)} />
         </Suspense>
       </main>
       ) : route.page === 'facts' ? (
