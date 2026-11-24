@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Search, X, BookOpen, ChevronRight } from 'lucide-react';
+import { Search, X, BookOpen, ChevronRight, ArrowRight } from 'lucide-react';
 import { ATHIKARAMS } from '../data/chapters';
 import { matchChapters } from '../utils/search';
 
@@ -32,15 +32,16 @@ export const HomeSearchBar: React.FC<HomeSearchBarProps> = ({ searchQuery, onSea
       className="w-full relative"
     >
       <label
-        className={`flex items-center gap-4 h-[50px] px-5 sm:px-6 rounded-full border transition-shadow focus-within:shadow-[0_0_0_3px_rgba(29,66,52,0.15)] ${
+        className={`flex items-center gap-3 h-[58px] pl-5 pr-1.5 rounded-full border transition-shadow focus-within:shadow-[0_0_0_4px_rgba(227,184,102,0.35)] ${
           isDark
-            ? 'bg-[#1B1F1C] border-[#2F3833] text-[#EEE8DC]'
-            : 'bg-white border-[#E4E4DE] text-[#1F2A25] shadow-[0_1px_2px_rgba(0,0,0,0.04)]'
+            ? 'bg-[#1E2A24] border-[#3C5246] text-[#EEE8DC] shadow-[0_10px_30px_rgba(0,0,0,0.35)]'
+            : 'bg-[#FFFDF6] border-[#D8C68F] text-[#1F2A25] shadow-[0_10px_28px_rgba(29,66,52,0.12)]'
         }`}
       >
-        <Search className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#AFC3B8]' : 'text-[#16392E]'}`} strokeWidth={2} />
+        <Search className={`w-[22px] h-[22px] shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#1D4234]'}`} strokeWidth={2} />
         <input
           type="search"
+          enterKeyHint="search"
           value={searchQuery}
           onChange={(e) => {
             setDismissed(false);
@@ -49,9 +50,9 @@ export const HomeSearchBar: React.FC<HomeSearchBarProps> = ({ searchQuery, onSea
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
           onKeyDown={(e) => e.key === 'Escape' && setDismissed(true)}
-          placeholder="Search by kural number, chapter name, or keyword..."
-          aria-label="Search by kural number, chapter name, or keyword"
-          className="w-full bg-transparent text-[16px] placeholder:text-[#8A8F8B] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+          placeholder="குறள் எண், அதிகாரம் அல்லது சொல்லைத் தேடுங்கள்…"
+          aria-label="குறள் எண், அதிகாரம் அல்லது சொல்லைத் தேடுங்கள் · Search by kural number, chapter or word"
+          className={`w-full min-w-0 bg-transparent text-[16px] font-tamil-sans focus:outline-none [&::-webkit-search-cancel-button]:hidden ${isDark ? 'placeholder:text-[#9FB0A6]' : 'placeholder:text-[#7C7F6E]'}`}
         />
         {searchQuery && (
           <button
@@ -63,6 +64,13 @@ export const HomeSearchBar: React.FC<HomeSearchBarProps> = ({ searchQuery, onSea
             <X className="w-5 h-5" />
           </button>
         )}
+        <button
+          type="submit"
+          aria-label="தேடு"
+          className="w-[46px] h-[46px] shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-[#F0CC7E] to-[#C9962F] text-[#16392E] shadow-[0_4px_12px_rgba(201,150,47,0.4)] hover:brightness-105 active:scale-95 transition cursor-pointer"
+        >
+          <ArrowRight className="w-[22px] h-[22px]" strokeWidth={2.4} />
+        </button>
       </label>
 
       {/* Adhikaram suggestions while typing */}
@@ -70,7 +78,7 @@ export const HomeSearchBar: React.FC<HomeSearchBarProps> = ({ searchQuery, onSea
         <div
           role="listbox"
           aria-label="அதிகாரங்கள்"
-          className={`absolute left-0 right-0 top-[56px] z-30 rounded-2xl border overflow-hidden shadow-lg ${
+          className={`absolute left-0 right-0 top-[64px] z-30 rounded-2xl border overflow-hidden shadow-lg ${
             isDark ? 'bg-[#1B1F1C] border-[#2F3833]' : 'bg-white border-[#E4E4DE]'
           }`}
         >
