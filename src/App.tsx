@@ -17,6 +17,7 @@ import { AthikaramCatalog } from './components/AthikaramCatalog';
 import { KuralCard } from './components/KuralCard';
 import { KuralDetailModal } from './components/KuralDetailModal';
 import { SiteFooter } from './components/SiteFooter';
+import { GoldenHome } from './components/GoldenHome';
 import { MediaModal } from './components/MediaModal';
 import { VideoModal } from './components/VideoModal';
 import { ImageModal } from './components/ImageModal';
@@ -419,10 +420,10 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex flex-col overflow-x-clip transition-colors duration-200 ${
-      isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
+      route.page === 'home' ? 'bg-[#120C07] text-stone-100' : isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
     }`}>
       {/* 1) TOP MENU (Google-Style Navigation with Dark Teal Background) */}
-      {<Navbar
+      {route.page !== 'home' && <Navbar
         onGoHome={() => scrollToSection('home')}
         onNavigateSection={scrollToSection}
         searchQuery={searchQuery}
@@ -444,138 +445,27 @@ export default function App() {
       />}
 
       {route.page === 'home' ? (
-      <>
-      {/* HERO: photograph with the Random Kural of the Day card */}
-      <div id="home">
-        <HeroKuralOfTheDay
-          kural={currentDailyKural}
-          onPrev={() => handleStepDailyKural(-1)}
-          onNext={() => handleStepDailyKural(1)}
-          onShuffle={handleShuffleDailyKural}
-          onOpenDetails={(k) => setSelectedDetailKural(k)}
-          onOpenVideo={(k) => go(`#/video/${k.number}`)}
-          isDark={isDark}
-        />
-      </div>
-
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-3 sm:px-8 lg:px-[38px] pt-5 pb-6 space-y-4">
-        {isNativeApp && (
-          <div className="px-0 lg:px-[68px]">
-            <ReminderCard isDark={isDark} />
-          </div>
-        )}
-        {/* SEARCH */}
-        <div className="px-0 lg:px-[68px] pb-1">
-          <HomeSearchBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onSearchSubmit={handleSearchSubmit}
-            isDark={isDark}
+        <GoldenHome
+          dailyKural={currentDailyKural}
+          firstKural={allAvailableKurals[0]}
+          videoKurals={videoKurals}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onSearchSubmit={handleSearchSubmit}
+          onStepDaily={handleStepDailyKural}
+          onShuffleDaily={handleShuffleDailyKural}
+          onOpenDetail={(k) => setSelectedDetailKural(k)}
+          go={go}
+          top={isNativeApp ? <ReminderCard isDark={true} /> : undefined}
+        >
+          <AthikaramCatalog
+            onSelectAthikaram={handleSelectAthikaram}
+            activeAthikaram={lastChapter}
+            isDark={true}
+            isOpen={catalogOpen}
+            onToggle={() => setCatalogOpen(v => !v)}
           />
-        </div>
-
-        {/* 133 அதிகாரங்களின் அட்டவணை */}
-        <AthikaramCatalog
-          onSelectAthikaram={handleSelectAthikaram}
-          activeAthikaram={lastChapter}
-          isDark={isDark}
-          isOpen={catalogOpen}
-          onToggle={() => setCatalogOpen(v => !v)}
-        />
-
-        {/* இசையில் திருக்குறள் — opens the videos page */}
-        <button
-          onClick={() => go('#/videos')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Music2 className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
-            <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                இசையில் திருக்குறள்
-              </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>{videoKurals.length} பாடல்கள் · பொருளுடன்</span>
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-
-        {/* குறள் வரைபடம் — Kurals laid out by meaning */}
-        <button
-          onClick={() => go('#/map')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Network className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
-            <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                குறள் வரைபடம்
-              </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>133 அதிகாரங்களில் ஒரு சொல்லைத் தேடுங்கள் · Search every Kural by word</span>
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-
-        {/* கற்போம் · விளையாடுவோம் — word game + quiz */}
-        <button
-          onClick={() => go('#/learn')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Puzzle className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
-            <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                கற்போம் · விளையாடுவோம்
-              </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொல் விளையாட்டு, வினாடி வினா · Word game & quiz for kids and all</span>
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-
-        {/* சுவையான உண்மைகள் — interesting facts */}
-        <button
-          onClick={() => go('#/facts')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Lightbulb className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
-            <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                சுவையான உண்மைகள்
-              </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>திருக்குறள் பற்றி நீங்கள் அறியாதவை · Interesting facts about Thirukkural</span>
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-
-        {/* All kurals live on their own page */}
-        <button
-          onClick={() => go('#/kurals')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <BookOpen className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
-            <span className={`font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-              <span className="font-heading font-normal mr-2 sm:mr-3">1330</span>குறள்கள்
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-      </main>
-      </>
+        </GoldenHome>
       ) : route.page === 'map' ? (
         <Suspense fallback={<div className="flex-1 bg-[#0D110F]" />}>
           <KuralMap onExit={() => go('#/')} onOpenDetail={(k) => setSelectedDetailKural(k)} />
@@ -947,7 +837,7 @@ export default function App() {
 
 
       {/* Follow us + contact (every page) */}
-      <SiteFooter isDark={isDark} />
+      <SiteFooter isDark={isDark || route.page === 'home'} />
 
 
       {/* Detail / Commentary Modal */}
