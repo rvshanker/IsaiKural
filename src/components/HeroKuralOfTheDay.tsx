@@ -61,17 +61,17 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
       <img
         src={HERO_IMAGE}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover select-none"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover select-none"
         style={{ objectPosition: '0% 3%' }}
         draggable={false}
       />
       {/* Soft scrim only on small screens where the card covers the photo */}
-      <div className="absolute inset-0 bg-black/25 md:bg-transparent" />
+      
 
-      <div className="relative w-full px-3 sm:px-8 pt-6 pb-8 sm:pt-9 sm:pb-8 md:min-h-[max(420px,30vw)] flex justify-center md:pl-[42%] md:pr-6 lg:pr-10 xl:pr-16">
+      <div className="relative w-full px-3 sm:px-8 pt-3 pb-1 md:pt-6 md:pb-6 md:min-h-[max(330px,23vw)] flex justify-center md:pl-[42%] md:pr-6 lg:pr-10 xl:pr-16">
         <div
-          className={`w-full max-w-[720px] self-center rounded-[18px] px-4 sm:px-10 pt-5 sm:pt-6 pb-3 sm:pb-4 text-center shadow-[0_18px_50px_-18px_rgba(20,40,30,0.45)] backdrop-blur-sm ${
-            isDark ? 'bg-[#16211C]/92 text-[#EEE8DC]' : 'bg-[#FBFAF6]/95 text-[#16392E]'
+          className={`w-full max-w-[640px] self-center rounded-[18px] px-4 sm:px-8 pt-4 sm:pt-5 pb-2 sm:pb-3 text-center shadow-[0_10px_30px_-14px_rgba(20,40,30,0.35)] md:shadow-[0_18px_50px_-18px_rgba(20,40,30,0.45)] border md:border-0 backdrop-blur-sm ${
+            isDark ? 'bg-[#16211C]/92 text-[#EEE8DC] border-[#2A302C]' : 'bg-[#FBFAF6]/95 text-[#16392E] border-[#E4E1D6]'
           }`}
         >
           {/* Title row */}
@@ -95,7 +95,7 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
               }
             }}
             title="முழு விளக்கம் & உரைகள்"
-            className={`group block w-full mt-4 px-2 py-2 -mx-0 cursor-pointer rounded-xl transition-colors focus-visible:outline-2 focus-visible:outline-[#1D4234] ${
+            className={`group block w-full mt-2 sm:mt-3 px-2 py-1.5 -mx-0 cursor-pointer rounded-xl transition-colors focus-visible:outline-2 focus-visible:outline-[#1D4234] ${
               isDark ? 'hover:bg-white/[0.04]' : 'hover:bg-[#1D4234]/[0.04]'
             }`}
           >
@@ -103,12 +103,12 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
             <KuralCouplet
               line1={kural.line1}
               line2={kural.line2}
-              maxPx={28}
+              maxPx={24}
               align="center"
               className="font-tamil-sans font-bold leading-[1.6]"
             />
 
-            <div className={`mt-3 text-[15px] flex items-center justify-center gap-2 ${isDark ? 'text-[#C9C2B3]' : 'text-[#4E5E56]'}`}>
+            <div className={`mt-1.5 text-[14px] flex items-center justify-center gap-2 ${isDark ? 'text-[#C9C2B3]' : 'text-[#4E5E56]'}`}>
               <span>— குறள் {kural.number} —</span>
               {kural.media?.youtubeUrl && onOpenVideo && (
                 <button
@@ -127,20 +127,20 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
             </div>
 
             <p
-              className={`font-tamil-sans mt-3 text-[15px] sm:text-[17px] leading-[1.75] max-w-[520px] mx-auto line-clamp-3 ${
+              className={`font-tamil-sans mt-1.5 text-[14.5px] sm:text-[15.5px] leading-[1.7] max-w-[520px] mx-auto line-clamp-2 sm:line-clamp-3 ${
                 isDark ? 'text-[#DCD5C7]' : 'text-[#2E3B35]'
               }`}
             >
               {kural.commentaries.muVa}
             </p>
 
-            <span className={`mt-2 inline-flex items-center gap-0.5 font-tamil-sans text-[13.5px] font-semibold underline-offset-4 group-hover:underline ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`}>
+            <span className={`mt-1 inline-flex items-center gap-0.5 font-tamil-sans text-[13.5px] font-semibold underline-offset-4 group-hover:underline ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`}>
               முழு விளக்கம் காண்க <ChevronRight className="w-4 h-4" />
             </span>
           </div>
 
           {/* Controls */}
-          <div className="mt-3 flex items-center justify-between">
+          <div className="mt-1 flex items-center justify-between">
             <button onClick={onPrev} aria-label="முந்தைய குறள்" className={iconBtn}>
               <ChevronLeft className="w-6 h-6" strokeWidth={1.8} />
             </button>

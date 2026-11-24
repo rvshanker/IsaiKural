@@ -501,9 +501,6 @@ export default function App() {
           />
         </div>
 
-        {/* இசைப் பயணம் — today's song and three more */}
-        <IsaiPayanam dailyKural={currentDailyKural} videoKurals={videoKurals} go={go} />
-
         {/* 133 அதிகாரங்களின் அட்டவணை */}
         <AthikaramCatalog
           onSelectAthikaram={handleSelectAthikaram}
@@ -513,6 +510,21 @@ export default function App() {
           onToggle={() => setCatalogOpen(v => !v)}
         />
 
+        {/* All kurals live on their own page */}
+        <button
+          onClick={() => go('#/kurals')}
+          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
+          }`}
+        >
+          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <BookOpen className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
+            <span className={`font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+              <span className="font-heading font-normal mr-2 sm:mr-3">1330</span>குறள்கள்
+            </span>
+          </span>
+          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+        </button>
         {/* குறள் வரைபடம் — Kurals laid out by meaning */}
         <button
           onClick={() => go('#/map')}
@@ -532,6 +544,9 @@ export default function App() {
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
+        {/* இசைப் பயணம் — today's song and three more */}
+        <IsaiPayanam dailyKural={currentDailyKural} videoKurals={videoKurals} go={go} />
+
         {/* கற்போம் · விளையாடுவோம் — word game + quiz */}
         <button
           onClick={() => go('#/learn')}
@@ -543,7 +558,7 @@ export default function App() {
             <Puzzle className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
             <span className="min-w-0">
               <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                கற்போம் · விளையாடுவோம்
+                கற்போம்
               </span>
               <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொல் விளையாட்டு, வினாடி வினா · Word game & quiz for kids and all</span>
             </span>
@@ -570,21 +585,6 @@ export default function App() {
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
-        {/* All kurals live on their own page */}
-        <button
-          onClick={() => go('#/kurals')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <BookOpen className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
-            <span className={`font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-              <span className="font-heading font-normal mr-2 sm:mr-3">1330</span>குறள்கள்
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
       </main>
       </>
       ) : route.page === 'map' ? (
