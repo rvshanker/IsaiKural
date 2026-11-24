@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>இசையில் திருக்குறள் — 1330 குறள்கள், உரைகள், பாடல்கள்</title>
+<meta name="description" content="திருவள்ளுவரின் 1330 குறள்களும் நான்கு உரைகளுடன், ஆங்கில விளக்கத்துடன், பாடல்களாகவும். All 1,330 Thirukkural couplets with classic Tamil commentaries, English meanings and songs.">
+<meta name="theme-color" content="#0F1F18">
+<link rel="canonical" href="https://isaikural.com/about.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="இசையில் திருக்குறள் — Thirukkural in music">
+<meta property="og:description" content="1330 குறள்கள் · நான்கு உரைகள் · பாடல்கள். Read every kural, hear it sung.">
+<meta property="og:image" content="https://isaikural.com/hero-valluvar.jpg">
+<meta property="og:url" content="https://isaikural.com/about.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@500;700;800&family=Noto+Sans+Tamil:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/hero-valluvar.webp">
+<style>
+:root{
+  --night:#0F1F18;--night2:#16302A;--green:#1D4234;
+  --gold:#D9A441;--gold2:#F0C978;--leaf:#EFE2C2;--leaf2:#E2CF9F;--ink:#3A2714;
+  --cream:#F7F1E3;--mist:#A9BDB2;--ember:#C8553D;
+  --serif:'Noto Serif Tamil','Lora',Georgia,serif;
+  --sans:'Plus Jakarta Sans','Noto Sans Tamil',system-ui,sans-serif;
+  --en:'Lora',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--cream);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{width:min(1180px,100% - 40px);margin:0 auto}
+:focus-visible{outline:3px solid var(--gold2);outline-offset:3px;border-radius:6px}
+
+/* Top bar */
+.top{position:fixed;inset:0 0 auto;z-index:30;transition:background .3s,backdrop-filter .3s}
+.top.solid{background:rgba(15,31,24,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(240,201,120,.12)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-weight:800;font-size:20px;color:var(--leaf);white-space:nowrap}
+.brand svg{width:30px;height:30px;flex-shrink:0}
+.top nav{display:flex;align-items:center;gap:26px;font-size:15px}
+.top nav a{text-decoration:none;color:var(--mist)}
+.top nav a:hover{color:var(--cream)}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border-radius:99px;font-weight:700;font-family:var(--sans);font-size:16px;padding:14px 24px;border:0;cursor:pointer;white-space:nowrap;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-gold{background:var(--gold);color:#22160A}
+.btn-gold:hover{background:var(--gold2)}
+.btn-ghost{background:rgba(247,241,227,.08);color:var(--cream);border:1px solid rgba(247,241,227,.28)}
+.btn-ghost:hover{background:rgba(247,241,227,.16)}
+.top .btn{padding:9px 16px;font-size:14px}
+.top nav a.btn-gold{color:#22160A}
+
+/* Hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:96px 0 0;overflow:hidden}
+.hero .bg{position:absolute;inset:0;background:url(/hero-valluvar.webp) 22% 30%/cover no-repeat;transform:scale(1.06);animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.12) translateX(-1.5%)}}
+.hero .shade{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(15,31,24,0) 18%,rgba(15,31,24,.55) 48%,rgba(15,31,24,.92) 70%),
+  linear-gradient(0deg,var(--night) 6%,rgba(15,31,24,.4) 42%,rgba(15,31,24,0) 70%)}
+.hero .copy{position:relative;z-index:2;margin-left:auto;width:min(540px,100%);padding-bottom:18px}
+.hero h1{font-family:var(--serif);font-weight:800;font-size:clamp(40px,4.6vw,66px);line-height:1.12;color:var(--leaf);letter-spacing:-.01em}
+.hero h1 .s{display:block;font-size:.46em;white-space:nowrap;font-weight:700;color:var(--gold2);margin-bottom:6px}
+.hero p.sub{color:#D6DED8;font-size:18px;margin-top:18px;max-width:30em}
+.hero p.en{font-family:var(--en);font-style:italic;color:var(--mist);font-size:16px;margin-top:6px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* The palm leaf (olai) — the kural writes itself on it */
+.olai-wrap{position:relative;z-index:3;perspective:1400px;padding:8px 0 34px}
+.olai{position:relative;margin:0 auto;width:min(1080px,100%);min-height:150px;padding:24px 9% 20px;border-radius:999px/84px;
+  background:
+    repeating-linear-gradient(180deg,rgba(120,84,30,.07) 0 2px,transparent 2px 7px),
+    linear-gradient(180deg,#F4E9CC,#E8D6A6 55%,#D9C08A);
+  color:var(--ink);box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 0 0 1px rgba(120,84,30,.25),inset 0 -10px 24px rgba(120,84,30,.18);
+  transform:rotateX(5deg);transform-origin:50% 100%}
+.olai:before,.olai:after{content:'';position:absolute;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:#2A1C0E;box-shadow:inset 0 2px 3px rgba(0,0,0,.6),0 0 0 3px rgba(120,84,30,.25)}
+.olai:before{left:5%}.olai:after{right:5%}
+.olai .meta{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:#7A5A2C;font-weight:600;margin-bottom:8px}
+.olai .lines{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.5vw,33px);line-height:1.45;text-align:center}
+.olai .ln{display:block;-webkit-mask:linear-gradient(90deg,#000 45%,transparent 55%) 100% 0/220% 100% no-repeat;mask:linear-gradient(90deg,#000 45%,transparent 55%) 100% 0/220% 100% no-repeat}
+.olai.write .ln{animation:inscribe 1.9s cubic-bezier(.3,.1,.3,1) forwards}
+.olai.write .ln+.ln{animation-delay:1.7s}
+@keyframes inscribe{to{-webkit-mask-position:0 0;mask-position:0 0}}
+.olai .mean{text-align:center;font-size:15px;color:#5C4322;margin-top:10px;opacity:0;transition:opacity .8s 3.4s;max-width:46em;margin-inline:auto}
+.olai.write .mean{opacity:1}
+.olai .row{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.play{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;background:var(--green);color:var(--leaf);border:0;border-radius:99px;padding:10px 18px 10px 12px;font:700 15px var(--sans);cursor:pointer}
+.play:hover{background:#255541}
+.play i{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center}
+.play i:after{content:'';border-left:10px solid #22160A;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+.wave{display:flex;align-items:center;gap:3px;height:26px}
+.wave b{width:3px;border-radius:3px;background:#A27A3C;height:30%;animation:wv 1.1s ease-in-out infinite}
+.wave b:nth-child(2n){animation-delay:-.3s}.wave b:nth-child(3n){animation-delay:-.6s}.wave b:nth-child(5n){animation-delay:-.85s}
+@keyframes wv{50%{height:100%}}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:16px}
+.dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(247,241,227,.3);cursor:pointer;padding:0}
+.dots button.on{background:var(--gold2);width:22px;border-radius:99px}
+
+/* Sections */
+section{padding:92px 0}
+.kicker{font-family:var(--en);font-style:italic;color:var(--gold2);font-size:17px;margin-bottom:8px}
+h2{font-family:var(--serif);font-weight:800;font-size:clamp(32px,4.2vw,54px);line-height:1.15;color:var(--leaf);max-width:18em}
+.lead{color:#C9D5CE;font-size:18px;max-width:38em;margin-top:14px}
+.lead em{font-family:var(--en);color:var(--mist)}
+
+/* 133 chapters field */
+.field{margin-top:46px;display:grid;gap:30px}
+.paal{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:start}
+.paal h3{font-family:var(--serif);font-size:21px;color:var(--leaf);font-weight:700;line-height:1.3}
+.paal h3 small{display:block;font-family:var(--sans);font-size:13px;color:var(--mist);font-weight:500;margin-top:4px}
+.tiles{display:grid;grid-template-columns:repeat(19,1fr);gap:6px}
+.tile{position:relative;aspect-ratio:1;border-radius:7px;background:rgba(169,189,178,.10);border:1px solid rgba(169,189,178,.14);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(247,241,227,.45);text-decoration:none;transition:transform .2s,background .3s}
+.tile.song{background:linear-gradient(160deg,var(--gold2),var(--gold));color:#3A250C;border-color:transparent;font-weight:700}
+.tile.song.n2{box-shadow:0 0 0 2px rgba(240,201,120,.35)}
+.field.lit .tile{animation:lit .6s both}
+@keyframes lit{from{opacity:0;transform:scale(.6)}}
+.tile:hover{transform:translateY(-3px) scale(1.12);z-index:2}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--cream);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;transition:opacity .12s;max-width:260px}
+.tip b{font-family:var(--serif);display:block}
+.tip span{color:#6B5534;font-size:12.5px}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;color:var(--mist);font-size:14px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:7px;background:rgba(169,189,178,.14)}
+.legend i.g{background:var(--gold)}
+
+/* Songs rail */
+.songs{background:linear-gradient(180deg,var(--night),var(--night2) 30%,var(--night2) 70%,var(--night))}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(20px,calc((100vw - 1180px)/2));padding:34px 0 20px;scrollbar-width:thin;scrollbar-color:rgba(240,201,120,.35) transparent}
+.rail:before,.rail:after{content:'';flex:0 0 max(4px,calc((100vw - 1180px)/2 - 16px))}
+.card{flex:0 0 200px;scroll-snap-align:start;background:none;border:0;padding:0;color:inherit;text-align:left;cursor:pointer;font-family:var(--sans)}
+.card .th{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#2B4A3D,#14281F)}
+.card .th img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .th img{transform:scale(1.05)}
+.card .th:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 45%)}
+.card .no{position:absolute;left:12px;bottom:12px;z-index:1;font-family:var(--serif);font-weight:800;font-size:20px;color:var(--leaf)}
+.card .no small{display:block;font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--gold2)}
+.card .pi{position:absolute;right:10px;top:10px;z-index:1;width:36px;height:36px;border-radius:50%;background:rgba(15,31,24,.65);display:flex;align-items:center;justify-content:center}
+.card .pi:after{content:'';border-left:11px solid var(--gold2);border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.card p{font-family:var(--serif);font-size:14.5px;line-height:1.45;margin-top:10px;color:#E4DCC7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rail-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 40px;flex-wrap:wrap}
+.rail-foot h2{max-width:none}
+
+/* Urai */
+.urai{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.kbox{background:var(--leaf);color:var(--ink);border-radius:26px;padding:34px 32px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.kbox .k{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.4vw,30px);line-height:1.5}
+.kbox .ref{font-size:13.5px;color:#7A5A2C;font-weight:600;margin-top:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tabs button{font:600 15px var(--sans);border-radius:99px;padding:9px 15px;border:1px solid rgba(58,39,20,.22);background:transparent;color:#5C4322;cursor:pointer}
+.tabs button.on{background:var(--green);color:var(--leaf);border-color:var(--green)}
+.utext{font-family:var(--serif);font-size:18px;line-height:1.75;margin-top:18px;min-height:6.5em;color:#3A2714}
+.utext.en{font-family:var(--en);font-style:italic}
+
+/* Learn tiles */
+.learn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.lt{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:310px;border-radius:24px;padding:26px;text-decoration:none;overflow:hidden;border:1px solid rgba(240,201,120,.14);background:var(--night2);transition:transform .2s,border-color .2s}
+.lt:hover{transform:translateY(-4px);border-color:rgba(240,201,120,.45)}
+.lt svg.art{width:128px;height:auto;margin-bottom:auto;padding-bottom:18px}
+.lt h3{font-family:var(--serif);font-size:25px;font-weight:800;color:var(--leaf);line-height:1.25}
+.lt p{color:var(--mist);font-size:15px;margin-top:6px}
+.lt .go{margin-top:14px;color:var(--gold2);font-weight:700;font-size:15px}
+
+/* Final CTA + footer */
+.final{text-align:center;padding:120px 0 90px;background:radial-gradient(60% 80% at 50% 100%,rgba(217,164,65,.18),transparent 70%)}
+.final h2{margin:0 auto}
+.final .cta{justify-content:center}
+.social{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 22px;margin-top:34px;font-size:15px}
+.social a{color:var(--mist);text-decoration:none}
+.social a:hover{color:var(--gold2)}
+footer{border-top:1px solid rgba(169,189,178,.12);padding:22px 0 30px;color:var(--mist);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{color:var(--mist)}
+
+/* Video modal */
+.vm{position:fixed;inset:0;z-index:60;background:rgba(5,12,9,.86);display:none;align-items:center;justify-content:center;padding:20px}
+.vm.on{display:flex}
+.vm .box{position:relative;width:min(420px,100%);aspect-ratio:9/16;max-height:86vh;border-radius:18px;overflow:hidden;background:#000}
+.vm .box.wide{width:min(960px,100%);aspect-ratio:16/9}
+.vm iframe{width:100%;height:100%;border:0}
+.vm .x{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(247,241,227,.14);color:#fff;font-size:24px;cursor:pointer}
+.vm .open{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:var(--gold2);font-size:14px;text-decoration:none;white-space:nowrap}
+
+/* Reveal (one quiet entrance per section heading) */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .top nav a:not(.btn){display:none}
+  .brand{font-size:18px}
+  .hero{justify-content:flex-start;padding-top:0}
+  .hero .bg{position:relative;inset:auto;height:44svh;min-height:280px;background-position:20% 30%;animation:none;transform:none}
+  .hero .shade{background:linear-gradient(0deg,var(--night) 0,rgba(15,31,24,0) 50%);height:44svh;min-height:280px;bottom:auto}
+  .hero .copy{margin:-40px 0 0;padding:0 0 20px}
+  .olai{padding:24px 9% 20px;border-radius:999px/60px;transform:none}
+  .olai .meta{font-size:12px}
+  .paal{grid-template-columns:1fr;gap:12px}
+  .tiles{gap:4px}
+  .tile{border-radius:5px;font-size:0}
+  .urai{grid-template-columns:1fr;gap:30px}
+  .learn{grid-template-columns:1fr}
+  .lt{min-height:220px}
+  section{padding:80px 0}
+  .card{flex-basis:160px}
+}
+@media (max-width:480px){.top nav{display:none}.cta .btn{flex:1 1 auto;justify-content:center}}
+@media (prefers-reduced-motion:reduce){
+  .hero .bg{animation:none}
+  .olai .ln{-webkit-mask:none;mask:none}
+  .olai .mean{opacity:1;transition:none}
+  .wave b{animation:none;height:60%}
+  .rv{opacity:1;transform:none;transition:none}
+  .field.lit .tile{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="இசையில் திருக்குறள் — முகப்பு">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5c2.6 3.2 3.6 6.6 2.8 10.2M16 5c-2.6 3.2-3.6 6.6-2.8 10.2M16 15.5c3-4.3 7-6 11-5.4-.8 5.6-5 9.4-11 9.4s-10.2-3.8-11-9.4c4-.6 8 1.1 11 5.4z" fill="none" stroke="#D9A441" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 24h22" stroke="#D9A441" stroke-width="1.8" stroke-linecap="round"/></svg>
+      இசையில் திருக்குறள்
+    </a>
+    <nav aria-label="பக்கப் பகுதிகள்">
+      <a href="#adhikaram">அதிகாரங்கள்</a>
+      <a href="#padalgal">பாடல்கள்</a>
+      <a href="#urai">உரைகள்</a>
+      <a href="#karpom">கற்போம்</a>
+      <a class="btn btn-gold" href="/">குறள்களைப் படிக்க</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="அறிமுகம்" style="padding-bottom:0">
+    <div class="bg" role="img" aria-label="சூரிய உதயத்தில் திருவள்ளுவர் சிலை"></div>
+    <div class="shade"></div>
+    <div class="wrap" style="position:relative;z-index:2">
+      <div class="copy">
+        <h1><span class="s">வள்ளுவர் வரிகள், இசையில்</span>படியுங்கள்.<br>கேளுங்கள்.</h1>
+        <p class="sub">1330 குறள்களும் நான்கு உரைகளுடன். அவற்றில் <b id="nSongs">154</b> குறள்கள் பாடலாகவும் உள்ளன.</p>
+        <p class="en">Every kural with four classic commentaries, and a growing set of songs.</p>
+        <div class="cta">
+          <a class="btn btn-gold" href="/">குறள்களைப் படிக்க</a>
+          <a class="btn btn-ghost" href="/#/videos">பாடல்களைக் கேட்க</a>
+        </div>
+      </div>
+    </div>
+    <div class="olai-wrap wrap">
+      <figure class="olai" id="olai" aria-live="polite">
+        <figcaption class="meta"><span id="oCh"></span><span id="oNo"></span></figcaption>
+        <div class="lines" lang="ta"><span class="ln" id="oL1"></span><span class="ln" id="oL2"></span></div>
+        <p class="mean" id="oMean"></p>
+        <div class="row">
+          <button class="play" id="oPlay" type="button"><i aria-hidden="true"></i>பாடலைக் கேளுங்கள்</button>
+          <div class="wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+        </div>
+      </figure>
+      <div class="dots" id="oDots" role="tablist" aria-label="மற்ற குறள்கள்"></div>
+    </div>
+  </section>
+
+  <section id="adhikaram">
+    <div class="wrap">
+      <div class="rv">
+        <div class="kicker">133 chapters, ten kurals each</div>
+        <h2>133 அதிகாரங்கள். ஒவ்வொன்றிலும் பத்து குறள்கள்.</h2>
+        <p class="lead">ஒவ்வொரு கட்டமும் ஒரு அதிகாரம். பொன்னிறக் கட்டங்களில் பாடல் உள்ளது. எந்த அதிகாரத்தையும் தொட்டு அதன் குறள்களைப் படியுங்கள்.</p>
+      </div>
+      <div class="field" id="field"></div>
+      <div class="legend"><span><i class="g"></i>பாடல் உள்ள அதிகாரம்</span><span><i></i>பாடல் விரைவில்</span></div>
+    </div>
+  </section>
+
+  <section class="songs" id="padalgal" style="padding-left:0;padding-right:0">
+    <div class="wrap rv">
+      <div class="kicker">Songs, not just text</div>
+      <div class="rail-foot">
+        <h2>ஒவ்வொரு குறளும் ஒரு பாடல்.</h2>
+        <a class="btn btn-ghost" href="/#/videos">அனைத்துப் பாடல்களும்</a>
+      </div>
+      <p class="lead">முதலில் குறள் இசையாக, பிறகு அதன் பொருள், மீண்டும் குறள். ஒரு நிமிடத்தில் மனதில் பதியும்.</p>
+    </div>
+    <div class="rail" id="rail" aria-label="பாடல்கள்"></div>
+  </section>
+
+  <section id="urai">
+    <div class="wrap urai">
+      <div class="rv">
+        <div class="kicker">One kural, many readings</div>
+        <h2>ஒரே குறள். நான்கு உரையாசிரியர்கள்.</h2>
+        <p class="lead">மு. வரதராசனார், கலைஞர், சாலமன் பாப்பையா, பரிமேலழகர் ஆகியோரின் உரைகளும் ஆங்கில விளக்கமும் ஒவ்வொரு குறளுக்கும் உள்ளன. ஒப்பிட்டுப் படித்தால் பொருள் இன்னும் ஆழமாகும்.</p>
+      </div>
+      <div class="kbox">
+        <div class="k" id="uK"></div>
+        <div class="ref" id="uRef"></div>
+        <div class="tabs" id="uTabs" role="tablist" aria-label="உரையாசிரியர்கள்"></div>
+        <p class="utext" id="uText" role="tabpanel"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="karpom" style="padding-top:20px">
+    <div class="wrap">
+      <div class="rv">
+        <div class="kicker">For students and the curious</div>
+        <h2>கற்போம், விளையாடுவோம்.</h2>
+        <p class="lead">தமிழ்ப் பள்ளி மாணவர்கள் தங்கள் குறள்களை விளையாட்டாகப் பயிற்சி செய்யலாம். பெரியவர்கள் ஒரு சொல்லைத் தேடி எல்லாக் குறள்களிலும் காணலாம்.</p>
+      </div>
+      <div class="learn">
+        <a class="lt" href="/#/learn">
+          <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><rect x="6" y="20" width="32" height="32" rx="7" fill="#D9A441"/><rect x="44" y="20" width="32" height="32" rx="7" fill="none" stroke="#F0C978" stroke-width="2" stroke-dasharray="4 4"/><rect x="82" y="20" width="32" height="32" rx="7" fill="#EFE2C2"/><text x="22" y="42" font-size="16" text-anchor="middle" fill="#3A250C" font-family="Noto Serif Tamil">அ</text><text x="98" y="42" font-size="16" text-anchor="middle" fill="#3A250C" font-family="Noto Serif Tamil">உ</text><path d="M60 62v18M52 72l8 8 8-8" stroke="#F0C978" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <h3>சொல் விளையாட்டு, வினாடி வினா</h3>
+          <p>குறளின் சொற்களை வரிசைப்படுத்துங்கள், கேள்விகளுக்குப் பதில் சொல்லுங்கள்.</p>
+          <span class="go">விளையாடுங்கள் ›</span>
+        </a>
+        <a class="lt" href="/#/map">
+          <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><g stroke="#A9BDB2" stroke-width="1.2" opacity=".6"><path d="M60 45L22 18M60 45l40-24M60 45l-30 34M60 45l38 30M60 45H10M60 45h52"/></g><circle cx="60" cy="45" r="9" fill="#D9A441"/><g fill="#EFE2C2"><circle cx="22" cy="18" r="5"/><circle cx="100" cy="21" r="6"/><circle cx="30" cy="79" r="4"/><circle cx="98" cy="75" r="5"/><circle cx="10" cy="45" r="4"/><circle cx="112" cy="45" r="4"/></g></svg>
+          <h3>குறள் வரைபடம்</h3>
+          <p>ஒரு சொல்லைத் தேடுங்கள். அது வரும் எல்லாக் குறள்களும் ஒரே வரைபடத்தில்.</p>
+          <span class="go">வரைபடம் ›</span>
+        </a>
+        <a class="lt" href="/#/facts">
+          <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><path d="M60 10a24 24 0 0 0-14 43.5V64h28V53.5A24 24 0 0 0 60 10z" fill="none" stroke="#F0C978" stroke-width="2.4"/><path d="M50 72h20M53 80h14" stroke="#F0C978" stroke-width="2.4" stroke-linecap="round"/><g stroke="#D9A441" stroke-width="2" stroke-linecap="round"><path d="M20 34h10M90 34h10M30 12l7 7M90 12l-7 7"/></g></svg>
+          <h3>சுவையான உண்மைகள்</h3>
+          <p>திருக்குறள் பற்றி நீங்கள் அறியாதவை, சுருக்கமாக.</p>
+          <span class="go">படியுங்கள் ›</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap rv">
+      <div class="kicker">Start with any kural</div>
+      <h2>இன்று ஒரு குறள். நாளை இன்னொன்று.</h2>
+      <div class="cta">
+        <a class="btn btn-gold" href="/">குறள்களைப் படிக்க</a>
+        <a class="btn btn-ghost" href="/#/videos">பாடல்களைக் கேட்க</a>
+      </div>
+      <div class="social">
+        <a href="https://www.youtube.com/@CreativeCornerTamil" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/isaiyil.thirukkural/" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61596153747050" rel="noopener">Facebook</a>
+        <a href="/#/feedback">கருத்து தெரிவிக்க</a>
+        <a href="mailto:contact@isaikural.com">contact@isaikural.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> இசையில் திருக்குறள் · isaikural.com</span>
+    <span><a href="/#/privacy">தனியுரிமை · Privacy</a></span>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="vm" id="vm" role="dialog" aria-modal="true" aria-label="பாடல்">
+  <div class="box" id="vmBox"></div>
+  <button class="x" id="vmX" type="button" aria-label="மூடு">×</button>
+  <a class="open" id="vmOpen" href="#" target="_blank" rel="noopener">YouTube-இல் திறக்க ›</a>
+</div>
+
+<script>
+var D={"CH": [["கடவுள் வாழ்த்து", "Praise of God", 0], ["வான் சிறப்பு", "The Excellence of Rain", 0], ["நீத்தார் பெருமை", "The Greatness of Ascetics", 0], ["அறன் வலியுறுத்தல்", "Assertion of the Strength of Virtue", 0], ["இல்வாழ்க்கை", "Domestic Life", 0], ["வாழ்க்கைத் துணைநலம்", "The Worth of a Wife", 0], ["புதல்வரைப் பெறுதல்", "The Wealth of Children", 0], ["அன்புடைமை", "The Possession of Love", 0], ["விருந்தோம்பல்", "Hospitality", 0], ["இனியவை கூறல்", "The Utterance of Pleasant Words", 0], ["செய்ந்நன்றி அறிதல்", "Gratitude", 0], ["நடுவு நிலைமை", "Impartiality", 0], ["அடக்கம் உடைமை", "The Possession of Self-Restraint", 0], ["ஒழுக்கம் உடைமை", "The Possession of Right Conduct", 0], ["பிறனில் விழையாமை", "Not Coveting Another's Wife", 0], ["பொறையுடைமை", "The Possession of Forbearance", 0], ["அழுக்காறாமை", "Not Envying", 0], ["வெஃகாமை", "Not Coveting", 0], ["புறங்கூறாமை", "Not Backbiting", 0], ["பயனில சொல்லாமை", "Not Speaking Profitless Words", 0], ["தீவினையச்சம்", "Dread of Evil Deeds", 0], ["ஒப்புரவறிதல்", "Duty to Society", 0], ["ஈகை", "Giving / Charity", 0], ["புகழ்", "Renown / Fame", 0], ["அருளுடைமை", "Compassion", 0], ["புலால் மறுத்தல்", "Abstinence from Flesh", 0], ["தவம்", "Penance", 0], ["கூடாவொழுக்கம்", "Inconsistent Conduct", 0], ["கள்ளாமை", "Absence of Fraud", 0], ["வாய்மை", "Truthfulness", 0], ["வெகுளாமை", "Restraint of Anger", 0], ["இன்னா செய்யாமை", "Not Doing Evil", 0], ["கொல்லாமை", "Not Killing", 0], ["நிலையாமை", "Impermanence", 0], ["துறவு", "Renunciation", 0], ["மெய்யுணர்தல்", "Knowledge of Truth", 0], ["அவாவறுத்தல்", "Extirpation of Desire", 0], ["ஊழ்", "Destiny / Fate", 0], ["இறைமாட்சி", "The Greatness of a King", 1], ["கல்வி", "Learning", 1], ["கல்லாமை", "Ignorance", 1], ["கேள்வி", "Hearing / Listening", 1], ["அறிவுடைமை", "Possession of Wisdom", 1], ["குற்றங்கடிதல்", "Correction of Faults", 1], ["பெரியாரைத் துணைக்கோடல்", "Seeking Aid of Great Men", 1], ["சிற்றினம் சேராமை", "Avoiding Base Company", 1], ["தெரிந்து செயல்வகை", "Acting after Deliberation", 1], ["வலி அறிதல்", "Judgment of Strength", 1], ["காலமறிதல்", "Knowing the Fitting Time", 1], ["இடனறிதல்", "Knowing the Place", 1], ["தெரிந்து தெளிதல்", "Selection and Confidence", 1], ["தெரிந்து வினையாடல்", "Selection and Employment", 1], ["சுற்றந்தழால்", "Cherishing Kinsmen", 1], ["பொச்சாவாமை", "Unforgetfulness", 1], ["செங்கோன்மை", "Right Sceptre / Just Rule", 1], ["கொடுங்கோன்மை", "Cruel Sceptre / Tyranny", 1], ["வெருவந்த செய்யாமை", "Absence of Terrorism", 1], ["கண்ணோட்டம்", "Benignity / Graciousness", 1], ["ஒற்றாடல்", "Espionage / Intelligence", 1], ["ஊக்கமுடைமை", "Possession of Energy", 1], ["மடியின்மை", "Unslothfulness", 1], ["ஆள்வினையுடைமை", "Manly Effort / Perseverance", 1], ["இடுக்கணழியாமை", "Hopefulness in Trouble", 1], ["அமைச்சு", "Ministers", 1], ["சொல்வன்மை", "Power of Speech", 1], ["வினைத்தூய்மை", "Purity of Action", 1], ["வினைத்திட்பம்", "Firmness in Action", 1], ["வினைசெயல்வகை", "Manner of Action", 1], ["தூது", "The Envoy / Ambassador", 1], ["மன்னரைச் சேர்ந்தொழுகல்", "Conduct in the Presence of the King", 1], ["குறிப்பறிதல்", "Divining the Intention", 1], ["அவையறிதல்", "Knowledge of the Council", 1], ["அவையஞ்சாமை", "Not Dreading the Council", 1], ["நாடு", "The Country", 1], ["அரண்", "The Fortress", 1], ["பொருள்செயல்வகை", "Way of Accumulating Wealth", 1], ["படைமாட்சி", "Excellence of an Army", 1], ["படைச்செருக்கு", "Military Pride", 1], ["நட்பு", "Friendship", 1], ["நட்பாராய்தல்", "Investigation in Friendship", 1], ["பழைமை", "Old Friendship", 1], ["தீ நட்பு", "Bad Friendship", 1], ["கூடா நட்பு", "False Friendship", 1], ["பேதைமை", "Folly", 1], ["புல்லறிவாண்மை", "Ignorance / Conceit", 1], ["இகல்", "Hostility / Enmity", 1], ["பகைமாட்சி", "Noble Hatred / Strength of Enmity", 1], ["பகைத்திறந்தெரிதல்", "Knowing Quality of Enmity", 1], ["உட்பகை", "Internal Enmity", 1], ["பெரியாரைப் பிழையாமை", "Not Offending the Great", 1], ["பெண்வழிச்சேறல்", "Henpecked Conduct", 1], ["வரைவின் மகளிர்", "Wanton Women", 1], ["கள்ளுண்ணாமை", "Not Drinking Intoxicants", 1], ["சூது", "Gambling", 1], ["மருந்து", "Medicine / Healing", 1], ["குடிமை", "Nobility", 1], ["மானம்", "Honor", 1], ["பெருமை", "Greatness", 1], ["சான்றாண்மை", "Perfect Goodness", 1], ["பண்புடைமை", "Courtesy / Civility", 1], ["நன்றியில் செல்வம்", "Wealth without Beneficence", 1], ["நாணுடைமை", "Possession of Modesty", 1], ["குடிசெயல்வகை", "Manner of Promoting Family", 1], ["உழவு", "Agriculture / Farming", 1], ["நல்குரவு", "Poverty", 1], ["இரவு", "Mendicancy / Asking", 1], ["இரவச்சம்", "Dread of Mendicancy", 1], ["கயமை", "Baseness / Vileness", 1], ["தகை அணங்குறுத்தல்", "Beauty's Torments", 2], ["குறிப்பறிதல்", "Recognition of Signs", 2], ["புணர்ச்சி மகிழ்தல்", "Rejoicing in the Embrace", 2], ["நலம் புனைந்துரைத்தல்", "Praising Her Beauty", 2], ["காதற் சிறப்புரைத்தல்", "Declaration of Love's Power", 2], ["நாணுத் துறவுரைத்தல்", "Abandonment of Reserve", 2], ["அலரறிவுறுத்தல்", "Announcement of Rumor", 2], ["பிரிவாற்றாமை", "Separation Unendurable", 2], ["படர்மெலிந் திரங்கல்", "Pining Through Grief", 2], ["கண்விதுப்பழிதல்", "Eyes Yearning with Woe", 2], ["பசப்புறு பருவரல்", "Pallor of Severance", 2], ["தனிப்படர் மிகுதி", "Solitary Anguish", 2], ["நினைந்தவர் புலம்பல்", "Sad Memories", 2], ["கனவுநிலை உரைத்தல்", "Vision of the Dream", 2], ["பொழுதுகண்டு இரங்கல்", "Lamentations at Eventide", 2], ["உறுப்புநலனழிதல்", "Wasting of the Limbs", 2], ["நெஞ்சொடு கிளத்தல்", "Soliloquy with One's Heart", 2], ["நிறையழிதல்", "Reserve Overcome", 2], ["அவர்வயின் விதும்பல்", "Mutual Longing", 2], ["குறிப்பறிவுறுத்தல்", "Reading the Heart", 2], ["புணர்ச்சி விதும்பல்", "Longing for Union", 2], ["நெஞ்சொடு புலத்தல்", "Expostulation with Heart", 2], ["புலவி", "Bouderie / Lovers' Feigned Quarrel", 2], ["புலவி நுணுக்கம்", "Subtle Pouting", 2], ["ஊடலுவகை", "Pleasures of Bouderie", 2]], "SONGS": [[1, "https://youtube.com/shorts/6kje63rE2Ow", "அகர முதல எழுத்தெல்லாம் ஆதி — இசையில் குறள் 1"], [10, "https://youtube.com/shorts/-Ii5FXO9OwQ", "பிறவிப் பெருங்கடல் நீந்துவர் நீந்தார் — இசையில் குறள் 10"], [11, "https://youtube.com/shorts/s_TEjsCQyqE", "வான்நின்று உலகம் வழங்கி வருதலால் — இசையில் குறள் 11"], [12, "https://youtube.com/shorts/wsk5ae0Reeo", "துப்பார்க்குத் துப்பாய துப்பாக்கித் துப்பார்க்குத் — இசையில் குறள் 12"], [21, "https://youtu.be/siKa8UE3TU8", "ஒழுக்கத்து நீத்தார் பெருமை விழுப்பத்து வேண்டும் பனுவல் துணிவு"], [22, "https://youtube.com/shorts/YevL3VdpAfQ", "துறந்தார் பெருமை துணைக்கூறின் வையத்து — இசையில் குறள் 22"], [31, "https://youtube.com/shorts/G00mAqud0uE", "சிறப்புஈனும் செல்வமும் ஈனும் அறத்தினூஉங்கு — இசையில் குறள் 31"], [39, "https://youtube.com/shorts/SJxMHl3aMWE", "அறத்தான் வருவதே இன்பம் மற்றெல்லாம் — இசையில் குறள் 39"], [45, "https://youtube.com/shorts/4PDYYk5L2_A", "அன்பும் அறனும் உடைத்தாயின் இல்வாழ்க்கை — இசையில் குறள் 45"], [50, "https://youtube.com/shorts/xWhqctZmKvc", "வையத்துள் வாழ்வாங்கு வாழ்பவன் வான்உறையும் — இசையில் குறள் 50"], [51, "https://youtube.com/shorts/YvSPuQYTOZI", "மனைக்தக்க மாண்புடையள் ஆகித்தற் கொண்டான் — இசையில் குறள் 51"], [60, "https://youtube.com/shorts/mXOCD4iSLwk", "மங்கலம் என்ப மனைமாட்சி மற்று அதன் — இசையில் குறள் 60"], [66, "https://youtube.com/shorts/_tVi7eSnoQA", "குழல்இனிது யாழ்இனிது என்பதம் மக்கள் — இசையில் குறள் 66"], [72, "https://youtube.com/shorts/qChLIRzaImA", "அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார் — இசையில் குறள் 72"], [73, "https://youtube.com/shorts/g7sPb-wn7b8", "அன்போடு இயைந்த வழக்கென்ப ஆருயிர்க்கு — இசையில் குறள் 73"], [85, "https://youtube.com/shorts/hg-fYar-rCg", "வித்தும் இடல்வேண்டும் கொல்லோ விருந்தோம்பி — இசையில் குறள் 85"], [90, "https://youtube.com/shorts/CQ3OEhrqbQY", "மோப்பக் குழையும் அனிச்சம் முகந்திரிந்து — இசையில் குறள் 90"], [91, "https://youtube.com/shorts/nEc9Ca4pzS8", "இன்சொலால் ஈரம் அளைஇப் படிறிலவாம் — இசையில் குறள் 91"], [101, "https://youtube.com/shorts/WyoeE21VdDA", "செய்யாமல் செய்த உதவிக்கு வையகமும் — இசையில் குறள் 101"], [111, "https://youtube.com/shorts/E371SHYTRus", "தகுதி எனவொன்று நன்றே பகுதியால் — இசையில் குறள் 111"], [121, "https://youtube.com/shorts/V-P8cn9tSxQ", "அடக்கம் அமரருள் உய்க்கும் அடங்காமை — இசையில் குறள் 121"], [131, "https://youtube.com/shorts/wz4rZfue2us", "ஒழுக்கம் விழுப்பந் தரலான் ஒழுக்கம் — இசையில் குறள் 131"], [141, "https://youtu.be/NtlPDT3Qb64", "பிறன்பொருளாள் பெட்டொழுகும் பேதைமை ஞாலத்து அறம்பொருள் கண்டார்கண் இல்"], [143, "https://youtube.com/shorts/EQ2shSYv_QY", "விளிந்தாரின் வேறல்லர் மன்ற தெளிந்தாரில் — இசையில் குறள் 143"], [151, "https://youtube.com/shorts/6w2QYwddoDY", "அகழ்வாரைத் தாங்கும் நிலம்போலத் தம்மை — இசையில் குறள் 151"], [162, "https://youtube.com/shorts/f-zNvD0i64w", "விழுப்பேற்றின் அஃதொப்பது இல்லையார் மாட்டும் — இசையில் குறள் 162"], [171, "https://youtube.com/shorts/-BlFw0Hu6r4", "நடுவின்றி நன்பொருள் வெஃகின் குடிபொன்றிக் — இசையில் குறள் 171"], [181, "https://youtube.com/shorts/rlh3l7PtzcI", "அறங்கூறான் அல்ல செயினும் ஒருவன் — இசையில் குறள் 181"], [191, "https://youtube.com/shorts/YDvO7jJReDk", "பல்லார் முனியப் பயனில சொல்லுவான் — இசையில் குறள் 191"], [205, "https://youtube.com/shorts/czAGjxa0ItI", "இலன்என்று தீயவை செய்யற்க செய்யின் — இசையில் குறள் 205"], [215, "https://youtube.com/shorts/KaTr0reoN2U", "ஊருணி நீர்நிறைந் தற்றே உலகவாம் — இசையில் குறள் 215"], [221, "https://youtube.com/shorts/WtTh2QFUhzs", "வறியார்க்கொன்று ஈவதே ஈகைமற் றெல்லாம் குறியெதிர்ப்பை நீர துடைத்து"], [222, "https://youtube.com/shorts/kpetyjL55eY", "நல்லாறு எனினும் கொளல்தீது மேலுலகம் இல்லெனினும் ஈதலே நன்று"], [231, "https://youtube.com/shorts/QDJMzi5qP54", "ஈதல் இசைபட வாழ்தல் அதுவல்லது — இசையில் குறள் 231"], [241, "https://youtube.com/shorts/UGG769HJcLA", "அருட்செல்வம் செல்வத்துள் செல்வம் பொருட்செல்வம் — இசையில் குறள் 241"], [250, "https://youtube.com/shorts/az7LweZVpiU", "வலியார்முன் தன்னை நினைக்கதான் தன்னின் — இசையில் குறள் 250"], [251, "https://youtube.com/shorts/rlVQFQHpxAU", "தன்னூன் பெருக்கற்குத் தான்பிறிது ஊனுண்பான் — இசையில் குறள் 251"], [265, "https://youtube.com/shorts/9dP378E-NM8", "வேண்டிய வேண்டியாங் கெய்தலால் செய்தவம் — இசையில் குறள் 265"], [279, "https://youtube.com/shorts/FJey-HfkHsA", "கணைகொடிது யாழ்கோடு செவ்விதுஆங் கன்ன — இசையில் குறள் 279"], [280, "https://youtube.com/shorts/pJVfAbwpPNM", "மழித்தலும் நீட்டலும் வேண்டா உலகம் — இசையில் குறள் 280"], [281, "https://youtube.com/shorts/yxqG4nPggf4", "எள்ளாமை வேண்டுவான் என்பான் எனைத்தொன்றும் — இசையில் குறள் 281"], [290, "https://youtube.com/shorts/ICOfs2DrEUI", "கள்வார்க்குத் தள்ளும் உயிர்நிலை கள்வார்க்குத் — இசையில் குறள் 290"], [291, "https://youtu.be/5275Dloagx8", "வாய்மை எனப்படுவது யாதெனின் யாதொன்றும் தீமை இலாத சொலல்"], [301, "https://youtube.com/shorts/dYerbMqyrnU", "செல்லிடத்துக் காப்பான் சினங்காப்பான் அல்லிடத்துக் — இசையில் குறள் 301"], [311, "https://youtube.com/shorts/7w5JVc8Wn98", "சிறப்பீனும் செல்வம் பெறினும் பிறர்க்குஇன்னா — இசையில் குறள் 311"], [324, "https://youtube.com/shorts/wFQt3RM6_b8", "நல்லாறு எனப்படுவது யாதெனின் யாதொன்றும் கொல்லாமை சூழும் நெறி."], [333, "https://youtube.com/shorts/e67CB9D2_YY", "அற்கா இயல்பிற்றுச் செல்வம் அதுபெற்றால் — இசையில் குறள் 333"], [341, "https://youtube.com/shorts/Sq2C8HVo2nk", "யாதனின் யாதனின் நீங்கியான் நோதல் — இசையில் குறள் 341"], [350, "https://youtube.com/shorts/2kkFK7DWfHU", "பற்றுக பற்றற்றான் பற்றினை அப்பற்றைப் — இசையில் குறள் 350"], [351, "https://youtu.be/fp7AL4ZJCF0", "பொருளல்ல வற்றைப் பொருளென்று உணரும் — இசையில் குறள் 351"], [362, "https://youtube.com/shorts/gIMOkId845U", "வேண்டுங்கால் வேண்டும் பிறவாமை மற்றது வேண்டாமை வேண்ட வரும்"], [371, "https://youtu.be/D9lAeaSEwSc", "ஆகூழால் தோன்றும் அசைவின்மை கைப்பொருள் போகூழால் தோன்றும் மடி"], [380, "https://youtube.com/shorts/AiOzSjI0rxs", "ஊழிற் பெருவலி யாவுள மற்றொன்று — இசையில் குறள் 380"], [381, "https://youtube.com/shorts/cBABiLCt_sQ", "படைகுடி கூழ்அமைச்சு நட்பரண் ஆறும் — இசையில் குறள் 381"], [393, "https://youtu.be/bxKjz9Og7Nk", "கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு புண்ணுடையர் கல்லா தவர்"], [402, "https://youtube.com/shorts/89cUYGyJeFY", "கல்லாதான் சொற்கா முறுதல் முலையிரண்டும் — இசையில் குறள் 402"], [416, "https://youtube.com/shorts/X0RT5IOdDso", "எனைத்தானும் நல்லவை கேட்க அனைத்தானும் — இசையில் குறள் 416"], [421, "https://youtube.com/shorts/rAocZYKryac", "அறிவற்றங் காக்குங் கருவி செறுவார்க்கும் — இசையில் குறள் 421"], [422, "https://youtube.com/shorts/19Idiy53ce4", "சென்ற இடத்தால் செலவிடா தீதொரீஇ — இசையில் குறள் 422"], [431, "https://youtube.com/shorts/aehMDXmZm_8", "செருக்குஞ் சினமும் சிறுமையும் இல்லார் — இசையில் குறள் 431"], [434, "https://youtube.com/shorts/OX1n3HE3RvA", "குற்றமே காக்க பொருளாகக் குற்றமே அற்றந் த்ரூஉம் பகை"], [441, "https://youtube.com/shorts/6OnJuRuf8rQ", "அறனறிந்து மூத்த அறிவுடையார் கேண்மை — இசையில் குறள் 441"], [451, "https://youtube.com/shorts/yxikY8bwoIc", "சிற்றினம் அஞ்சும் பெருமை சிறுமைதான் — இசையில் குறள் 451"], [461, "https://youtube.com/shorts/7HPD3BPUR6I", "அழிவதூஉம் ஆவதூஉம் ஆகி வழிபயக்கும் — இசையில் குறள் 461"], [471, "https://youtube.com/shorts/oOHlvo07xRs", "வினைவலியும் தன்வலியும் மாற்றான் வலியும் துணைவலியும் தூக்கிச் செயல்"], [481, "https://youtube.com/shorts/7nT_YErl7uQ", "பகல்வெல்லும் கூகையைக் காக்கை இகல்வெல்லும் — இசையில் குறள் 481"], [491, "https://youtube.com/shorts/Yh4RjCisLMM", "தொடங்கற்க எவ்வினையும் எள்ளற்க முற்றும் — இசையில் குறள் 491"], [501, "https://youtube.com/shorts/oBTQLWH0Zgc", "அறம்பொருள் இன்பம் உயிரச்சம் நான்கின் — இசையில் குறள் 501"], [512, "https://youtube.com/shorts/I-k1bkJ-YFc", "வாரி பெருக்கி வளம்படுத்து உற்றவை — இசையில் குறள் 512"], [521, "https://youtube.com/shorts/_7kTSCUxlOE", "பற்றற்ற கண்ணும் பழைமைபா ராட்டுதல் — இசையில் குறள் 521"], [530, "https://youtube.com/shorts/zyaZbEfUzR0", "உழைப்பிரிந்து காரணத்தின் வந்தானை வேந்தன் — இசையில் குறள் 530"], [532, "https://youtube.com/shorts/hCnkcQHHuPE", "பொச்சாப்புக் கொல்லும் புகழை அறிவினை நிச்ச நிரப்புக்கொன் றாங்கு"], [541, "https://youtube.com/shorts/YjXXrugD2Vs", "ஓர்ந்துகண் ணோடாது இறைபுரிந்து யார்மாட்டும் — இசையில் குறள் 541"], [555, "https://youtube.com/shorts/boTznRhvqJE", "அல்லற்பட்டு ஆற்றாது அழுதகண் ணீரன்றே — இசையில் குறள் 555"], [566, "https://youtube.com/shorts/DtZr6xP_000", "கடுஞ்சொல்லன் கண்ணிலன் ஆயின் நெடுஞ்செல்வம் — இசையில் குறள் 566"], [573, "https://youtube.com/shorts/OMaET7dTc-E", "பண்என்னாம் பாடற்கு இயைபின்றேல் கண்என்னாம் — இசையில் குறள் 573"], [582, "https://youtube.com/shorts/XOoRqffRrTo", "எல்லார்க்கும் எல்லாம் நிகழ்பவை எஞ்ஞான்றும் — இசையில் குறள் 582"], [591, "https://youtube.com/shorts/v6i_LhoHgbI", "உடையர் எனப்படுவது ஊக்கம் அஃதில்லார் — இசையில் குறள் 591"], [600, "https://youtube.com/shorts/kWYljVzn-xA", "உரமொருவற்கு உள்ள வெறுக்கைஅஃ தில்லார் — இசையில் குறள் 600"], [601, "https://youtube.com/shorts/u79us44QmdA", "குடியென்னும் குன்றா விளக்கம் — இசையில் குறள் 601"], [614, "https://youtu.be/NIr0YIl1Ce8", "தாளாண்மை இல்லாதான் வேளாண்மை பேடிகை வாளாண்மை போலக் கெடும்"], [621, "https://youtube.com/shorts/YtUMs6Vuqz0", "இடுக்கண் வருங்கால் நகுக — இசையில் குறள் 621"], [631, "https://youtube.com/shorts/mJn5hx0F2R0", "கருவியும் காலமும் செய்கையும் செய்யும் — இசையில் குறள் 631"], [641, "https://youtube.com/shorts/JIo7ZHRwEIg", "நாநலம் என்னும் நலனுடைமை அந்நலம் — இசையில் குறள் 641"], [651, "https://youtube.com/shorts/qPFVMYTMH7A", "துணைநலம் ஆக்கம் த்ருஉம் வினைநலம் வேண்டிய எல்லாந் தரும்"], [666, "https://youtube.com/shorts/mgcaK2duyms", "எண்ணிய எண்ணியாங்கு எய்துவர் எண்ணியார் — இசையில் குறள் 666"], [671, "https://youtu.be/zO6jkO6nahI", "சூழ்ச்சி முடிவு துணிவெய்தல் அத்துணிவு தாழ்ச்சியுள் தங்குதல் தீது"], [681, "https://youtube.com/shorts/kVBb99NH7S0", "அன்புடைமை ஆன்ற குடிப்பிறத்தல் வேந்தவாம் பண்புடைமை தூதுரைப்பான் பண்பு"], [691, "https://youtube.com/shorts/4ZZT3H8dgsI", "அகலாது அணுகாது தீக்காய்வார் போல்க இகல்வேந்தர்ச் சேர்ந்தொழுகு வார்"], [701, "https://youtube.com/shorts/9_rllnpZnBw", "கூறாமை நோக்கக் குறிப்பறிவான் எஞ்ஞான்றும் — இசையில் குறள் 701"], [715, "https://youtube.com/shorts/ijt3XvnPMgQ", "நன்றென்ற வற்றுள்ளும் நன்றே முதுவருள் முந்து கிளவாச் செறிவு"], [722, "https://youtube.com/shorts/jKdUM_4jcgQ", "கற்றாருள் கற்றார் எனப்படுவர் கற்றார்முன் கற்ற செலச்சொல்லு வார்"], [738, "https://youtube.com/shorts/cB4twUotpKA", "பிணியின்மை செல்வம் விளைவின்பம் ஏமம் — இசையில் குறள் 738"], [741, "https://youtu.be/y4yeVl3jkDo", "ஆற்று பவர்க்கும் அரண்பொருள் அஞ்சித்தற் போற்று பவர்க்கும் பொருள்"], [751, "https://youtu.be/rWgDhBCWPVs", "பொருளல் லவரைப் பொருளாகச் செய்யும் பொருளல்லது இல்லை பொருள்"], [762, "https://youtube.com/shorts/ECtz8XO12BU", "உலைவிடத்து ஊறஞ்சா வன்கண் தொலைவிடத்துத் தொல்படைக் கல்லால் அரிது"], [772, "https://youtube.com/shorts/U6sW8mTMTnU", "கான முயலெய்த அம்பினில் யானை — இசையில் குறள் 772"], [788, "https://youtube.com/shorts/dTzmkx0yyAw", "உடுக்கை இழந்தவன் கைபோல ஆங்கே — இசையில் குறள் 788"], [791, "https://youtube.com/shorts/7Z0XKfg--HI", "நாடாது நட்டலிற் கேடில்லை நட்டபின் வீடில்லை நட்பாள் பவர்க்கு"], [801, "https://youtube.com/shorts/RIkZ2fYSOjw", "பழைமை எனப்படுவது யாதெனின் யாதும் — இசையில் குறள் 801"], [811, "https://youtube.com/shorts/YhkjrF9XGsA", "பருகுவார் போலினும் பண்பிலார் கேண்மை பெருகலிற் குன்றல் இனிது"], [820, "https://youtube.com/shorts/FQT1tS0Cutw", "எனைத்தும் குறுகுதல் ஓம்பல் மனைக்கெழீஇ — இசையில் குறள் 820"], [831, "https://youtube.com/shorts/28bkrT614pk", "பேதைமை என்பதொன்று யாதெனின் ஏதங்கொண்டு ஊதியம் போக விடல்"], [853, "https://youtube.com/shorts/xIr7cx3b9Y8", "இகலென்னும் எவ்வநோய் நீக்கின் தவலில்லாத் தாவில் விளக்கம் தரும்"], [863, "https://youtu.be/AJ3sBEF6QB0", "அஞ்சும் அறியான் அமைவிலன் ஈகலான் தஞ்சம் எளியன் பகைக்கு"], [871, "https://youtu.be/Mw1pCHTiD5U", "பகையென்னும் பண்பி லதனை — இசையில் குறள் 871"], [891, "https://youtube.com/shorts/329Nr_WPlBA", "ஆற்றுவார் ஆற்றல் இகழாமை — இசையில் குறள் 891"], [901, "https://youtube.com/shorts/AKIAFi-RknY", "மனைவிழைவார் மாண்பயன் எய்தார் வினைவிழையார் வேண்டாப் பொருளும் அது"], [915, "https://youtube.com/shorts/8Mkj-ZB7J7k", "பொதுநலத்தார் புன்னலம் தோயார் மதிநலத்தின் — இசையில் குறள் 915"], [923, "https://youtu.be/Mwh0l4aUZ9k", "ஈன்றாள் முகத்தேயும் இன்னாதால் என்மற்றுச் சான்றோர் முகத்துக் களி"], [934, "https://youtube.com/shorts/jqt2O11XxlQ", "சிறுமை பலசெய்து சீரழக்கும் சூதின் வறுமை தருவதொன்று இல்"], [943, "https://youtube.com/shorts/aNy2B_ltggs", "அற்றால் அறவறிந்து உண்க அஃதுடம்பு பெற்றான் நெடிதுய்க்கும் ஆறு"], [953, "https://youtube.com/shorts/Mi9apWw4ETY", "நகைஈகை இன்சொல் இகழாமை நான்கும் வகையென்ப வாய்மைக் குடிக்கு"], [961, "https://youtube.com/shorts/A43MFR5g6Xk", "இன்றி அமையாச் சிறப்பின ஆயினும் குன்ற வருப விடல்"], [972, "https://youtube.com/shorts/_gaDc3n5M2I", "பிறப்பொக்கும் எல்லா உயிர்க்கும் சிறப்பொவ்வா — இசையில் குறள் 972"], [981, "https://youtube.com/shorts/iBbTe_iv-ts", "கடன்என்ப நல்லவை எல்லாம் கடன்அறிந்து சான்றாண்மை மேற்கொள் பவர்க்கு"], [991, "https://youtube.com/shorts/bf3bnVHbWas", "எண்பதத்தால் எய்தல் எளிதென்ப யார்மாட்டும் பண்புடைமை என்னும் வழக்கு"], [1001, "https://youtube.com/shorts/pSJqiG8jJlA", "வைத்தான்வாய் சான்ற பெரும்பொருள் அஃதுண்ணான் செத்தான் செயக்கிடந்தது இல்"], [1011, "https://youtu.be/bZqemIy4BGQ", "கருமத்தால் நாணுதல் நாணுத் திருநுதல் — இசையில் குறள் 1011"], [1021, "https://youtube.com/shorts/Cs3Gw0Xuatk", "கருமம் செயஒருவன் கைதூவேன் என்னும் — இசையில் குறள் 1021"], [1031, "https://youtube.com/shorts/jktcgP5nBwI", "சுழன்றும்ஏர்ப் பின்னது உலகம் — இசையில் குறள் 1031"], [1041, "https://youtube.com/shorts/nVtZ2PH3_mc", "இன்மையின் இன்னாதது யாதெனின் — இசையில் குறள் 1041"], [1051, "https://youtube.com/shorts/L5mQGrBxkyA", "இரக்க இரத்தக்கார்க் காணின் — இசையில் குறள் 1051"], [1061, "https://youtube.com/shorts/o7OmXXyZOsM", "கரவாது உவந்தீயும் கண்ணன்னார் கண்ணும் — இசையில் குறள் 1061"], [1071, "https://youtube.com/shorts/43RSQ9DQ6GA", "மக்களே போல்வர் கயவர் அவரன்ன — இசையில் குறள் 1071"], [1081, "https://youtube.com/shorts/IuG-BcxNLc4", "அணங்குகொல் ஆய்மயில் கொல்லோ கனங்குழை — இசையில் குறள் 1081"], [1084, "https://youtube.com/shorts/vGJLHcN3F6w", "கண்டார் உயிருண்ணும் தோற்றத்தால் பெண்டகைப் — இசையில் குறள் 1084"], [1092, "https://youtube.com/shorts/vzrgBIheAOI", "கண்களவு கொள்ளும் சிறுநோக்கம் காமத்தில் — இசையில் குறள் 1092"], [1101, "https://youtube.com/shorts/46_-kEtUEA0", "கண்டுகேட்டு உண்டுயிர்த்து உற்றறியும் ஐம்புலனும் — இசையில் குறள் 1101"], [1111, "https://youtube.com/shorts/I2l1z978v9A", "நன்னீரை வாழி அனிச்சமே நின்னினும் மென்னீரள் யாம்வீழ் பவள்"], [1113, "https://youtu.be/vCeLSNKxyNI", "முறிமேனி முத்தம் முறுவல் வெறிநாற்றம் வேலுண்கண் வேய்த்தோ ளவட்கு"], [1121, "https://youtube.com/shorts/7ETXrrJou3Y", "பாலொடு தேன்கலந் தற்றே பணிமொழி வாலெயிறு ஊறிய நீர்"], [1131, "https://youtube.com/shorts/GBNVFpyPJMw", "காமம் உழந்து வருந்தினார்க்கு ஏமம் — இசையில் குறள் 1131"], [1141, "https://youtube.com/shorts/HcbU4VHdwRQ", "அலரெழ ஆருயிர் நிற்கும் அதனைப் பலரறியார் பாக்கியத் தால்"], [1151, "https://youtube.com/shorts/ri_56OXzZmI", "செல்லாமை உண்டேல் எனக்குரை மற்றுநின் வல்வரவு வாழ்வார்க் குரை"], [1161, "https://youtube.com/shorts/dXbm-pr5Edk", "மறைப்பேன்மன் யானிஃதோ நோயை இறைப்பவர்க்கு ஊற்றுநீர் போல மிகும்"], [1167, "https://youtube.com/shorts/1G_Xqhpr5AQ", "காமக் கடும்புனல் நீந்திக் கரைகாணேன் யாமத்தும் — இசையில் குறள் 1167"], [1171, "https://youtube.com/shorts/vMG0-6u8UOQ", "கண்தாம் கலுழ்வ தெவன்கொலோ தண்டாநோய் தாம்காட்ட யாம்கண் டது"], [1181, "https://youtube.com/shorts/O8OrC1PEP4E", "நயந்தவர்க்கு நல்காமை நேர்ந்தேன் பசந்தவென் பண்பியார்க்கு உரைக்கோ பிற"], [1192, "https://youtube.com/shorts/vsv-UMD6pus", "வாழ்வார்க்கு வானம் பயந்தற்றால் வீழ்வார்க்கு — இசையில் குறள் 1192"], [1201, "https://youtube.com/shorts/m10q607jWME", "உள்ளினும் தீராப் பெருமகிழ் செய்தலால் — இசையில் குறள் 1201"], [1213, "https://youtube.com/shorts/ywZk8opLNSo", "நனவினால் நல்கா தவரைக் கனவினால் காண்டலின் உண்டென் உயிர்"], [1221, "https://youtube.com/shorts/3E_F7P1HKFE", "மாலையோ அல்லை மணந்தார் உயிருண்ணும் வேலைநீ வாழி பொழுது"], [1231, "https://youtube.com/shorts/Y68DsCXTlSU", "சிறுமை நமக்கொழியச் சேட்சென்றார் உள்ளி நறுமலர் நாணின கண்"], [1241, "https://youtube.com/shorts/ZD1TsVh3K-8", "நினைத்தொன்று சொல்லாயோ நெஞ்சே எனைத்தொன்றும் எவ்வநோய் தீர்க்கும் மருந்து"], [1251, "https://youtube.com/shorts/VDxqx9FpXHg", "காமக் கணிச்சி உடைக்கும் நிறையென்னும் நாணுத்தாழ் வீழ்த்த கதவு"], [1261, "https://youtube.com/shorts/YuSBYtrCxXE", "வாளற்றுப் புற்கென்ற கண்ணும் அவர்சென்ற நாளொற்றித் தேய்ந்த விரல்"], [1271, "https://youtube.com/shorts/wOw3mrlPbYA", "கரப்பினுங் கையிகந் தொல்லாநின் உண்கண் உரைக்கல் உறுவதொன் றுண்டு"], [1281, "https://youtube.com/shorts/bG1v6Iedqq4", "உள்ளக் களித்தலும் காண மகிழ்தலும் கள்ளுக்கில் காமத்திற் குண்டு"], [1291, "https://youtube.com/shorts/f50OBN_BWnw", "அவர்நெஞ்சு அவர்க்காதல் கண்டும் எவன்நெஞ்சே நீஎமக்கு ஆகா தது"], [1302, "https://youtube.com/shorts/7qXsCrc0miE", "உப்பமைந் தற்றால் புலவி அதுசிறிது மிக்கற்றால் நீள விடல்"], [1317, "https://youtube.com/shorts/QAgxZMvDJ4Q", "வழுத்தினாள் தும்மினேன் ஆக அழித்தழுதாள் — இசையில் குறள் 1317"], [1329, "https://youtube.com/shorts/IP1vekC0lyE", "ஊடுக மன்னோ ஒளியிழை யாமிரப்ப — இசையில் குறள் 1329"]], "HERO": [{"n": 1, "l1": "அகர முதல எழுத்தெல்லாம் ஆதி", "l2": "பகவன் முதற்றே உலகு.", "ch": "கடவுள் வாழ்த்து", "en": "As the letter A is the first of all letters, so the eternal God is first in the world", "mu": "எழுத்துக்கள் எல்லாம் அகரத்தை அடிப்படையாக கொண்டிருக்கின்றன. அதுபோல உலகம் கடவுளை அடிப்படையாக கொண்டிருக்கிறது."}, {"n": 72, "l1": "அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார்", "l2": "என்பும் உரியர் பிறர்க்கு.", "ch": "அன்புடைமை", "en": "Those who are destitute of love appropriate all they have to themselves; but those who possess love consider even their bones to belong to others", "mu": "அன்பு இல்லாதவர் எல்லாப்பொருள்களையும் தமக்கே உரிமையாகக் கொண்டு வாழ்வார்: அன்பு உடையவர் தம் உடமையும் பிறர்க்கு உரிமையாக்கி வாழ்வர்"}, {"n": 131, "l1": "ஒழுக்கம் விழுப்பந் தரலான் ஒழுக்கம்", "l2": "உயிரினும் ஓம்பப் படும்.", "ch": "ஒழுக்கம் உடைமை", "en": "Propriety of conduct leads to eminence, it should therefore be preserved more carefully than life", "mu": "ஒழுக்கமே எல்லார்க்கும் மேன்மையைத் தருவதாக இருப்பதால், அந்த ஒழுக்கமே உயிரை விடச் சிறந்ததாகப் போற்றப்படும்."}, {"n": 50, "l1": "வையத்துள் வாழ்வாங்கு வாழ்பவன் வான்உறையும்", "l2": "தெய்வத்துள் வைக்கப் படும்.", "ch": "இல்வாழ்க்கை", "en": "He who on earth has lived in the conjugal state as he should live, will be placed among the Gods who dwell in heaven", "mu": "உலகத்தில் வாழவேண்டிய அறநெறியில் நின்று வாழ்கிறவன், வானுலகத்தில் உள்ள தெய்வ முறையில் வைத்து மதிக்கப்படுவான்."}, {"n": 10, "l1": "பிறவிப் பெருங்கடல் நீந்துவர் நீந்தார்", "l2": "இறைவன் அடிசேரா தார்.", "ch": "கடவுள் வாழ்த்து", "en": "None can swim the great sea of births but those who are united to the feet of God", "mu": "இறைவனுடைய திருவடிகளை பொருந்தி நினைக்கின்றவர் பிறவியாகிய பெரிய கடலைக் கடக்க முடியும். மற்றவர் கடக்க முடியாது"}, {"n": 981, "l1": "கடன்என்ப நல்லவை எல்லாம் கடன்அறிந்து", "l2": "சான்றாண்மை மேற்கொள் பவர்க்கு.", "ch": "சான்றாண்மை", "en": "It is said that those who are conscious of their duty and behave with a perfect goodness will regard as natural all that is good", "mu": "கடமை இவை என்று அறிந்து சான்றான்மை மேற்கொண்டு நடப்பவர்க்கு நல்லவை எல்லாம் இயல்பான கடமை என்று கூறுவர்."}], "URAI": {"n": 131, "l1": "ஒழுக்கம் விழுப்பந் தரலான் ஒழுக்கம்", "l2": "உயிரினும் ஓம்பப் படும்.", "u": [["மு. வரதராசனார்", "ஒழுக்கமே எல்லார்க்கும் மேன்மையைத் தருவதாக இருப்பதால், அந்த ஒழுக்கமே உயிரை விடச் சிறந்ததாகப் போற்றப்படும்."], ["கலைஞர்", "ஒருவர்க்கு உயர்வு தரக் கூடியது ஒழுக்கம் என்பதால், அந்த ஒழுக்கமே உயிரைவிட மேலானதாகப் போற்றப்படுகிறது"], ["சாலமன் பாப்பையா", "ஒழுக்கம், அதை உடையவர்க்குச் சிறப்பைத் தருவதால் உயிரைக் காட்டிலும் மேலானதாக அதைக் காக்க வேண்டும்."], ["பரிமேலழகர்", "ஒழுக்கம் விழுப்பம் தரலான் - ஒழுக்கம் எல்லார்க்கும் சிறப்பினைத் தருதலான், ஒழுக்கம் உயிரினும் ஓம்பப்படும் - அவ்வொழுக்கம் உயிரினும் பாதுகாக்கப்படும்."], ["English", "Propriety of conduct leads to eminence, it should therefore be preserved more carefully than life"]]}};
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('yr').textContent=new Date().getFullYear();
+  var top=$('top');addEventListener('scroll',function(){top.classList.toggle('solid',scrollY>40)},{passive:true});
+
+  function ytId(u){var m=String(u).match(/(?:shorts\/|youtu\.be\/|v=|embed\/)([\w-]{11})/);return m?m[1]:null}
+  var SONGS={};D.SONGS.forEach(function(s){SONGS[s[0]]={url:s[1],title:s[2]}});
+
+  // Video modal
+  var vm=$('vm'),box=$('vmBox');
+  function openSong(n){
+    var s=SONGS[n];if(!s)return;var id=ytId(s.url);if(!id){window.open(s.url,'_blank');return}
+    box.className='box'+(/shorts\//.test(s.url)?'':' wide');
+    box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0" title="குறள் '+n+' பாடல்" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    $('vmOpen').href=s.url;vm.classList.add('on');$('vmX').focus();
+  }
+  function closeSong(){vm.classList.remove('on');box.innerHTML=''}
+  $('vmX').onclick=closeSong;vm.onclick=function(e){if(e.target===vm)closeSong()};
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeSong()});
+
+  // Palm leaf: the kural writes itself, then the next one after a pause
+  var olai=$('olai'),hi=0,timer;
+  var dots=$('oDots');
+  D.HERO.forEach(function(k,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','குறள் '+k.n);b.onclick=function(){show(i,true)};dots.appendChild(b)});
+  function show(i,user){
+    hi=i;var k=D.HERO[i];
+    olai.classList.remove('write');void olai.offsetWidth;
+    $('oCh').textContent=k.ch;$('oNo').textContent='குறள் '+k.n;
+    $('oL1').textContent=k.l1;$('oL2').textContent=k.l2;$('oMean').textContent=k.mu;
+    $('oPlay').onclick=function(){openSong(k.n)};
+    [].forEach.call(dots.children,function(b,j){b.classList.toggle('on',j===i)});
+    olai.classList.add('write');
+    clearTimeout(timer);if(!reduce)timer=setTimeout(function(){show((hi+1)%D.HERO.length)},user?16000:11000);
+  }
+  show(0);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimeout(timer);else if(!reduce)timer=setTimeout(function(){show((hi+1)%D.HERO.length)},6000)});
+
+  // 133 chapter tiles; gold where a song exists
+  function buildField(){
+    var cnt={};Object.keys(SONGS).forEach(function(n){var c=Math.ceil(n/10);cnt[c]=(cnt[c]||0)+1});
+    var names=[['அறத்துப்பால்','Virtue · 38 அதிகாரங்கள்'],['பொருட்பால்','Wealth · 70 அதிகாரங்கள்'],['காமத்துப்பால்','Love · 25 அதிகாரங்கள்']];
+    var f=$('field');f.innerHTML='';
+    names.forEach(function(p,pi){
+      var row=document.createElement('div');row.className='paal';
+      row.innerHTML='<h3>'+p[0]+'<small>'+p[1]+'</small></h3>';
+      var t=document.createElement('div');t.className='tiles';
+      D.CH.forEach(function(c,ci){
+        if(c[2]!==pi)return;var n=ci+1,a=document.createElement('a');
+        a.className='tile'+(cnt[n]?' song'+(cnt[n]>1?' n2':''):'');a.href='/#/adhikaram/'+n;a.textContent=n;
+        a.style.animationDelay=(ci*9)+'ms';
+        a.setAttribute('aria-label','அதிகாரம் '+n+': '+c[0]+(cnt[n]?', '+cnt[n]+' பாடல்':''));
+        a.dataset.n=n;a.dataset.t=c[0];a.dataset.e=c[1];a.dataset.s=cnt[n]||0;
+        t.appendChild(a);
+      });
+      row.appendChild(t);f.appendChild(row);
+    });
+    $('nSongs').textContent=Object.keys(SONGS).length;
+  }
+  var tip=$('tip');
+  document.addEventListener('pointerover',function(e){var a=e.target.closest&&e.target.closest('.tile');if(!a){tip.style.opacity=0;return}
+    tip.innerHTML='<b>'+a.dataset.n+'. '+a.dataset.t+'</b><span>'+a.dataset.e+(+a.dataset.s?' · '+a.dataset.s+' பாடல்':'')+'</span>';tip.style.opacity=1});
+  document.addEventListener('pointermove',function(e){if(tip.style.opacity=='1'){tip.style.left=Math.min(innerWidth-270,e.clientX+14)+'px';tip.style.top=(e.clientY+16)+'px'}});
+
+  // Songs rail
+  function buildRail(){
+    var r=$('rail');r.innerHTML='';
+    var list=Object.keys(SONGS).map(Number).sort(function(a,b){return a-b});
+    list.forEach(function(n){
+      var s=SONGS[n],id=ytId(s.url),b=document.createElement('button');b.type='button';b.className='card';
+      var title=String(s.title||'').replace(/\s*[—-]\s*இசையில் குறள்\s*\d+\s*$/,'');
+      b.innerHTML='<div class="th">'+(id?'<img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" onerror="this.remove()">':'')+'<span class="pi"></span><span class="no"><small>'+D.CH[Math.ceil(n/10)-1][0]+'</small>குறள் '+n+'</span></div><p>'+title.replace(/[<>&]/g,'')+'</p>';
+      b.onclick=function(){openSong(n)};r.appendChild(b);
+    });
+  }
+
+  // Four commentaries
+  var U=D.URAI;$('uK').innerHTML=U.l1+'<br>'+U.l2;$('uRef').textContent='குறள் '+U.n+' · ஒழுக்கம் உடைமை';
+  var tabs=$('uTabs');
+  U.u.forEach(function(u,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.textContent=u[0];b.onclick=function(){pick(i)};tabs.appendChild(b)});
+  function pick(i){[].forEach.call(tabs.children,function(b,j){b.classList.toggle('on',i===j);b.setAttribute('aria-selected',i===j)});
+    var t=$('uText');t.textContent=U.u[i][1];t.classList.toggle('en',U.u[i][0]==='English');t.lang=U.u[i][0]==='English'?'en':'ta'}
+  pick(0);
+
+  buildField();buildRail();
+  // Fresh song list (the same file the iPhone app reads), so new songs show up here too
+  fetch('/kural-media.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
+    var next={};Object.keys(m).forEach(function(n){if(m[n]&&m[n].youtubeUrl)next[n]={url:m[n].youtubeUrl,title:m[n].youtubeTitle}});
+    if(Object.keys(next).length){SONGS=next;buildField();buildRail();if(lit)$('field').classList.add('lit')}
+  }).catch(function(){});
+
+  // Quiet entrances: section headings fade in once; the chapter field lights up once
+  var lit=false;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+    if(e.target.id==='field'){lit=true;e.target.classList.add('lit')}else e.target.classList.add('in');io.unobserve(e.target)})},{rootMargin:'0px 0px -12% 0px'});
+  [].forEach.call(document.querySelectorAll('.rv'),function(el){io.observe(el)});io.observe($('field'));
+})();
+</script>
+</body>
+</html>
