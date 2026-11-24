@@ -76,3 +76,42 @@ html.native-app body {
   overflow-x: clip;
   max-width: 100%;
 }
+
+/* ── குறள் விளையாட்டு (word game) ── */
+@keyframes kp-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+@keyframes kp-pop {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes kp-fall {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(var(--kp-dx, 0), 105vh, 0) rotate(720deg); opacity: 0.9; }
+}
+@keyframes kp-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.kp-shake { animation: kp-shake 0.45s ease; }
+.kp-pop { animation: kp-pop 0.35s ease-out; }
+.kp-bounce { animation: kp-bounce 1.2s ease-in-out infinite; }
+.kp-confetti {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 80;
+  animation: kp-fall 1.8s cubic-bezier(0.25, 0.6, 0.4, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kp-shake, .kp-pop, .kp-bounce, .kp-confetti { animation: none; }
+  .kp-confetti { display: none; }
+}

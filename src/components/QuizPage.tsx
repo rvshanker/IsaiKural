@@ -3,6 +3,7 @@ import { Check, X, Share2, RotateCcw, Trophy, Flame, Music, ChevronRight, Calend
 import { ALL_KURALS } from '../data/kurals';
 import { Kural, Paal } from '../types/kural';
 import { shareText } from '../utils/native';
+import { parseKuralList, compactList, MY_SET_KEY } from '../utils/kuralList';
 
 /**
  * குறள் வினாடி வினா — a 10-question quiz built from the Kurals on this site.
@@ -132,32 +133,6 @@ function buildRound(seed: number, paal: Paal | 'all'): Question[] {
   return qs.slice(0, ROUND);
 }
 
-/** "1, 2, 5-10, 34" → [1,2,5,6,7,8,9,10,34]; ignores anything outside 1–1330; at most 60 Kurals */
-export function parseKuralList(text: string): number[] {
-  const out: number[] = [];
-  for (const part of text.split(/[,\s;]+/)) {
-    const m = part.match(/^(\d+)(?:-(\d+))?$/);
-    if (!m) continue;
-    const a = +m[1];
-    const b = m[2] ? +m[2] : a;
-    for (let n = Math.min(a, b); n <= Math.max(a, b) && n <= 1330; n++) if (n >= 1 && !out.includes(n)) out.push(n);
-  }
-  return out.slice(0, 60);
-}
-
-/** [1,2,3,5,6,10] → "1-3,5,6,10" (short form for links) */
-export function compactList(nums: number[]): string {
-  const a = [...nums].sort((x, y) => x - y);
-  const out: string[] = [];
-  for (let i = 0; i < a.length; ) {
-    let j = i;
-    while (j + 1 < a.length && a[j + 1] === a[j] + 1) j++;
-    out.push(j - i >= 2 ? `${a[i]}-${a[j]}` : a.slice(i, j + 1).join(','));
-    i = j + 1;
-  }
-  return out.join(',');
-}
-
 /** A round about the chosen Kurals only: every Kural is asked about, in different ways, up to 20 questions. */
 function buildCustomRound(seed: number, nums: number[]): Question[] {
   const r = rng(seed);
@@ -191,7 +166,7 @@ const CHAPTERS = (() => {
   for (const k of ALL_KURALS) if (!m.has(k.athikaramNumber)) m.set(k.athikaramNumber, k.athikaramTamil);
   return [...m.entries()].sort((a, b) => a[0] - b[0]);
 })();
-const LAST_SET = 'isaikural.quiz.myset';
+const LAST_SET = MY_SET_KEY;
 
 // ── saved scores (this browser only) ──
 interface Stats {
