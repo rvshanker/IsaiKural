@@ -5,6 +5,8 @@ interface KuralCoupletProps {
   line2: string;
   /** Largest font size in px; the text only shrinks if a line would not fit. */
   maxPx: number;
+  /** If fitting on one row would need a font smaller than this, keep this size and let the line wrap instead. */
+  minPx?: number;
   align?: 'center' | 'left';
   className?: string;
 }
@@ -14,30 +16,48 @@ interface KuralCoupletProps {
  * never wrapping. If the longest line is wider than the space available
  * (e.g. on a phone), the font shrinks just enough to fit.
  */
-export const KuralCouplet: React.FC<KuralCoupletProps> = ({ line1, line2, maxPx, align = 'left', className = '' }) => {
+export const KuralCouplet: React.FC<KuralCoupletProps> = ({ line1, line2, maxPx, minPx, align = 'left', className = '' }) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(maxPx);
+  const [wrap, setWrap] = useState(false);
 
   useLayoutEffect(() => {
     const box = boxRef.current;
     if (!box) return;
     const fit = () => {
       const lines = Array.from(box.querySelectorAll<HTMLElement>('[data-line]'));
-      lines.forEach((l) => (l.style.fontSize = `${maxPx}px`));
+      lines.forEach((l) => {
+        l.style.fontSize = `${maxPx}px`;
+        l.style.whiteSpace = 'nowrap';
+        l.style.width = 'max-content';
+      });
       const widest = Math.max(...lines.map((l) => l.getBoundingClientRect().width));
-      lines.forEach((l) => (l.style.fontSize = ''));
+      lines.forEach((l) => {
+        l.style.fontSize = '';
+        l.style.whiteSpace = '';
+        l.style.width = '';
+      });
       const available = box.clientWidth;
       if (!available || !widest) return;
-      setSize(widest > available ? Math.floor(((maxPx * available * 0.97) / widest) * 10) / 10 : maxPx);
+      const fitted = widest > available ? Math.floor(((maxPx * available * 0.97) / widest) * 10) / 10 : maxPx;
+      if (minPx && fitted < minPx) {
+        setSize(minPx);
+        setWrap(true);
+      } else {
+        setSize(fitted);
+        setWrap(false);
+      }
     };
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(box);
     document.fonts?.ready.then(fit);
     return () => ro.disconnect();
-  }, [line1, line2, maxPx]);
+  }, [line1, line2, maxPx, minPx]);
 
-  const line = `block w-max max-w-none whitespace-nowrap ${align === 'center' ? 'mx-auto' : ''}`;
+  const line = wrap
+    ? `block ${align === 'center' ? 'text-center' : ''}`
+    : `block w-max max-w-none whitespace-nowrap ${align === 'center' ? 'mx-auto' : ''}`;
 
   return (
     <div ref={boxRef} className={`w-full min-w-0 overflow-hidden ${className}`} style={{ fontSize: size, contain: 'inline-size' }}>

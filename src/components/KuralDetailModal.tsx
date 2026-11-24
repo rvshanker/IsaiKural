@@ -97,16 +97,16 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
         }`}
       >
         {/* Top Header: number and chapter on the left, bookmark and close on the right */}
-        <div className="flex items-start justify-between gap-3 px-4 sm:px-6 pt-3 pb-3 sm:py-4 border-b border-stone-200 dark:border-stone-800">
-          <div className="min-w-0 flex items-start gap-2.5">
-            <span className="shrink-0 mt-0.5 px-2.5 py-1 rounded-full bg-[#E5A93C] text-[#1B1408] text-[13px] font-bold whitespace-nowrap">
+        <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-[linear-gradient(160deg,#1D4234,#16392E)] text-[#F4EEDF]">
+          <div className="min-w-0 flex flex-col sm:flex-row items-start gap-1 sm:gap-2.5">
+            <span className="shrink-0 mt-0.5 px-2.5 py-1 rounded-full bg-[#E3B866] text-[#16392E] text-[13px] font-bold whitespace-nowrap">
               குறள் {kural.number}
             </span>
             <div className="min-w-0 leading-tight">
-              <div className="font-tamil-sans text-[15px] font-bold text-[#8C2D19] dark:text-[#E5A93C] truncate">
+              <div className="font-tamil-sans text-[16px] font-bold text-[#F3D58E] leading-snug line-clamp-2">
                 {kural.athikaramNumber}. {kural.athikaramTamil}
               </div>
-              <div className="text-[12px] text-stone-500 dark:text-stone-400 truncate">
+              <div className="text-[12px] text-[#B9CFC2] truncate">
                 {kural.athikaramEnglish} · {kural.paal}
               </div>
             </div>
@@ -123,7 +123,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               }}
               title="பகிர் · Share"
               aria-label="பகிர் · Share"
-              className="relative p-2 rounded-full border border-stone-200 dark:border-stone-700 text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors"
+              className="relative p-2 rounded-full border border-white/20 text-[#E8F0EB] hover:bg-white/10 transition-colors"
             >
               <Share2 className="w-4 h-4" />
               {shareNote && (
@@ -136,8 +136,8 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               aria-label={isBookmarked ? 'Remove Bookmark' : 'Bookmark'}
               className={`p-2 rounded-full border transition-colors ${
                 isBookmarked
-                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 border-amber-300'
-                  : 'border-stone-200 dark:border-stone-700 text-stone-500 hover:text-stone-900 dark:hover:text-white'
+                  ? 'bg-[#E3B866] text-[#16392E] border-[#E3B866]'
+                  : 'border-white/20 text-[#E8F0EB] hover:bg-white/10'
               }`}
             >
               <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
@@ -146,7 +146,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
             <button
               onClick={onClose}
               aria-label="மூடுக"
-              className="p-2 rounded-full text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+              className="p-2 rounded-full text-[#E8F0EB] hover:bg-white/10 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -156,12 +156,13 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
         {/* Modal Scrollable Body */}
         <div ref={bodyRef} className="flex-1 overflow-y-auto px-4 py-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* Main Couplet */}
-          <div className="space-y-2 px-3.5 py-4 sm:p-5 rounded-xl bg-[#F9F7F2] dark:bg-[#201C18] border border-[#ECE5D8] dark:border-[#2E271D]">
+          <div className="space-y-2 px-4 py-4 sm:p-6 rounded-2xl bg-[#FBF5E6] dark:bg-[#1E2A24] border border-[#E9D9AE] dark:border-[#3C5246] border-l-4 border-l-[#C9962F]">
             <KuralCouplet
               line1={kural.line1}
               line2={kural.line2}
               maxPx={30}
-              className="font-tamil-serif font-bold leading-relaxed text-stone-900 dark:text-stone-50"
+              minPx={21}
+              className="font-tamil-serif font-bold leading-[1.55] text-[#16392E] dark:text-[#F4EEDF]"
             />
 
             {kural.transliteration && (
@@ -172,7 +173,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
 
             {/* Media & Audio Action Bar (only when there is something to show) */}
             {(AUDIO_ENABLED || hasVideo || hasImage || onEditMedia) && (
-            <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-stone-200/60 dark:border-stone-800">
+            <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-[#E9D9AE]/80 dark:border-[#3C5246]">
               {AUDIO_ENABLED && <>
               {/* Listen Audio */}
               <button
@@ -236,7 +237,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
               {hasVideo && (
                 <button
                   onClick={() => onOpenVideo(kural)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-semibold bg-[#E5A93C] text-[#1B1408] hover:brightness-105 transition"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[14px] font-semibold bg-[#1D4234] text-[#F3D58E] hover:bg-[#245240] transition"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>இசையில் கேளுங்கள்</span>
@@ -268,7 +269,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
 
           {/* Commentator Switcher Tabs: one scrolling row of short names */}
           <div>
-            <div className="mb-2 text-xs font-bold tracking-wide text-stone-500 dark:text-stone-400 font-tamil-sans">உரைகள் · Commentaries</div>
+            <h3 className="mb-2 font-tamil-sans text-[17px] font-bold text-[#16392E] dark:text-[#F3D58E]">உரைகள் <span className="text-[13px] font-semibold text-stone-500 dark:text-stone-400">· Commentaries</span></h3>
             <div className="-mx-4 px-4 sm:mx-0 sm:px-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] pb-1">
               {(
                 [
@@ -283,10 +284,10 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
                 <button
                   key={key}
                   onClick={() => setSelectedCommentator(key)}
-                  className={`shrink-0 px-3.5 py-1.5 rounded-full text-[13px] font-tamil-sans border transition-colors whitespace-nowrap ${
+                  className={`shrink-0 px-4 py-2 rounded-full text-[14px] font-tamil-sans border transition-colors whitespace-nowrap ${
                     selectedCommentator === key
-                      ? 'bg-[#E5A93C] border-[#E5A93C] text-[#1B1408] font-semibold'
-                      : 'border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
+                      ? 'bg-[#1D4234] border-[#1D4234] text-[#F3D58E] font-semibold dark:bg-[#E3B866] dark:border-[#E3B866] dark:text-[#16392E]'
+                      : 'border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
                   }`}
                 >
                   {label}
@@ -297,59 +298,59 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
             {/* Commentary Cards Display */}
             <div className="mt-4 space-y-3">
               {(selectedCommentator === 'all' || selectedCommentator === 'muVa') && kural.commentaries.muVa && (
-                <div className="p-3.5 sm:p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
-                  <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
-                    மு. வரதராசனார் உரை:
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1B1F1C] border border-[#E7E2D4] dark:border-[#2F3833] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                  <h5 className="font-tamil-sans text-[13px] font-bold text-[#9A6B12] dark:text-[#E3B866] mb-1.5">
+                    மு. வரதராசனார்
                   </h5>
-                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[16px] font-tamil-sans text-[#22302A] dark:text-stone-200 leading-[1.8]">
                     {kural.commentaries.muVa}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'karunanidhi') && kural.commentaries.karunanidhi && (
-                <div className="p-3.5 sm:p-4 rounded-xl bg-orange-500/5 border border-orange-500/20">
-                  <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
-                    கலைஞர் மு. கருணாநிதி உரை:
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1B1F1C] border border-[#E7E2D4] dark:border-[#2F3833] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                  <h5 className="font-tamil-sans text-[13px] font-bold text-[#9A6B12] dark:text-[#E3B866] mb-1.5">
+                    கலைஞர் மு. கருணாநிதி
                   </h5>
-                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[16px] font-tamil-sans text-[#22302A] dark:text-stone-200 leading-[1.8]">
                     {kural.commentaries.karunanidhi}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'solomon') && kural.commentaries.solomon && (
-                <div className="p-3.5 sm:p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                  <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
-                    சாலமன் பாப்பையா உரை:
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1B1F1C] border border-[#E7E2D4] dark:border-[#2F3833] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                  <h5 className="font-tamil-sans text-[13px] font-bold text-[#9A6B12] dark:text-[#E3B866] mb-1.5">
+                    சாலமன் பாப்பையா
                   </h5>
-                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[16px] font-tamil-sans text-[#22302A] dark:text-stone-200 leading-[1.8]">
                     {kural.commentaries.solomon}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'parimelazhagar') && kural.commentaries.parimelazhagar && (
-                <div className="p-3.5 sm:p-4 rounded-xl bg-stone-500/5 border border-stone-500/20">
-                  <h5 className="text-xs font-bold text-[#8C2D19] dark:text-[#E5A93C] mb-1">
-                    பரிமேலழகர் உரை (Classical Commentary):
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1B1F1C] border border-[#E7E2D4] dark:border-[#2F3833] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                  <h5 className="font-tamil-sans text-[13px] font-bold text-[#9A6B12] dark:text-[#E3B866] mb-1.5">
+                    பரிமேலழகர் · பழைய உரை
                   </h5>
-                  <p className="text-[15px] sm:text-sm font-tamil-sans text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[16px] font-tamil-sans text-[#22302A] dark:text-stone-200 leading-[1.8]">
                     {kural.commentaries.parimelazhagar}
                   </p>
                 </div>
               )}
 
               {(selectedCommentator === 'all' || selectedCommentator === 'english') && (
-                <div className="p-3.5 sm:p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
-                  <h5 className="text-xs font-bold text-blue-700 dark:text-blue-400 mb-1">
-                    English Translation & Explanation:
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1B1F1C] border border-[#E7E2D4] dark:border-[#2F3833] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                  <h5 className="text-[13px] font-bold text-[#9A6B12] dark:text-[#E3B866] mb-1.5">
+                    English
                   </h5>
-                  <p className="text-[15px] sm:text-sm text-stone-800 dark:text-stone-200 leading-relaxed">
+                  <p className="text-[16px] font-heading text-[#22302A] dark:text-stone-200 leading-[1.7]">
                     {kural.commentaries.english}
                   </p>
                   {kural.commentaries.englishExplanation && (
-                    <p className="text-xs text-stone-600 dark:text-stone-400 mt-2 italic">
+                    <p className="text-[14px] text-stone-600 dark:text-stone-400 mt-2 italic leading-relaxed">
                       {kural.commentaries.englishExplanation}
                     </p>
                   )}
@@ -360,7 +361,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
             {/* இதைப் போன்ற குறள்கள் — Kurals closest in meaning */}
             {mapData && onOpenKural && (
               <div className="mt-6">
-                <h4 className="text-sm font-bold mb-2 text-emerald-800 dark:text-emerald-400">இதைப் போன்ற குறள்கள்</h4>
+                <h3 className="mb-2 font-tamil-sans text-[17px] font-bold text-[#16392E] dark:text-[#F3D58E]">இதைப் போன்ற குறள்கள்</h3>
                 <div className="space-y-1.5">
                   {mapData.k[kural.number - 1].slice(0, 6).map((n) => {
                     const s = getKuralByNumber(n);
@@ -404,20 +405,20 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
         {/* Modal Footer: previous / next Kural; the close button only on bigger screens (phones have ✕ at the top) */}
         <div className="flex items-center justify-between gap-2 px-4 sm:px-6 py-2.5 sm:py-3 pb-[max(0.625rem,env(safe-area-inset-bottom))] border-t border-stone-200 dark:border-stone-800 bg-stone-50/80 dark:bg-[#1C1916]">
           {onNavigate ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto [&>button]:flex-1 sm:[&>button]:flex-none [&>button]:justify-center">
               <button
                 onClick={() => prevKural && onNavigate(prevKural)}
                 disabled={!prevKural}
-                className="inline-flex items-center gap-1 pl-2.5 pr-3.5 py-2 rounded-full border border-stone-200 dark:border-stone-700 text-[13px] font-semibold disabled:opacity-35 hover:bg-stone-100 dark:hover:bg-stone-800"
+                className="inline-flex items-center gap-1 pl-2.5 pr-3.5 py-2 rounded-full border border-[#1D4234]/25 dark:border-stone-700 text-[#16392E] dark:text-stone-100 text-[14px] font-semibold disabled:opacity-35 hover:bg-[#1D4234]/5 dark:hover:bg-stone-800"
               >
-                <ChevronLeft className="w-4 h-4" /> {prevKural ? prevKural.number : ''}
+                <ChevronLeft className="w-4 h-4" /> {prevKural ? `குறள் ${prevKural.number}` : ''}
               </button>
               <button
                 onClick={() => nextKural && onNavigate(nextKural)}
                 disabled={!nextKural}
-                className="inline-flex items-center gap-1 pl-3.5 pr-2.5 py-2 rounded-full border border-stone-200 dark:border-stone-700 text-[13px] font-semibold disabled:opacity-35 hover:bg-stone-100 dark:hover:bg-stone-800"
+                className="inline-flex items-center gap-1 pl-3.5 pr-2.5 py-2 rounded-full border border-[#1D4234]/25 dark:border-stone-700 text-[#16392E] dark:text-stone-100 text-[14px] font-semibold disabled:opacity-35 hover:bg-[#1D4234]/5 dark:hover:bg-stone-800"
               >
-                {nextKural ? nextKural.number : ''} <ChevronRight className="w-4 h-4" />
+                {nextKural ? `குறள் ${nextKural.number}` : ''} <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           ) : onShowOnMap ? (
@@ -430,7 +431,7 @@ export const KuralDetailModal: React.FC<KuralDetailModalProps> = ({
           ) : <span />}
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-full bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 text-xs font-semibold hover:opacity-90 transition-opacity"
+            className="hidden sm:inline-flex px-5 py-2 rounded-full bg-[#1D4234] text-[#F3D58E] text-[13px] font-semibold hover:bg-[#245240] transition-colors"
           >
             மூடுக (Close)
           </button>
