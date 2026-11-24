@@ -1,0 +1,169 @@
+/* Home page: "golden lamp" look. Everything is scoped under .gh so the other pages are untouched. */
+.gh{--bg:#120C07;--bg2:#1B130C;--card:#1F160D;--line:rgba(226,169,85,.22);--gold:#E2A955;--gold2:#F3CD8A;--cream:#F6E9CF;--text:#EADFC8;--muted:#C2AD8E;--leaf:#EEDDB8;--ink:#3A2610;
+  background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans','Noto Sans Tamil',sans-serif}
+.gh *{box-sizing:border-box}
+.gh-wrap{width:min(1180px,100% - 32px);margin:0 auto}
+.gh a{color:inherit;text-decoration:none}
+.gh button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.gh :focus-visible{outline:3px solid var(--gold2);outline-offset:3px;border-radius:8px}
+
+/* Header */
+.gh-top{position:fixed;inset:0 0 auto;z-index:40;transition:background .3s,box-shadow .3s}
+.gh-top.solid{background:rgba(18,12,7,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.gh-top-in{display:flex;align-items:center;gap:20px;height:70px}
+.gh-brand{display:flex;align-items:center;gap:10px;color:var(--gold2)!important;flex-shrink:0}
+.gh-brand svg{width:32px;height:32px}
+.gh-brand span{font-family:'Noto Serif Tamil',serif;font-weight:700;font-size:19px;line-height:1.1;color:var(--cream)}
+.gh-brand small{display:block;font-family:'Lora',serif;font-weight:500;font-size:11.5px;color:var(--gold);letter-spacing:.04em}
+.gh-nav{display:flex;gap:4px;margin:0 auto}
+.gh-nav a{display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:99px;font-size:15px;font-weight:600;color:var(--muted);position:relative}
+.gh-nav a:hover{color:var(--cream)}
+.gh-nav a.on{color:var(--cream)}
+.gh-nav a.on:after{content:'';position:absolute;left:18%;right:18%;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.gh-ni{width:17px;height:17px;color:var(--gold)}
+.gh-tools{display:flex;align-items:center;gap:6px;margin-left:auto}
+.gh-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cream)}
+.gh-icon:hover{background:rgba(246,233,207,.08)}
+.gh-icon svg{width:21px;height:21px}
+.gh-burger{display:none!important}
+.gh-sheet{position:fixed;inset:0;z-index:60;background:rgba(18,12,7,.97);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.gh-sheet a{font-family:'Noto Serif Tamil',serif;font-size:24px;font-weight:700;color:var(--cream);padding:10px 20px}
+.gh-close{position:absolute;top:14px;right:14px}
+
+/* Hero */
+.gh-hero{position:relative;min-height:min(92svh,820px);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:110px 0 70px}
+.gh-hero-bg{position:absolute;inset:0;background:url(/hero-valluvar.webp) 18% 35%/cover no-repeat;filter:sepia(.45) saturate(1.15) brightness(.78) contrast(1.06);transform:scale(1.05);animation:gh-drift 26s ease-in-out infinite alternate}
+@keyframes gh-drift{to{transform:scale(1.1) translateX(-1.2%)}}
+.gh-hero-shade{position:absolute;inset:0;background:
+  radial-gradient(60% 55% at 50% 46%,rgba(18,12,7,.72),rgba(18,12,7,.25) 70%,transparent),
+  linear-gradient(0deg,var(--bg) 2%,rgba(18,12,7,0) 38%),
+  linear-gradient(180deg,rgba(18,12,7,.75),transparent 22%)}
+.gh-embers{position:absolute;inset:0;pointer-events:none}
+.gh-embers i{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:var(--gold2);box-shadow:0 0 10px 2px rgba(243,205,138,.6);opacity:0;animation:gh-ember 8s linear infinite}
+@keyframes gh-ember{10%{opacity:.9}80%{opacity:.4}100%{opacity:0;transform:translate(30px,-70vh)}}
+.gh-hero-in{position:relative;z-index:2}
+.gh-hero h1{font-family:'Noto Serif Tamil',serif;font-weight:700;font-size:clamp(36px,5.4vw,70px);line-height:1.2;color:var(--cream);text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.gh-hero h1 span{display:block}
+.gh-hero h1 span+span{background:linear-gradient(180deg,#FBE3B0,#E2A955);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gh-hero p{font-size:clamp(16px,1.6vw,19px);color:var(--text);max-width:34em;margin:18px auto 0;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.gh-search{display:flex;align-items:center;gap:10px;width:min(620px,100%);margin:30px auto 0;background:rgba(246,233,207,.94);border-radius:99px;padding:6px 6px 6px 20px;box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 0 1px rgba(226,169,85,.5)}
+.gh-si{width:21px;height:21px;color:#6B4A20;flex-shrink:0}
+.gh-search input{flex:1;min-width:0;border:0;background:transparent;font:500 16px 'Noto Sans Tamil','Plus Jakarta Sans',sans-serif;color:#2A1B0B;padding:10px 0;outline:none}
+.gh-search input::placeholder{color:#7C6447}
+.gh-search button{width:46px;height:46px;border-radius:50%;background:linear-gradient(160deg,#E9B865,#B97A2E)!important;color:#2A1B0B!important;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gh-search button svg{width:21px;height:21px}
+.gh-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:22px}
+.gh-cta a{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:99px;border:1px solid rgba(243,205,138,.55);background:rgba(18,12,7,.45);color:var(--cream);font-weight:600;font-size:15.5px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s}
+.gh-cta a:hover{background:rgba(226,169,85,.22)}
+.gh-cta svg{width:17px;height:17px}
+
+/* Panels */
+.gh-main{padding:8px 0 30px;display:flex;flex-direction:column;gap:22px}
+.gh-panels{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.gh-panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:18px}
+.gh-ph{display:flex;gap:14px;align-items:center}
+.gh-phi{width:40px;height:40px;color:var(--gold);flex-shrink:0}
+.gh-ph h2{font-family:'Noto Serif Tamil',serif;font-size:25px;font-weight:700;color:var(--gold2);line-height:1.25}
+.gh-ph p{font-size:14.5px;color:var(--muted)}
+.gh-song{display:grid;grid-template-columns:160px 1fr;gap:18px;align-items:center;text-align:left;background:rgba(0,0,0,.22)!important;border:1px solid var(--line)!important;border-radius:18px;padding:10px;transition:border-color .2s}
+.gh-song:hover{border-color:rgba(243,205,138,.55)!important}
+.gh-thumb{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:linear-gradient(150deg,#5B3A16,#22160A)}
+.gh-thumb img{width:100%;height:100%;object-fit:cover}
+.gh-play{position:absolute;inset:0;margin:auto;width:48px;height:48px;border-radius:50%;background:rgba(18,12,7,.7);border:1.5px solid var(--gold2);display:flex;align-items:center;justify-content:center}
+.gh-play svg{width:20px;height:20px;color:var(--gold2);fill:var(--gold2);margin-left:3px}
+.gh-song-t small{display:block;font-size:13px;color:var(--gold);font-weight:600}
+.gh-song-t b{display:block;font-family:'Noto Serif Tamil',serif;font-weight:600;font-size:17px;line-height:1.5;color:var(--cream);margin:4px 0}
+.gh-song-t em{font-style:normal;font-size:13.5px;color:var(--muted)}
+.gh-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gh-mini button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:14px;border:1px solid var(--line)!important;background:rgba(0,0,0,.15)!important}
+.gh-mini button:hover{border-color:rgba(243,205,138,.55)!important}
+.gh-mp{width:15px;height:15px;color:var(--gold);fill:var(--gold)}
+.gh-mini span{font-weight:700;font-size:14px;color:var(--cream)}
+.gh-mini em{font-style:normal;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.gh-more{display:inline-flex;align-items:center;gap:8px;align-self:flex-end;color:var(--gold2)!important;font-weight:600;font-size:15px;margin-top:auto}
+.gh-more svg{width:17px;height:17px}
+
+/* Reading: a palm-leaf coloured card */
+.gh-leaf{position:relative;flex:1;border-radius:18px;padding:22px 24px;color:var(--ink);background:
+  repeating-linear-gradient(180deg,rgba(120,84,30,.06) 0 2px,transparent 2px 7px),
+  linear-gradient(160deg,#F3E4C2,#E4CC98);box-shadow:inset 0 0 0 1px rgba(120,84,30,.25)}
+.gh-leaf small{font-size:13.5px;font-weight:700;color:#7A5426}
+.gh-leaf b{display:block;font-family:'Noto Serif Tamil',serif;font-weight:700;font-size:clamp(19px,1.9vw,24px);line-height:1.55;margin:6px 0 10px;color:#2E1D0B}
+.gh-leaf p{font-size:15px;line-height:1.6;color:#4A331A}
+.gh-leaf p.en{font-family:'Lora',serif;font-style:italic;margin-top:6px;color:#5A4024}
+.gh-leaf-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+.gh-leaf-row button{padding:9px 15px;border-radius:99px;border:1px solid rgba(58,38,16,.3)!important;font-weight:600;font-size:14.5px;color:#3A2610!important}
+.gh-leaf-row a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;background:#2A1B0B;color:var(--gold2)!important;font-weight:600;font-size:14.5px}
+.gh-leaf-row a svg{width:16px;height:16px}
+
+/* Quick links */
+.gh-quick{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0}
+.gh-quick a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:18px 8px;border-radius:16px;position:relative}
+.gh-quick a+a:before{content:'';position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--line)}
+.gh-quick a:hover{background:rgba(226,169,85,.07)}
+.gh-qi{width:36px;height:36px;color:var(--gold)}
+.gh-quick b{font-family:'Noto Sans Tamil',sans-serif;font-weight:600;font-size:15px;color:var(--cream);line-height:1.35}
+.gh-quick small{font-size:12.5px;color:var(--muted)}
+
+/* Today's kural by lamplight */
+.gh-today{position:relative;display:grid;grid-template-columns:1fr 240px;gap:20px;align-items:center;border-radius:24px;border:1px solid var(--line);padding:28px 30px;overflow:hidden;background:
+  radial-gradient(50% 120% at 88% 60%,rgba(226,169,85,.28),transparent 60%),linear-gradient(120deg,var(--card),#2A1B0E)}
+.gh-today h2{display:flex;align-items:center;gap:12px;font-family:'Noto Serif Tamil',serif;font-size:24px;font-weight:700;color:var(--gold2)}
+.gh-sun{width:22px;height:22px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(226,169,85,.18),0 0 18px rgba(243,205,138,.6)}
+.gh-tk{display:block;font-family:'Noto Serif Tamil',serif;font-weight:700;font-size:clamp(20px,2.1vw,27px);line-height:1.55;color:var(--cream);margin:14px 0 8px}
+.gh-today p{font-size:15.5px;color:var(--text);max-width:44em}
+.gh-today p.en{font-family:'Lora',serif;font-style:italic;color:var(--muted);margin-top:4px}
+.gh-today-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:18px}
+.gh-ref{font-size:13.5px;color:var(--gold);font-weight:600}
+.gh-steps{display:flex;gap:4px}
+.gh-steps button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line)!important;display:flex;align-items:center;justify-content:center;color:var(--cream)}
+.gh-steps button:hover{border-color:var(--gold2)!important}
+.gh-steps svg{width:18px;height:18px}
+.gh-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;border:1px solid rgba(243,205,138,.5)!important;color:var(--cream);font-weight:600;font-size:14.5px}
+.gh-pill.gold{background:var(--gold)!important;color:#2A1B0B!important;border-color:var(--gold)!important}
+.gh-pill svg{width:16px;height:16px}
+.gh-pill.gold svg{fill:#2A1B0B}
+.gh-lamp{position:relative;height:190px}
+.gh-lamp svg{position:absolute;bottom:0;left:50%;width:180px;transform:translateX(-50%)}
+.gh-glow{position:absolute;left:50%;top:18px;width:180px;height:180px;margin-left:-90px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,110,.55),rgba(255,170,60,.12) 45%,transparent 70%);animation:gh-glow 3.2s ease-in-out infinite}
+.gh-flame{position:absolute;left:50%;top:40px;width:22px;height:54px;margin-left:-11px;transform-origin:50% 100%;animation:gh-flick 1.6s ease-in-out infinite}
+.gh-flame i{display:block;width:100%;height:100%;border-radius:50% 50% 45% 45%/70% 70% 30% 30%;background:radial-gradient(60% 40% at 50% 78%,#fff 0,#FFE7A8 30%,#FFB347 60%,rgba(255,120,30,.0) 100%);filter:blur(.4px)}
+@keyframes gh-flick{0%,100%{transform:scale(1,1) rotate(-1deg)}30%{transform:scale(.95,1.06) rotate(1.5deg)}60%{transform:scale(1.04,.96) rotate(-1.5deg)}}
+@keyframes gh-glow{50%{opacity:.75;transform:scale(.94)}}
+
+.gh-cat>*{background:linear-gradient(180deg,var(--card),var(--bg2))!important;border-color:var(--line)!important;border-radius:20px!important}
+.gh-cat>* svg:first-of-type{color:var(--gold)!important}
+.gh-cat h2{font-family:'Noto Serif Tamil',serif!important;color:var(--gold2)!important}
+.gh-mini span{white-space:nowrap}
+@media (max-width:980px){
+  .gh-nav{display:none}
+  .gh-burger{display:flex!important}
+  .gh-panels{grid-template-columns:1fr}
+  .gh-quick{grid-template-columns:repeat(3,1fr)}
+  .gh-quick a:nth-child(4):before{display:none}
+}
+@media (max-width:640px){
+  .gh-top-in{height:62px;gap:8px}
+  .gh-brand span{font-size:17px}
+  .gh-hero{min-height:auto;padding:96px 0 40px}
+  .gh-hero-bg{background-position:22% 30%}
+  .gh-search{padding-left:14px}
+  .gh-search input{font-size:15px}
+  .gh-panel{padding:20px 16px;border-radius:20px}
+  .gh-song{grid-template-columns:1fr;gap:12px}
+  .gh-thumb{aspect-ratio:16/9}
+  .gh-mini span{font-size:13px}
+  .gh-song-t b{font-size:15.5px}
+  .gh-mini em{display:none}
+  .gh-quick{grid-template-columns:repeat(2,1fr)}
+  .gh-quick a:before{display:none}
+  .gh-quick a:last-child{grid-column:1/-1}
+  .gh-today{grid-template-columns:1fr;padding:22px 18px}
+  .gh-lamp{position:absolute;right:-20px;top:-6px;width:130px;height:150px;opacity:.55;pointer-events:none}
+  .gh-lamp svg{width:110px}
+  .gh-today h2{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){
+  .gh-hero-bg,.gh-embers i,.gh-flame,.gh-glow{animation:none}
+  .gh-embers{display:none}
+}

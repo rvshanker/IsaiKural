@@ -17,6 +17,7 @@ import { AthikaramCatalog } from './components/AthikaramCatalog';
 import { KuralCard } from './components/KuralCard';
 import { KuralDetailModal } from './components/KuralDetailModal';
 import { SiteFooter } from './components/SiteFooter';
+import { GoldenHome } from './components/GoldenHome';
 import { MediaModal } from './components/MediaModal';
 import { VideoModal } from './components/VideoModal';
 import { ImageModal } from './components/ImageModal';
@@ -104,6 +105,9 @@ function parseHash(): Route {
   if (head === 'kurals') return { page: 'kurals', paal: PAAL_KEYS.includes(arg as Paal) ? (arg as Paal) : 'all' };
   return { page: 'home' };
 }
+
+/** New home page design: shown at isaikural.com/preview until it replaces the current home. */
+const GOLDEN_HOME = typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/preview';
 
 function go(hash: string) {
   if (window.location.hash === hash) window.dispatchEvent(new HashChangeEvent('hashchange'));
@@ -419,10 +423,10 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex flex-col overflow-x-clip transition-colors duration-200 ${
-      isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
+      GOLDEN_HOME && route.page === 'home' ? 'bg-[#120C07] text-stone-100' : isDark ? 'bg-[#101311] text-stone-100' : 'bg-[#F7F6F2] text-stone-900'
     }`}>
       {/* 1) TOP MENU (Google-Style Navigation with Dark Teal Background) */}
-      {<Navbar
+      {!(GOLDEN_HOME && route.page === 'home') && <Navbar
         onGoHome={() => scrollToSection('home')}
         onNavigateSection={scrollToSection}
         searchQuery={searchQuery}
@@ -443,7 +447,29 @@ export default function App() {
         language={language}
       />}
 
-      {route.page === 'home' ? (
+      {route.page === 'home' && GOLDEN_HOME ? (
+        <GoldenHome
+          dailyKural={currentDailyKural}
+          firstKural={allAvailableKurals[0]}
+          videoKurals={videoKurals}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onSearchSubmit={handleSearchSubmit}
+          onStepDaily={handleStepDailyKural}
+          onShuffleDaily={handleShuffleDailyKural}
+          onOpenDetail={(k) => setSelectedDetailKural(k)}
+          go={go}
+          top={isNativeApp ? <ReminderCard isDark={true} /> : undefined}
+        >
+          <AthikaramCatalog
+            onSelectAthikaram={handleSelectAthikaram}
+            activeAthikaram={lastChapter}
+            isDark={true}
+            isOpen={catalogOpen}
+            onToggle={() => setCatalogOpen(v => !v)}
+          />
+        </GoldenHome>
+      ) : route.page === 'home' ? (
       <>
       {/* HERO: photograph with the Random Kural of the Day card */}
       <div id="home">
@@ -947,7 +973,7 @@ export default function App() {
 
 
       {/* Follow us + contact (every page) */}
-      <SiteFooter isDark={isDark} />
+      <SiteFooter isDark={isDark || (GOLDEN_HOME && route.page === 'home')} />
 
 
       {/* Detail / Commentary Modal */}
