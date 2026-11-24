@@ -21,7 +21,6 @@ import {
   Facebook,
   Network,
   Lightbulb,
-  Trophy,
   Puzzle,
 } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/site';
@@ -39,8 +38,7 @@ interface NavbarProps {
   onOpenVideos?: () => void;
   onOpenMap?: () => void;
   onOpenFacts?: () => void;
-  onOpenQuiz?: () => void;
-  onOpenPlay?: () => void;
+  onOpenLearn?: () => void;
   onOpenFeedback?: () => void;
   onOpenAddMedia?: () => void;
   isDark: boolean;
@@ -72,8 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenVideos,
   onOpenMap,
   onOpenFacts,
-  onOpenQuiz,
-  onOpenPlay,
+  onOpenLearn,
   onOpenFeedback,
   onOpenAddMedia,
   isDark,
@@ -195,14 +192,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Network className="w-4 h-4" /> குறள் வரைபடம்
                   </button>
                 )}
-                {onOpenPlay && (
-                  <button onClick={go(onOpenPlay)} className={menuItem}>
-                    <Puzzle className="w-4 h-4" /> குறள் விளையாட்டு
-                  </button>
-                )}
-                {onOpenQuiz && (
-                  <button onClick={go(onOpenQuiz)} className={menuItem}>
-                    <Trophy className="w-4 h-4" /> குறள் வினாடி வினா
+                {onOpenLearn && (
+                  <button onClick={go(onOpenLearn)} className={menuItem}>
+                    <Puzzle className="w-4 h-4" /> கற்போம் · விளையாடுவோம்
                   </button>
                 )}
                 {onOpenFacts && (

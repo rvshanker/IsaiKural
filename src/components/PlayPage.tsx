@@ -128,7 +128,7 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
 
   // ── which Kurals to play ──
   const [setText, setSetText] = useState(() => {
-    if (initialSet) return initialSet.replace(/,/g, ', ');
+    if (initialSet && /\d/.test(initialSet)) return initialSet.replace(/,/g, ', ');
     try {
       return localStorage.getItem(MY_SET_KEY) || '';
     } catch {
@@ -212,41 +212,67 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
   };
 
   // ── dragging with a finger or mouse ──
-  const drag = useRef<{ id: number; el: HTMLElement; sx: number; sy: number; moved: boolean } | null>(null);
-  const onDown = (e: React.PointerEvent<HTMLButtonElement>, id: number) => {
-    const el = e.currentTarget;
-    el.setPointerCapture(e.pointerId);
-    drag.current = { id, el, sx: e.clientX, sy: e.clientY, moved: false };
+  // A floating copy of the tile follows the finger exactly (no animation lag). On release it drops into the
+  // empty gap nearest to the tile — kids do not have to hit the box precisely. A short tap fills the next gap.
+  const [drag, setDrag] = useState<{ id: number; text: string; x: number; y: number; dx: number; dy: number; w: number; h: number; moved: boolean } | null>(null);
+  const [hoverGap, setHoverGap] = useState<number | null>(null);
+  const dragRef = useRef(drag);
+  dragRef.current = drag;
+
+  const gapNear = (cx: number, cy: number): number | null => {
+    let best: number | null = null;
+    let bestD = Infinity;
+    document.querySelectorAll<HTMLElement>('[data-gap]').forEach((g) => {
+      const r = g.getBoundingClientRect();
+      // distance from the tile centre to the box (0 when inside)
+      const ddx = Math.max(r.left - cx, 0, cx - r.right);
+      const ddy = Math.max(r.top - cy, 0, cy - r.bottom);
+      const d = Math.hypot(ddx, ddy);
+      if (d < bestD) {
+        bestD = d;
+        best = +g.dataset.gap!;
+      }
+    });
+    return bestD <= 90 ? best : null;
   };
-  const onMove = (e: React.PointerEvent) => {
-    const d = drag.current;
-    if (!d) return;
-    const dx = e.clientX - d.sx;
-    const dy = e.clientY - d.sy;
-    if (!d.moved && Math.hypot(dx, dy) < 6) return;
-    d.moved = true;
-    d.el.style.transform = `translate(${dx}px, ${dy}px) scale(1.08)`;
-    d.el.style.zIndex = '50';
-    // light up the gap under the finger
-    document.querySelectorAll('[data-gap]').forEach((g) => g.classList.remove('ring-4'));
-    d.el.style.visibility = 'hidden';
-    const under = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-gap]');
-    d.el.style.visibility = '';
-    under?.classList.add('ring-4');
+
+  const onDown = (e: React.PointerEvent<HTMLButtonElement>, t: Tile) => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    e.preventDefault();
+    const r = e.currentTarget.getBoundingClientRect();
+    setDrag({ id: t.id, text: t.text, x: e.clientX, y: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false });
   };
-  const onUp = (e: React.PointerEvent) => {
-    const d = drag.current;
-    if (!d) return;
-    drag.current = null;
-    d.el.style.visibility = 'hidden';
-    const under = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-gap]') as HTMLElement | null;
-    d.el.style.visibility = '';
-    d.el.style.transform = '';
-    d.el.style.zIndex = '';
-    document.querySelectorAll('[data-gap]').forEach((g) => g.classList.remove('ring-4'));
-    if (!d.moved) place(d.id); // a tap: fill the next gap
-    else if (under) place(d.id, +under.dataset.gap!);
-  };
+
+  useEffect(() => {
+    if (!drag) return;
+    const move = (e: PointerEvent) => {
+      const g = dragRef.current;
+      if (!g) return;
+      e.preventDefault();
+      const moved = g.moved || Math.hypot(e.clientX - g.x, e.clientY - g.y) > 8;
+      const next = { ...g, x: e.clientX, y: e.clientY, moved };
+      setDrag(next);
+      if (moved) setHoverGap(gapNear(e.clientX - g.dx + g.w / 2, e.clientY - g.dy + g.h / 2));
+    };
+    const up = (e: PointerEvent) => {
+      const g = dragRef.current;
+      setDrag(null);
+      setHoverGap(null);
+      if (!g) return;
+      if (!g.moved) return place(g.id); // a tap
+      const gap = gapNear(e.clientX - g.dx + g.w / 2, e.clientY - g.dy + g.h / 2);
+      if (gap !== null) place(g.id, gap);
+    };
+    window.addEventListener('pointermove', move, { passive: false });
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+    return () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drag?.id]);
 
   const nextKural = () => {
     if (qi + 1 < queue.length) {
@@ -269,7 +295,7 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
         </div>
         <p className={`text-[14px] mt-0.5 ${muted}`}>மறைந்த சொற்களை இழுத்து, சரியான இடத்தில் வையுங்கள்! · Drag the missing words into the Kural</p>
 
-        <h2 className={`mt-5 font-tamil-sans text-[16px] font-bold ${ink}`}>1. நிலை தேர்ந்தெடு · Choose a level</h2>
+        <h2 className={`mt-5 font-tamil-sans text-[16px] font-bold ${ink}`}>{initialSet ? '' : '1. '}நிலை தேர்ந்தெடு · Choose a level</h2>
         <div className="mt-2 grid grid-cols-3 gap-2">
           {LEVELS.map((l) => (
             <button
@@ -290,6 +316,24 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
           ))}
         </div>
 
+        {initialSet ? (
+          <div className="mt-6">
+            <p className={`text-[14px] ${body}`}>
+              {initialSet === 'random' ? 'ஏதேனும் 5 குறள்கள் · Any 5 Kurals' : `குறள்கள் · Kurals: ${compactList(myNums).replace(/,/g, ', ')}`}{' '}
+              <a href="#/learn" className={`underline ${muted}`}>
+                மாற்று · change
+              </a>
+            </p>
+            <button
+              onClick={() => begin(initialSet === 'random' ? 'random' : myNums)}
+              disabled={initialSet !== 'random' && !myNums.length}
+              className={`mt-3 w-full sm:w-auto inline-flex justify-center items-center gap-1 px-8 py-3.5 rounded-full text-[18px] font-bold cursor-pointer disabled:opacity-40 ${primary}`}
+            >
+              விளையாடு · Play <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        ) : (
+          <>
         <h2 className={`mt-6 font-tamil-sans text-[16px] font-bold ${ink}`}>2. குறள்களைத் தேர்ந்தெடு · Choose Kurals</h2>
         <div className={`mt-2 rounded-2xl border px-5 py-4 ${card}`}>
           <span className={`flex items-center gap-2 font-tamil-sans text-[16px] font-bold ${ink}`}>
@@ -321,6 +365,8 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
           </span>
           <ChevronRight className={`w-5 h-5 ml-auto ${muted}`} />
         </button>
+          </>
+        )}
       </div>
     );
   }
@@ -364,6 +410,7 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
           )}
           <button
             onClick={() => {
+              if (initialSet) window.location.hash = '#/learn';
               setQueue([]);
               setQi(0);
             }}
@@ -399,7 +446,9 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
         key={i}
         data-gap={i}
         onClick={() => setHint(false)}
-        className={`inline-block align-middle min-w-[84px] h-[44px] rounded-xl border-2 border-dashed ring-[#E3B866] transition-shadow ${
+        className={`inline-block align-middle min-w-[84px] h-[44px] rounded-xl border-2 border-dashed transition-colors ${
+          hoverGap === i ? '!border-solid !border-[#E3B866] bg-[#E3B866]/25 scale-105' : ''
+        } ${
           isNext ? (isDark ? 'border-[#E3B866] bg-[#E3B866]/10' : 'border-[#1D5A43] bg-[#1D5A43]/5') : isDark ? 'border-white/25' : 'border-black/20'
         }`}
         style={{ width: `${Math.max(84, strip(round.words[i]).length * 15)}px` }}
@@ -410,7 +459,15 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
   };
 
   return (
-    <div className="mt-2 select-none" onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
+    <div className="mt-2 select-none" style={{ WebkitUserSelect: 'none' }}>
+      {drag?.moved && (
+        <div
+          className={`fixed z-[90] pointer-events-none px-4 py-2.5 rounded-2xl border-2 font-tamil-serif text-[20px] shadow-xl ${tileCls}`}
+          style={{ left: drag.x - drag.dx, top: drag.y - drag.dy, minWidth: drag.w, transform: 'scale(1.08) rotate(-2deg)' }}
+        >
+          {drag.text}
+        </div>
+      )}
       <div className="flex items-center justify-between gap-2">
         <span className={`font-tamil-sans text-[15px] font-bold ${ink}`}>
           குறள் {qi + 1}/{queue.length} · {LEVELS.find((l) => l.n === level)?.ta}
@@ -435,17 +492,16 @@ export const PlayPage: React.FC<PlayPageProps> = ({ isDark, onOpenKural, initial
 
       {!done ? (
         <>
-          <p className={`mt-5 text-center text-[14px] ${muted}`}>சொல்லை இழுத்து இடத்தில் விடுங்கள் — அல்லது தட்டுங்கள் · Drag a word into the gap, or tap it</p>
+          <p className={`mt-5 text-center text-[14px] ${muted}`}>சொல்லைத் தட்டுங்கள் அல்லது இழுத்து விடுங்கள் · Tap a word, or drag it into the box</p>
           <div className="mt-3 flex flex-wrap justify-center gap-3">
             {round.tiles.map((t) =>
               t.used ? null : (
                 <button
                   key={t.id}
-                  onPointerDown={(e) => onDown(e, t.id)}
-                  style={{ touchAction: 'none' }}
-                  className={`relative px-4 py-2.5 rounded-2xl border-2 font-tamil-serif text-[20px] cursor-grab active:cursor-grabbing transition-transform ${tileCls} ${
-                    shakeId === t.id ? 'kp-shake !border-[#D9534F]' : ''
-                  }`}
+                  onPointerDown={(e) => onDown(e, t)}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{ touchAction: 'none', WebkitTouchCallout: 'none', opacity: drag?.id === t.id && drag.moved ? 0.25 : 1 }}
+                  className={`relative px-4 py-2.5 rounded-2xl border-2 font-tamil-serif text-[20px] cursor-grab ${tileCls} ${shakeId === t.id ? 'kp-shake !border-[#D9534F]' : ''}`}
                 >
                   {t.text}
                 </button>

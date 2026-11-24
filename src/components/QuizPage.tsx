@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Check, X, Share2, RotateCcw, Trophy, Flame, Music, ChevronRight, CalendarDays, Shuffle, ListChecks } from 'lucide-react';
 import { ALL_KURALS } from '../data/kurals';
 import { Kural, Paal } from '../types/kural';
@@ -25,6 +25,7 @@ interface Question {
 const ROUND = 10;
 const STORE = 'isaikural.quiz.v1';
 const SITE = 'https://isaikural.com/#/quiz';
+const DAILY_LINK = `${SITE}/today`;
 
 // ── deterministic random numbers so the daily quiz is the same for everyone ──
 function seedFrom(s: string) {
@@ -232,7 +233,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ isDark, onOpenKural, initial
   const [stats, setStats] = useState<Stats>(loadStats);
   const [mode, setMode] = useState<'menu' | 'daily' | 'practice' | 'mine'>('menu');
   const [setText, setSetText] = useState(() => {
-    if (initialSet) return initialSet.replace(/,/g, ', ');
+    if (initialSet && /\d/.test(initialSet)) return initialSet.replace(/,/g, ', ');
     try {
       return localStorage.getItem(LAST_SET) || '';
     } catch {
@@ -285,6 +286,14 @@ export const QuizPage: React.FC<QuizPageProps> = ({ isDark, onOpenKural, initial
     window.scrollTo({ top: 0 });
   };
 
+  // opened from கற்போம் or a shared link: go straight into the quiz
+  useEffect(() => {
+    if (initialSet === 'today') start('daily');
+    else if (initialSet === 'random') start('practice');
+    else if (initialSet && myNums.length) start('mine');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const answer = (o: number) => {
     if (chosen !== null) return;
     setChosen(o);
@@ -316,7 +325,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ isDark, onOpenKural, initial
         : mode === 'mine'
           ? `குறள் பயிற்சி (${compactList(myNums).replace(/,/g, ', ')})`
           : 'குறள் வினாடி வினா';
-    const link = mode === 'mine' ? `${SITE}/${compactList(myNums)}` : SITE;
+    const link = mode === 'mine' ? `${SITE}/${compactList(myNums)}` : mode === 'daily' ? DAILY_LINK : 'https://isaikural.com/#/learn';
     const text = `${title}\n${sc}/${total} ${resultLine(ms)}\n${link}`;
     const done = await shareText(text);
     if (done === 'copied') {
@@ -487,8 +496,8 @@ export const QuizPage: React.FC<QuizPageProps> = ({ isDark, onOpenKural, initial
             <button onClick={() => start(mode === 'mine' ? 'mine' : 'practice')} className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-[14px] cursor-pointer ${ghost}`}>
               <RotateCcw className="w-4 h-4" /> {mode === 'mine' ? 'மீண்டும் பயிற்சி · Practise again' : 'புதிய சுற்று · New round'}
             </button>
-            <button onClick={() => setMode('menu')} className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-[14px] cursor-pointer ${ghost}`}>
-              வினா முகப்பு · Quiz home
+            <button onClick={() => (window.location.hash = '#/learn')} className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-[14px] cursor-pointer ${ghost}`}>
+              கற்போம் · Learn & Play
             </button>
           </div>
         </div>

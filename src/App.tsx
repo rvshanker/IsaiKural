@@ -3,6 +3,7 @@ const KuralMap = lazy(() => import('./components/KuralMap'));
 const FactsPage = lazy(() => import('./components/FactsPage'));
 const QuizPage = lazy(() => import('./components/QuizPage'));
 const PlayPage = lazy(() => import('./components/PlayPage'));
+const LearnPage = lazy(() => import('./components/LearnPage'));
 const FeedbackPage = lazy(() => import('./components/FeedbackPage'));
 const AdminFeedback = lazy(() => import('./components/AdminFeedback'));
 const PrivacyPage = lazy(() => import('./components/PrivacyPage'));
@@ -51,7 +52,6 @@ import {
   RotateCcw,
   Network,
   Lightbulb,
-  Trophy,
   Puzzle
 } from 'lucide-react';
 
@@ -68,6 +68,7 @@ type Route =
   | { page: 'facts' }
   | { page: 'quiz'; set?: string }
   | { page: 'play'; set?: string }
+  | { page: 'learn'; set?: string }
   | { page: 'feedback' }
   | { page: 'admin' }
   | { page: 'privacy' };
@@ -93,8 +94,10 @@ function parseHash(): Route {
     return { page: 'map', n: n >= 1 && n <= 1330 ? n : undefined };
   }
   if (head === 'facts') return { page: 'facts' };
-  if (head === 'play') return { page: 'play', set: arg ? decodeURIComponent(arg) : undefined };
-  if (head === 'quiz') return { page: 'quiz', set: arg ? decodeURIComponent(arg) : undefined };
+  // the game and the quiz live under one page, கற்போம்; /play/<set> and /quiz/<set> open an activity directly
+  if (head === 'learn' || ((head === 'play' || head === 'quiz') && !arg)) return { page: 'learn', set: head === 'learn' && arg ? arg : undefined };
+  if (head === 'play') return { page: 'play', set: arg };
+  if (head === 'quiz') return { page: 'quiz', set: arg };
   if (head === 'feedback') return { page: 'feedback' };
   if (head === 'admin') return { page: 'admin' };
   if (head === 'privacy') return { page: 'privacy' };
@@ -163,6 +166,7 @@ export default function App() {
     else if (route.page === 'saved') t = `சேமித்த குறள்கள் — ${site}`;
     else if (route.page === 'map') t = `குறள் வரைபடம் — ${site}`;
     else if (route.page === 'facts') t = `சுவையான உண்மைகள் — ${site}`;
+    else if (route.page === 'learn') t = `கற்போம் · விளையாடுவோம் — ${site}`;
     else if (route.page === 'play') t = `குறள் விளையாட்டு — ${site}`;
     else if (route.page === 'quiz') t = `குறள் வினாடி வினா — ${site}`;
     else if (route.page === 'feedback') t = `கருத்து தெரிவிக்க — ${site}`;
@@ -429,8 +433,7 @@ export default function App() {
         onOpenVideos={() => go('#/videos')}
         onOpenMap={() => go('#/map')}
         onOpenFacts={() => go('#/facts')}
-        onOpenQuiz={() => go('#/quiz')}
-        onOpenPlay={() => go('#/play')}
+        onOpenLearn={() => go('#/learn')}
         onOpenFeedback={() => go('#/feedback')}
         onOpenAddMedia={CAN_EDIT_MEDIA ? () => openMediaEditor(ALL_KURALS[0]) : undefined}
         isDark={isDark}
@@ -518,9 +521,9 @@ export default function App() {
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
-        {/* குறள் விளையாட்டு — word game for children */}
+        {/* கற்போம் · விளையாடுவோம் — word game + quiz */}
         <button
-          onClick={() => go('#/play')}
+          onClick={() => go('#/learn')}
           className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
             isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
           }`}
@@ -529,28 +532,9 @@ export default function App() {
             <Puzzle className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
             <span className="min-w-0">
               <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                குறள் விளையாட்டு
+                கற்போம் · விளையாடுவோம்
               </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொற்களை இழுத்து குறளை நிரப்புங்கள் · Word game for kids</span>
-            </span>
-          </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
-        </button>
-
-        {/* குறள் வினாடி வினா — quiz */}
-        <button
-          onClick={() => go('#/quiz')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
-            isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
-          }`}
-        >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Trophy className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
-            <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
-                குறள் வினாடி வினா
-              </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>இன்றைய 10 கேள்விகள் — உங்கள் மதிப்பெண் என்ன? · Daily Thirukkural quiz</span>
+              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொல் விளையாட்டு, வினாடி வினா · Word game & quiz for kids and all</span>
             </span>
           </span>
           <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
@@ -628,8 +612,8 @@ export default function App() {
           )}
         </Suspense>
       </main>
-      ) : route.page === 'play' ? (
-      /* ───────────── குறள் விளையாட்டு: word game for children ───────────── */
+      ) : route.page === 'learn' ? (
+      /* ───────────── கற்போம் · விளையாடுவோம்: game + quiz hub ───────────── */
       <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
         <button
           onClick={() => go('#/')}
@@ -640,6 +624,21 @@ export default function App() {
           <ChevronLeft className="w-5 h-5" /> முகப்பு
         </button>
         <Suspense fallback={<div className="h-64" />}>
+          <LearnPage key={route.set || 'learn'} isDark={isDark} go={go} initialSet={route.set} onOpenKural={(k) => setSelectedDetailKural(k)} />
+        </Suspense>
+      </main>
+      ) : route.page === 'play' ? (
+      /* ───────────── குறள் விளையாட்டு: word game for children ───────────── */
+      <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
+        <button
+          onClick={() => go('#/learn')}
+          className={`inline-flex items-center gap-1 -ml-2 px-2 py-1.5 rounded-full text-[14px] cursor-pointer ${
+            isDark ? 'text-[#A9BDB2] hover:bg-white/5' : 'text-[#1D5A43] hover:bg-[#1D5A43]/5'
+          }`}
+        >
+          <ChevronLeft className="w-5 h-5" /> கற்போம் · Learn & Play
+        </button>
+        <Suspense fallback={<div className="h-64" />}>
           <PlayPage key={route.set || 'play'} isDark={isDark} initialSet={route.set} onOpenKural={(k) => setSelectedDetailKural(k)} />
         </Suspense>
       </main>
@@ -647,12 +646,12 @@ export default function App() {
       /* ───────────── குறள் வினாடி வினா: quiz ───────────── */
       <main className="flex-1 w-full max-w-[760px] mx-auto px-4 sm:px-6 pt-4 pb-12">
         <button
-          onClick={() => go('#/')}
+          onClick={() => go('#/learn')}
           className={`inline-flex items-center gap-1 -ml-2 px-2 py-1.5 rounded-full text-[14px] cursor-pointer ${
             isDark ? 'text-[#A9BDB2] hover:bg-white/5' : 'text-[#1D5A43] hover:bg-[#1D5A43]/5'
           }`}
         >
-          <ChevronLeft className="w-5 h-5" /> முகப்பு
+          <ChevronLeft className="w-5 h-5" /> கற்போம் · Learn & Play
         </button>
         <Suspense fallback={<div className="h-64" />}>
           <QuizPage key={route.set || 'quiz'} isDark={isDark} initialSet={route.set} onOpenKural={(k) => setSelectedDetailKural(k)} />
