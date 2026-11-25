@@ -120,6 +120,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   801: { youtubeUrl: 'https://youtube.com/shorts/RIkZ2fYSOjw', youtubeTitle: 'பழைமை எனப்படுவது யாதெனின் யாதும் — இசையில் குறள் 801' },
   811: { youtubeUrl: 'https://youtube.com/shorts/YhkjrF9XGsA', youtubeTitle: 'பருகுவார் போலினும் பண்பிலார் கேண்மை பெருகலிற் குன்றல் இனிது' },
   820: { youtubeUrl: 'https://youtube.com/shorts/FQT1tS0Cutw', youtubeTitle: 'எனைத்தும் குறுகுதல் ஓம்பல் மனைக்கெழீஇ — இசையில் குறள் 820' },
+  821: { youtubeUrl: 'https://youtube.com/shorts/1tJKm2ZAQkU', youtubeTitle: 'சீரிடம் காணின் எறிதற்குப் பட்டடை — இசையில் குறள் 821' },
   831: { youtubeUrl: 'https://youtube.com/shorts/28bkrT614pk', youtubeTitle: 'பேதைமை என்பதொன்று யாதெனின் ஏதங்கொண்டு ஊதியம் போக விடல்' },
   842: { youtubeUrl: 'https://youtube.com/shorts/GNPpv13puQw' },
   853: { youtubeUrl: 'https://youtube.com/shorts/xIr7cx3b9Y8', youtubeTitle: 'இகலென்னும் எவ்வநோய் நீக்கின் தவலில்லாத் தாவில் விளக்கம் தரும்' },
