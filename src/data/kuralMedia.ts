@@ -17,6 +17,7 @@ export const YOUTUBE_CHANNEL_URL = SOCIAL_LINKS.youtube;
 export const KURAL_MEDIA: Record<number, KuralMedia> = {
   // ── அறத்துப்பால் (48 பாடல்கள்) ──
   1: { youtubeUrl: 'https://youtube.com/shorts/6kje63rE2Ow', youtubeTitle: 'அகர முதல எழுத்தெல்லாம் ஆதி — இசையில் குறள் 1' },
+  2: { youtubeUrl: 'https://youtube.com/shorts/LJSv5X5JwXI', youtubeTitle: 'கற்றதனால் ஆய பயனென்கொல் வாலறிவன் — இசையில் குறள் 2' },
   10: { youtubeUrl: 'https://youtube.com/shorts/-Ii5FXO9OwQ', youtubeTitle: 'பிறவிப் பெருங்கடல் நீந்துவர் நீந்தார் — இசையில் குறள் 10' },
   11: { youtubeUrl: 'https://youtube.com/shorts/s_TEjsCQyqE', youtubeTitle: 'வான்நின்று உலகம் வழங்கி வருதலால் — இசையில் குறள் 11' },
   12: { youtubeUrl: 'https://youtube.com/shorts/wsk5ae0Reeo', youtubeTitle: 'துப்பார்க்குத் துப்பாய துப்பாக்கித் துப்பார்க்குத் — இசையில் குறள் 12' },
