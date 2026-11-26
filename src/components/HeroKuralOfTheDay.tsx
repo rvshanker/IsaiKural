@@ -58,11 +58,25 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
   return (
     <section id="daily-kural" className="relative w-full overflow-hidden">
       {/* Photograph — statue on the left; the card sits to its right on wider screens */}
+      {/* Wide screens are much wider than the photo (about 2:1), so instead of stretching it across and cutting off
+          the bottom, show the whole photo at the banner's height on the left (the statue always appears in full,
+          at any zoom) and fill the rest with a soft, blurred copy of the same sunset sky. */}
       <img
         src={HERO_IMAGE}
         alt=""
-        className="hidden md:block absolute inset-0 w-full h-full object-cover select-none"
-        style={{ objectPosition: '0% 3%' }}
+        aria-hidden="true"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover select-none scale-110 blur-xl saturate-125"
+        style={{ objectPosition: '70% 30%' }}
+        draggable={false}
+      />
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        className="hidden md:block absolute left-0 top-0 h-full w-auto max-w-none select-none"
+        style={{
+          maskImage: 'linear-gradient(to right, #000 72%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, #000 72%, transparent 100%)',
+        }}
         draggable={false}
       />
       {/* Soft scrim only on small screens where the card covers the photo */}
