@@ -485,14 +485,14 @@ export default function App() {
         />
       </div>
 
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-3 sm:px-8 lg:px-[38px] pt-5 pb-6 space-y-4">
+      <main className="flex-1 w-full max-w-[1440px] mx-auto px-3 sm:px-8 lg:px-[38px] pt-5 pb-6 flex flex-col gap-4">
         {isNativeApp && (
           <div className="px-0 lg:px-[68px]">
             <ReminderCard isDark={isDark} />
           </div>
         )}
         {/* SEARCH */}
-        <div className="px-0 lg:px-[68px] pb-1">
+        <div className="px-0 lg:px-[68px] pb-1 order-1">
           <HomeSearchBar
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -502,6 +502,7 @@ export default function App() {
         </div>
 
         {/* 133 அதிகாரங்களின் அட்டவணை */}
+        <div className="order-3">
         <AthikaramCatalog
           onSelectAthikaram={handleSelectAthikaram}
           activeAthikaram={lastChapter}
@@ -509,82 +510,88 @@ export default function App() {
           isOpen={catalogOpen}
           onToggle={() => setCatalogOpen(v => !v)}
         />
+        </div>
 
+        {/* Shortcuts: a 2×2 grid of tiles on phones, full-width rows on bigger screens */}
+        <div className="order-4 grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-4">
         {/* All kurals live on their own page */}
         <button
           onClick={() => go('#/kurals')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+          className={`w-full h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
             isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
           }`}
         >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <BookOpen className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
-            <span className={`font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+          <span className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 min-w-0">
+            <BookOpen className={`w-8 h-8 md:w-9 md:h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
+            <span className={`font-tamil-sans text-[17px] leading-tight sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
               <span className="font-heading font-normal mr-2 sm:mr-3">1330</span>குறள்கள்
+              <span className={`md:hidden block text-[12px] font-normal tracking-normal ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>எல்லாக் குறள்களும் பொருளுடன்</span>
             </span>
           </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+          <ChevronRight className={`hidden md:block w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
         {/* குறள் வரைபடம் — Kurals laid out by meaning */}
         <button
           onClick={() => go('#/map')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+          className={`w-full h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
             isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
           }`}
         >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Network className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
+          <span className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 min-w-0">
+            <Network className={`w-8 h-8 md:w-9 md:h-9 shrink-0 ${isDark ? 'text-[#7FB39A]' : 'text-[#1D5A43]'}`} strokeWidth={1.8} />
             <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+              <span className={`block font-tamil-sans text-[17px] leading-tight sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
                 குறள் வரைபடம்
               </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>133 அதிகாரங்களில் ஒரு சொல்லைத் தேடுங்கள் · Search every Kural by word</span>
+              <span className={`block text-[12px] md:text-[13px] leading-snug ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>133 அதிகாரங்களில் ஒரு சொல்லைத் தேடுங்கள்<span className="hidden md:inline"> · Search every Kural by word</span></span>
             </span>
           </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+          <ChevronRight className={`hidden md:block w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
-
-        {/* இசைப் பயணம் — today's song and three more */}
-        <IsaiPayanam dailyKural={currentDailyKural} videoKurals={videoKurals} go={go} />
 
         {/* கற்போம் · விளையாடுவோம் — word game + quiz */}
         <button
           onClick={() => go('#/learn')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+          className={`w-full h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
             isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
           }`}
         >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Puzzle className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
+          <span className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 min-w-0">
+            <Puzzle className={`w-8 h-8 md:w-9 md:h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
             <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+              <span className={`block font-tamil-sans text-[17px] leading-tight sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
                 கற்போம்
               </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொல் விளையாட்டு, வினாடி வினா · Word game & quiz for kids and all</span>
+              <span className={`block text-[12px] md:text-[13px] leading-snug ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>சொல் விளையாட்டு, வினாடி வினா<span className="hidden md:inline"> · Word game & quiz for kids and all</span></span>
             </span>
           </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+          <ChevronRight className={`hidden md:block w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
 
         {/* சுவையான உண்மைகள் — interesting facts */}
         <button
           onClick={() => go('#/facts')}
-          className={`w-full flex items-center justify-between gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
+          className={`w-full h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-3 rounded-[14px] border px-4 sm:px-6 lg:px-7 py-4 text-left cursor-pointer transition-colors ${
             isDark ? 'bg-[#161A17] border-[#2A302C] hover:border-[#4C5E54]' : 'bg-white/70 border-[#ECEBE5] hover:border-[#C9D6CD]'
           }`}
         >
-          <span className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <Lightbulb className={`w-9 h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
+          <span className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 min-w-0">
+            <Lightbulb className={`w-8 h-8 md:w-9 md:h-9 shrink-0 ${isDark ? 'text-[#E3B866]' : 'text-[#9A6B12]'}`} strokeWidth={1.8} />
             <span className="min-w-0">
-              <span className={`block font-tamil-sans text-[19px] sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
+              <span className={`block font-tamil-sans text-[17px] leading-tight sm:text-[28px] font-bold tracking-tight ${isDark ? 'text-[#EEE8DC]' : 'text-[#16392E]'}`}>
                 சுவையான உண்மைகள்
               </span>
-              <span className={`block text-[13px] ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>திருக்குறள் பற்றி நீங்கள் அறியாதவை · Interesting facts about Thirukkural</span>
+              <span className={`block text-[12px] md:text-[13px] leading-snug ${isDark ? 'text-[#9FB0A6]' : 'text-[#6D766F]'}`}>திருக்குறள் பற்றி நீங்கள் அறியாதவை<span className="hidden md:inline"> · Interesting facts about Thirukkural</span></span>
             </span>
           </span>
-          <ChevronRight className={`w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
+          <ChevronRight className={`hidden md:block w-6 h-6 shrink-0 ${isDark ? 'text-[#A9BDB2]' : 'text-[#1D5A43]'}`} />
         </button>
+        </div>
 
+        {/* இசைப் பயணம் — today's song and three more (right under the search on phones: it is what makes the site special) */}
+        <div className="order-2">
+          <IsaiPayanam dailyKural={currentDailyKural} videoKurals={videoKurals} go={go} />
+        </div>
       </main>
       </>
       ) : route.page === 'map' ? (

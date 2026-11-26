@@ -50,7 +50,7 @@ export const HomeSearchBar: React.FC<HomeSearchBarProps> = ({ searchQuery, onSea
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
           onKeyDown={(e) => e.key === 'Escape' && setDismissed(true)}
-          placeholder="குறள் எண், அதிகாரம் அல்லது சொல்லைத் தேடுங்கள்…"
+          placeholder={typeof window !== 'undefined' && window.innerWidth < 640 ? 'குறள் எண் அல்லது சொல்…' : 'குறள் எண், அதிகாரம் அல்லது சொல்லைத் தேடுங்கள்…'}
           aria-label="குறள் எண், அதிகாரம் அல்லது சொல்லைத் தேடுங்கள் · Search by kural number, chapter or word"
           className={`w-full min-w-0 bg-transparent text-[16px] font-tamil-sans focus:outline-none [&::-webkit-search-cancel-button]:hidden ${isDark ? 'placeholder:text-[#9FB0A6]' : 'placeholder:text-[#7C7F6E]'}`}
         />

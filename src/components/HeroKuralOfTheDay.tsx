@@ -79,10 +79,21 @@ export const HeroKuralOfTheDay: React.FC<HeroKuralOfTheDayProps> = ({
         }}
         draggable={false}
       />
-      {/* Soft scrim only on small screens where the card covers the photo */}
-      
+      {/* Phones: a short photo strip with Thiruvalluvar above the card (the card overlaps its lower edge) */}
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        aria-hidden="true"
+        className="md:hidden absolute inset-x-0 top-0 h-[190px] w-full object-cover select-none"
+        style={{ objectPosition: '6% 22%' }}
+        draggable={false}
+      />
+      <div
+        aria-hidden="true"
+        className={`md:hidden absolute inset-x-0 top-[110px] h-[80px] bg-gradient-to-b from-transparent ${isDark ? 'to-[#101311]' : 'to-[#F7F6F2]'}`}
+      />
 
-      <div className="relative w-full px-3 sm:px-8 pt-3 pb-1 md:pt-6 md:pb-6 md:min-h-[max(330px,23vw)] flex justify-center md:pl-[42%] md:pr-6 lg:pr-10 xl:pr-16">
+      <div className="relative w-full px-3 sm:px-8 pt-[118px] pb-1 md:pt-6 md:pb-6 md:min-h-[max(330px,23vw)] flex justify-center md:pl-[42%] md:pr-6 lg:pr-10 xl:pr-16">
         <div
           className={`w-full max-w-[640px] self-center rounded-[18px] px-4 sm:px-8 pt-4 sm:pt-5 pb-2 sm:pb-3 text-center shadow-[0_10px_30px_-14px_rgba(20,40,30,0.35)] md:shadow-[0_18px_50px_-18px_rgba(20,40,30,0.45)] border md:border-0 backdrop-blur-sm ${
             isDark ? 'bg-[#16211C]/92 text-[#EEE8DC] border-[#2A302C]' : 'bg-[#FBFAF6]/95 text-[#16392E] border-[#E4E1D6]'
