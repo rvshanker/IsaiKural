@@ -159,6 +159,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   1111: { youtubeUrl: 'https://youtube.com/shorts/I2l1z978v9A', youtubeTitle: 'நன்னீரை வாழி அனிச்சமே நின்னினும் மென்னீரள் யாம்வீழ் பவள்' },
   1113: { youtubeUrl: 'https://youtu.be/vCeLSNKxyNI', youtubeTitle: 'முறிமேனி முத்தம் முறுவல் வெறிநாற்றம் வேலுண்கண் வேய்த்தோ ளவட்கு' },
   1121: { youtubeUrl: 'https://youtube.com/shorts/7ETXrrJou3Y', youtubeTitle: 'பாலொடு தேன்கலந் தற்றே பணிமொழி வாலெயிறு ஊறிய நீர்' },
+  1122: { youtubeUrl: 'https://youtube.com/shorts/rpMHlk4fMSs', youtubeTitle: 'உடம்பொடு உயிரிடை என்னமற் றன்ன — இசையில் குறள் 1122' },
   1131: { youtubeUrl: 'https://youtube.com/shorts/GBNVFpyPJMw', youtubeTitle: 'காமம் உழந்து வருந்தினார்க்கு ஏமம் — இசையில் குறள் 1131' },
   1141: { youtubeUrl: 'https://youtube.com/shorts/HcbU4VHdwRQ', youtubeTitle: 'அலரெழ ஆருயிர் நிற்கும் அதனைப் பலரறியார் பாக்கியத் தால்' },
   1151: { youtubeUrl: 'https://youtube.com/shorts/ri_56OXzZmI', youtubeTitle: 'செல்லாமை உண்டேல் எனக்குரை மற்றுநின் வல்வரவு வாழ்வார்க் குரை' },
