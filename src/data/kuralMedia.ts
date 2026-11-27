@@ -32,6 +32,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   51: { youtubeUrl: 'https://youtube.com/shorts/YvSPuQYTOZI', youtubeTitle: 'மனைக்தக்க மாண்புடையள் ஆகித்தற் கொண்டான் — இசையில் குறள் 51' },
   52: { youtubeUrl: 'https://youtube.com/shorts/gux-0t8R0Hc', youtubeTitle: 'மனைமாட்சி இல்லாள்கண் இல்லாயின் வாழ்க்கை — இசையில் குறள் 52' },
   60: { youtubeUrl: 'https://youtube.com/shorts/mXOCD4iSLwk', youtubeTitle: 'மங்கலம் என்ப மனைமாட்சி மற்று அதன் — இசையில் குறள் 60' },
+  61: { youtubeUrl: 'https://youtube.com/shorts/e31RxHBB_aQ', youtubeTitle: 'பெறுமவற்றுள் யாமறிவது இல்லை அறிவறிந்த — இசையில் குறள் 61' },
   66: { youtubeUrl: 'https://youtube.com/shorts/_tVi7eSnoQA', youtubeTitle: 'குழல்இனிது யாழ்இனிது என்பதம் மக்கள் — இசையில் குறள் 66' },
   72: { youtubeUrl: 'https://youtube.com/shorts/qChLIRzaImA', youtubeTitle: 'அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார் — இசையில் குறள் 72' },
   73: { youtubeUrl: 'https://youtube.com/shorts/g7sPb-wn7b8', youtubeTitle: 'அன்போடு இயைந்த வழக்கென்ப ஆருயிர்க்கு — இசையில் குறள் 73' },
