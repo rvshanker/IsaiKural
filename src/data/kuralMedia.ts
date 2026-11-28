@@ -41,6 +41,7 @@ export const KURAL_MEDIA: Record<number, KuralMedia> = {
   91: { youtubeUrl: 'https://youtube.com/shorts/nEc9Ca4pzS8', youtubeTitle: 'இன்சொலால் ஈரம் அளைஇப் படிறிலவாம் — இசையில் குறள் 91' },
   92: { youtubeUrl: 'https://youtube.com/shorts/J0SJgw1KjuU', youtubeTitle: 'அகன்அமர்ந்து ஈதலின் நன்றே முகனமர்ந்து — இசையில் குறள் 92' },
   101: { youtubeUrl: 'https://youtube.com/shorts/WyoeE21VdDA', youtubeTitle: 'செய்யாமல் செய்த உதவிக்கு வையகமும் — இசையில் குறள் 101' },
+  102: { youtubeUrl: 'https://youtube.com/shorts/s_oijJp6Kvo', youtubeTitle: 'காலத்தி னாற்செய்த நன்றி சிறிதெனினும் — இசையில் குறள் 102' },
   111: { youtubeUrl: 'https://youtube.com/shorts/E371SHYTRus', youtubeTitle: 'தகுதி எனவொன்று நன்றே பகுதியால் — இசையில் குறள் 111' },
   121: { youtubeUrl: 'https://youtube.com/shorts/V-P8cn9tSxQ', youtubeTitle: 'அடக்கம் அமரருள் உய்க்கும் அடங்காமை — இசையில் குறள் 121' },
   131: { youtubeUrl: 'https://youtube.com/shorts/wz4rZfue2us', youtubeTitle: 'ஒழுக்கம் விழுப்பந் தரலான் ஒழுக்கம் — இசையில் குறள் 131' },
